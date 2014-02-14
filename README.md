@@ -18,7 +18,6 @@ Example
     installdir     => '/opt/atlassian/atlassian-stash',
     homedir        => '/opt/atlassian/application-data/stash-home',
     javahome       => '/opt/java',
-    downloadURL    => 'http://example.com/atlassian/',
     dburl          => 'jdbc:postgresql://stash.example.com:5433/stash',
     dbpassword     => $stashpass,
   }
