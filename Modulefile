@@ -1,11 +1,11 @@
-name    'jacovt-stash'
+name    'mkrakowitzer-stash'
 version '0.0.1'
-source 'UNKNOWN'
-author 'jacovt'
-license 'Apache License, Version 2.0'
-summary 'UNKNOWN'
+source 'https://github.com/mkrakowitzer/puppet-stash.git'
+author 'mkrakowitzer'
+license 'The MIT License (MIT)'
+summary 'Install atlassian stash'
 description 'Atlassian Stash - All of this was stolen from mkrakowitzer-confluence and adapted for my selfish needs'
-project_page 'UNKNOWN'
+project_page 'https://github.com/mkrakowitzer/puppet-stash'
 
 ## Add dependencies, if any:
-# dependency 'username/name', '>= 1.2.0'
+dependency 'mkrakowitzer/deploy', '>= 0.0.1'
