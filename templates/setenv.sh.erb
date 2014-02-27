@@ -23,7 +23,7 @@ JVM_SUPPORT_RECOMMENDED_ARGS=""
 # The following 2 settings control the minimum and maximum given to the Atlassian Stash Java virtual machine.
 # In larger Stash instances, the maximum amount will need to be increased.
 #
-JVM_MINIMUM_MEMORY="512m"
+JVM_MINIMUM_MEMORY="<%= scope.lookupvar('stash::jvm_xms') %>"
 JVM_MAXIMUM_MEMORY="<%= scope.lookupvar('stash::jvm_xmx') %>"
 
 #
