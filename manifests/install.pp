@@ -62,7 +62,6 @@ class stash::install {
     ensure  => 'directory',
     owner   => $stash::user,
     group   => $stash::group,
-    recurse => true,
   } ->
 
   exec { "chown_${stash::webappdir}":
