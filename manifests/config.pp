@@ -55,6 +55,13 @@ class stash::config {
     require => [ Class['stash::install'], File[$stash::webappdir], File[$stash::homedir] ],
   }->
 
+  file { "${stash::webappdir}/conf/server.xml":
+    content => template('stash/server.xml.erb'),
+    mode    => '0640',
+    require => Class['stash::install'],
+    notify  => Class['stash::service'],
+  } ->
+
   file { "${stash::homedir}/stash-config.properties":
     content => template('stash/stash-config.properties.erb'),
     mode    => '0750',
