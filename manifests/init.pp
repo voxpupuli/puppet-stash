@@ -67,6 +67,8 @@ class stash(
   # Manage service
   $manage_service  = true,
 
+  # Reverse https proxy
+  $proxy = {},
 ) {
 
   $webappdir    = "${installdir}/atlassian-${product}-${version}"
