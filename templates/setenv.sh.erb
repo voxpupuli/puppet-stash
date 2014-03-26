@@ -5,6 +5,11 @@
 STASH_HOME="<%= scope.lookupvar('stash::homedir') %>"
 
 #
+# Additional JAVA_OPTS
+#
+JAVA_OPTS="<%= scope.lookupvar('stash::java_opts') %> $JAVA_OPTS"
+
+#
 # Native libraries, such as the Tomcat native library, can be placed here for use by Stash. Alternatively, native
 # libraries can also be placed in $STASH_HOME/lib/native, where they will also be included in the library path used
 # by the JVM. By placing libraries in $STASH_HOME, they can be preserved across Stash upgrades.
