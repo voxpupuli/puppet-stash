@@ -39,12 +39,6 @@ class stash::install {
 
   require stash
 
-  deploy::file { "atlassian-${stash::product}-${stash::version}.${stash::format}":
-    target  => $stash::webappdir,
-    url     => $stash::downloadURL,
-    strip   => true,
-    notify  => Exec["chown_${stash::webappdir}"],
-  } ->
   group { $stash::user: ensure => present, gid => $stash::gid } ->
   user { $stash::user:
     comment          => 'Stash daemon account',
@@ -56,6 +50,17 @@ class stash::install {
     managehome       => true,
     uid              => $stash::uid,
     gid              => $stash::gid,
+  } ->
+
+  deploy::file { "atlassian-${stash::product}-${stash::version}.${stash::format}":
+    target          => $stash::webappdir,
+    url             => $stash::downloadURL,
+    strip           => true,
+    notify          => Exec["chown_${stash::webappdir}"],
+    owner           => $stash::user,
+    group           => $stash::group,
+    download_timout => 1800,
+
   } ->
 
   file { $stash::homedir:

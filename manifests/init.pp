@@ -45,15 +45,15 @@ class stash(
   $java_opts    = '',
 
   # Stash Settings
-  $version      = '2.5.2',
+  $version      = '2.12.0',
   $product      = 'stash',
   $format       = 'tar.gz',
   $installdir   = '/opt/stash',
   $homedir      = '/home/stash',
   $user         = 'stash',
   $group        = 'stash',
-  $uid          = '501',
-  $gid          = '501',
+  $uid          = undef,
+  $gid          = undef,
 
   # Database Settings
   $dbuser       = 'stash',
