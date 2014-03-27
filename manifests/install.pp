@@ -39,6 +39,8 @@ class stash::install {
 
   require stash
 
+  package { 'git': ensure => installed }
+
   group { $stash::user: ensure => present, gid => $stash::gid } ->
   user { $stash::user:
     comment          => 'Stash daemon account',
