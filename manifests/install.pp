@@ -35,44 +35,59 @@
 #
 # Copyright 2013 Your name here, unless otherwise noted.
 #
-class stash::install {
+class stash::install(
+  $version     = $stash::version,
+  $product     = $stash::product,
+  $format      = $stash::format,
+  $homedir     = $stash::homedir,
+  $user        = $stash::user,
+  $group       = $stash::group,
+  $uid         = $stash::uid,
+  $gid         = $stash::gid,
+
+  $downloadURL = $stash::downloadURL,
+  $webappdir   = $stash::webappdir
+  ) {
 
   require stash
 
   package { 'git': ensure => installed }
 
-  group { $stash::user: ensure => present, gid => $stash::gid } ->
-  user { $stash::user:
+  group { $group: 
+    ensure => present, 
+    gid => $gid 
+  } ->
+  user { $user:
     comment          => 'Stash daemon account',
     shell            => '/bin/true',
-    home             => $stash::homedir,
+    home             => $homedir,
     password         => '*',
     password_min_age => '0',
     password_max_age => '99999',
     managehome       => true,
-    uid              => $stash::uid,
-    gid              => $stash::gid,
+    uid              => $uid,
+    gid              => $gid,
   } ->
 
-  deploy::file { "atlassian-${stash::product}-${stash::version}.${stash::format}":
+  deploy::file { "atlassian-${product}-${version}.${format}":
     target          => $stash::webappdir,
     url             => $stash::downloadURL,
     strip           => true,
-    notify          => Exec["chown_${stash::webappdir}"],
+    notify          => Exec["chown_${webappdir}"],
     owner           => $stash::user,
     group           => $stash::group,
     download_timout => 1800,
 
   } ->
 
-  file { $stash::homedir:
+  file { $homedir:
     ensure  => 'directory',
-    owner   => $stash::user,
-    group   => $stash::group,
+    owner   => $user,
+    group   => $group,
   } ->
 
-  exec { "chown_${stash::webappdir}":
-    command     => "/bin/chown -R ${stash::user}:${stash::group} ${stash::webappdir}",
+  exec { "chown_${webappdir}":
+    command     => "/bin/chown -R ${user}:${group} ${webappdir}",
     refreshonly => true,
     subscribe   => User[$stash::user]
   } ->
