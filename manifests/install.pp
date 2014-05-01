@@ -39,6 +39,7 @@ class stash::install(
   $version     = $stash::version,
   $product     = $stash::product,
   $format      = $stash::format,
+  $installdir  = $stash::installdir,
   $homedir     = $stash::homedir,
   $user        = $stash::user,
   $group       = $stash::group,
@@ -46,10 +47,8 @@ class stash::install(
   $gid         = $stash::gid,
 
   $downloadURL = $stash::downloadURL,
-  $webappdir   = $stash::webappdir
+  $webappdir
   ) {
-
-  require stash
 
   package { 'git': ensure => installed }
 
@@ -70,12 +69,12 @@ class stash::install(
   } ->
 
   deploy::file { "atlassian-${product}-${version}.${format}":
-    target          => $stash::webappdir,
-    url             => $stash::downloadURL,
+    target          => $webappdir,
+    url             => $downloadURL,
     strip           => true,
     notify          => Exec["chown_${webappdir}"],
-    owner           => $stash::user,
-    group           => $stash::group,
+    owner           => $user,
+    group           => $group,
     download_timout => 1800,
 
   } ->
