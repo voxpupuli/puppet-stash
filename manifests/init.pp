@@ -73,8 +73,12 @@ class stash(
 
   $webappdir    = "${installdir}/atlassian-${product}-${version}"
 
-  include stash::install
-  include stash::config
-  include stash::service
+  class { 'stash::install': 
+    webappdir => $webappdir
+  }
+  ->
+  class { 'stash::config': }
+  ~>
+  class { 'stash::service': }
 
 }

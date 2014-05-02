@@ -2,8 +2,6 @@ require 'rake'
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'rspec/core/rake_task'
 
-task :default => :spec
-
 begin
   if Gem::Specification::find_by_name('puppet-lint')
     require 'puppet-lint/tasks/puppet-lint'
