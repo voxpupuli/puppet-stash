@@ -1,104 +1,128 @@
-#!/bin/bash
-#-----------------------------------------------------------------------------
-#   Copyright (c) 2012 Bryce Johnson
-#
-#   Licensed under the Apache License, Version 2.0 (the "License");
-#   you may not use this file except in compliance with the License.
-#   You may obtain a copy of the License at
-#
-#       http://www.apache.org/licenses/LICENSE-2.0
-#
-#   Unless required by applicable law or agreed to in writing, software
-#   distributed under the License is distributed on an "AS IS" BASIS,
-#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#   See the License for the specific language governing permissions and
-#   limitations under the License.
-#-----------------------------------------------------------------------------
+#! /bin/sh
 ### BEGIN INIT INFO
-# Provides: stash 
-# Required-Start: 
-# Required-Stop: 
-# Should-Start: 
-# Should-Stop: 
-# Default-Start: 2 3 4 5
-# Default-Stop: 0 1 6
-# Short-Description: Start up Stash 
-# Description:       Atlassian Stash Enterprise Git
-#                    This service starts up the tomcat webapp.
+# Provides:          stash
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Initscript for Atlassian Stash
+# Description:  Automatically start Atlassian Stash when the system starts up.
+#               Provide commands for manually starting and stopping Stash.
 ### END INIT INFO
-ACTION=$1
-SERVICE=stash
-lockfile=/var/lock/subsys/$SERVICE
-
-export JAVA_HOME=<%= scope.lookupvar('stash::javahome') %>
-export CATALINA_HOME=<%= scope.lookupvar('stash::webappdir') %>
-
-
-function restart() {
-  stop
-  start
+# Adapt the following lines to your configuration
+# RUNUSER: The user to run Stash as.
+RUNUSER=<%= scope.lookupvar('stash::user') %>
+# STASH_INSTALLDIR: The path to the Stash installation directory
+STASH_INSTALLDIR="<%= scope.lookupvar('stash::webappdir') %>"
+# STASH_HOME: Path to the Stash home directory
+STASH_HOME="<%= scope.lookupvar('stash::homedir') %>"
+# ==================================================================================
+# ==================================================================================
+# ==================================================================================
+# PATH should only include /usr/* if it runs after the mountnfs.sh script
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DESC="Atlassian Stash"
+NAME=stash
+PIDFILE=$STASH_INSTALLDIR/work/catalina.pid
+SCRIPTNAME=/etc/init.d/$NAME
+# Read configuration variable file if it is present
+[ -r /etc/default/$NAME ] && . /etc/default/$NAME
+# Define LSB log_* functions.
+# To be replaced by LSB functions
+# Defined here for distributions that don't define
+# log_daemon_msg
+log_daemon_msg () {
+    echo $@
 }
-
-function stop() {
-  echo -n $"Shutting down $SERVICE: "
-  <%= scope.lookupvar('stash::webappdir') %>/bin/stop-stash.sh
-  RETVAL=$?
-  echo
-
-  #If all is well remove the lockfile
-  [ $RETVAL -eq 0 ] && rm -f $lockfile
-  return $RETVAL
-}
-
-function start() {
-  echo -n $"Starting $SERVICE: "
-  <%= scope.lookupvar('stash::webappdir') %>/bin/start-stash.sh
-  RETVAL=$?
-  echo
-
-  #If all is well touch the lock file
-  [ $RETVAL -eq 0 ] && touch $lockfile
-  return $RETVAL
-}
-
-function status() {
-
-  STATUS=$( ps aux | grep "[c]atalina.base=$CATALINA_HOME" | wc -l )
-  if [ $STATUS -gt 0 ];then
-    ps -ef |grep $SERVICE |grep -v grep |awk '{ print $2 }' | <%= scope.lookupvar('stash::javahome') %>/bin/jps |grep -v Jps |grep -v grep > /dev/null
-    RETVAL=$?
-    if [ $RETVAL -eq 0 ];then
-      echo "$SERVICE is running"
-      return $RETVAL
+# To be replaced by LSB functions
+# Defined here for distributions that don't define
+# log_end_msg
+log_end_msg () {
+    retval=$1
+    if [ $retval -eq 0 ]; then
+        echo "."
     else
-      echo "$SERVICE is stopped"
-      return $RETVAL
+        echo " failed!"
     fi
-  else
-    echo "$SERVICE is stopped"
-    return 1
- fi
-  
+    return $retval
 }
-
-function execute() {
-  case "$ACTION" in
-    start)
-      start
-      ;;
-    stop)
-      stop
-      ;;
-    status)
-      status
-      ;;
-    restart)
-      restart
-      ;;
-    *)
-      echo "Usage: $0 {start|stop|status|restart}"
-      exit 1
-  esac
+# Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
+. /lib/lsb/init-functions
+ 
+run_with_home() {
+    if [ "$RUNUSER" != "$USER" ]; then
+        su - "$RUNUSER" -c "export STASH_HOME=${STASH_HOME};${STASH_INSTALLDIR}/bin/$1"
+    else
+        export STASH_HOME=${STASH_HOME};${STASH_INSTALLDIR}/bin/$1
+    fi
 }
-
-execute
+#
+# Function that starts the daemon/service
+#
+do_start()
+{
+    run_with_home start-stash.sh
+}
+#
+# Function that stops the daemon/service
+#
+do_stop()
+{
+    if [ -e $PIDFILE ]; then
+      run_with_home stop-stash.sh
+    else
+      log_failure_msg "$NAME is not running."
+    fi
+}
+ 
+case "$1" in
+  start)
+    [ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"
+    do_start
+    case "$?" in
+        0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+        2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+    esac
+    ;;
+  stop)
+    [ "$VERBOSE" != no ] && log_daemon_msg "Stopping $DESC" "$NAME"
+    do_stop
+    case "$?" in
+        0|1) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+        2) [ "$VERBOSE" != no ] && log_end_msg 1 ;;
+    esac
+    ;;
+  status)
+       if [ ! -e $PIDFILE ]; then
+         log_failure_msg "$NAME is not running."
+         return 1
+       fi
+       status_of_proc -p $PIDFILE "" $NAME && exit 0 || exit $?
+       ;;
+  restart|force-reload)
+    #
+    # If the "reload" option is implemented then remove the
+    # 'force-reload' alias
+    #
+    log_daemon_msg "Restarting $DESC" "$NAME"
+    do_stop
+    case "$?" in
+      0|1)
+        do_start
+        case "$?" in
+            0) log_end_msg 0 ;;
+            1) log_end_msg 1 ;; # Old process is still running
+            *) log_end_msg 1 ;; # Failed to start
+        esac
+        ;;
+      *)
+        # Failed to stop
+        log_end_msg 1
+        ;;
+    esac
+    ;;
+  *)
+    echo "Usage: $SCRIPTNAME {start|stop|status|restart|force-reload}" >&2
+    exit 3
+    ;;
+esac
