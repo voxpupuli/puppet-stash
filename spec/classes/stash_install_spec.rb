@@ -19,7 +19,7 @@ describe 'stash::install' do
       should contain_package('git').with_ensure('installed')
     end
     it { should contain_group('stash') }
-    it { should contain_user('stash') }
+    it { should contain_user('stash').with_shell('/bin/bash') }
     it 'should deploy stash 2.12.0 from tar.gz' do
       should contain_deploy__file("atlassian-stash-2.12.0.tar.gz")
     end
@@ -49,6 +49,7 @@ describe 'stash::install' do
 
     it { should contain_user('foo').with({
         'home'  => '/random/homedir',
+        'shell' => '/bin/bash',
         'uid'   => 333,
         'gid'   => 444
       }) }
