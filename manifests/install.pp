@@ -58,7 +58,7 @@ class stash::install(
   } ->
   user { $user:
     comment          => 'Stash daemon account',
-    shell            => '/bin/true',
+    shell            => '/bin/bash',
     home             => $homedir,
     password         => '*',
     password_min_age => '0',
