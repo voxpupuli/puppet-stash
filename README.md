@@ -67,10 +67,11 @@ License
 -------
 The MIT License (MIT)
 
-Contact
--------
-Jaco Van Tonder
-Merritt Krakowitzer merritt@krakowitzer.com
+Contributors
+------------
+* Jaco Van Tonder
+* Merritt Krakowitzer merritt@krakowitzer.com
+* Sebastian Cole
 
 Support
 -------
