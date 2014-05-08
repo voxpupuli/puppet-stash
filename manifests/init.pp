@@ -42,6 +42,7 @@ class stash(
   $jvm_xms      = '256m',
   $jvm_xmx      = '1024m',
   $jvm_optional = '-XX:-HeapDumpOnOutOfMemoryError',
+  $jvm_support_recommended_args = '',
   $java_opts    = '',
 
   # Stash Settings

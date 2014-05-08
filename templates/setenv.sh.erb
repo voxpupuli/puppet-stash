@@ -22,7 +22,7 @@ JVM_LIBRARY_PATH="$CATALINA_HOME/lib/native:$STASH_HOME/lib/native"
 # Occasionally Atlassian Support may recommend that you set some specific JVM arguments.  You can use this variable
 # below to do that.
 #
-JVM_SUPPORT_RECOMMENDED_ARGS=""
+JVM_SUPPORT_RECOMMENDED_ARGS="<%= scope.lookupvar('stash::jvm_support_recommended_args') %>"
 
 #
 # The following 2 settings control the minimum and maximum given to the Atlassian Stash Java virtual machine.
