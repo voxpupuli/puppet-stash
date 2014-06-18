@@ -1,0 +1,21 @@
+#!/usr//bin/ruby
+# Fact: stash_builddate, stash_buildnumber, stash_displayname, stash_version
+#
+# Purpose: Return facts for the running version of stash.
+#
+require 'json'
+require 'open-uri'
+begin
+  url = 'http://<%= @uri %>:<%= @port %>/rest/api/1.0/application-properties'
+  info = open(url, &:read)
+rescue
+  exit 0
+end
+pinfo = JSON.load(info)
+pinfo.each do |key, value|
+  actual_value = value
+  if value.is_a? Array
+     actual_value = value.join(',')
+  end
+  puts "stash_#{key.chomp()} = #{actual_value.chomp}"
+end
