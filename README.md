@@ -22,6 +22,11 @@ Example
     dbpassword     => $stashpass,
   }
 ```
+
+Schedule a weekly git garbage collect for all repositories. 
+```puppet
+  class { 'stash::gc': }
+```
 Customisation
 -------------
 This module also allows for direct customisation of the JVM, following [atlassians recommendations](https://confluence.atlassian.com/display/JIRA/Setting+Properties+and+Options+on+Startup)

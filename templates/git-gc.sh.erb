@@ -1,0 +1,10 @@
+#!/bin/bash
+# Script to run a git garbage collect on all repositories in stash.
+# This can significantly improve permformance of merges.
+# This is only required for older versions of git.
+cd <%= scope.lookupvar('stash::homedir') %>/data/repositories
+for i in `ls -1`; do
+  cd $i
+  git gc
+  cd ..
+done

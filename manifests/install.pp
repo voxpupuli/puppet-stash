@@ -52,9 +52,9 @@ class stash::install(
 
   package { 'git': ensure => installed }
 
-  group { $group: 
-    ensure => present, 
-    gid => $gid 
+  group { $group:
+    ensure => present,
+    gid    => $gid
   } ->
   user { $user:
     comment          => 'Stash daemon account',

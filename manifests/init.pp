@@ -74,12 +74,14 @@ class stash(
 
   $webappdir    = "${installdir}/atlassian-${product}-${version}"
 
-  class { 'stash::install': 
+  class { 'stash::install':
     webappdir => $webappdir
   }
   ->
   class { 'stash::config': }
   ~>
   class { 'stash::service': }
+  ->
+  class { 'stash::facts': }
 
 }
