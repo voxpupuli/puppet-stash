@@ -40,7 +40,6 @@ class stash::service {
       service { 'stash':
       ensure    => 'running',
       enable    => true,
-      provider  => base,
       start     => '/etc/init.d/stash start',
       restart   => '/etc/init.d/stash restart',
       stop      => '/etc/init.d/stash stop',
