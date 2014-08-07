@@ -50,7 +50,9 @@ class stash::install(
   $webappdir
   ) {
 
-  package { 'git': ensure => installed }
+  if ! defined(Package['git']) {
+    package { 'git': ensure => installed }
+  }
 
   group { $group:
     ensure => present,
