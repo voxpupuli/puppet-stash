@@ -45,13 +45,16 @@ class stash::install(
   $group       = $stash::group,
   $uid         = $stash::uid,
   $gid         = $stash::gid,
+  $git_version = $stash::git_version,
 
   $downloadURL = $stash::downloadURL,
   $webappdir
   ) {
 
   if ! defined(Package['git']) {
-    package { 'git': ensure => installed }
+    package { 'git':
+      ensure => $git_version,
+    }
   }
 
   group { $group:
