@@ -50,6 +50,18 @@ class stash::install(
   $webappdir
   ) {
 
+  case $::osfamily {
+    'redhat': {
+      $initscript_template = 'stash/stash.initscript.redhat.erb'
+    }
+    'debian': {
+      $initscript_template = 'stash/stash.initscript.debian.erb'
+    }
+    default: {
+       fail("Class['stash::install']: Unsupported osfamily: ${::osfamily}")
+    }
+  }
+
   package { 'git': ensure => installed }
 
   group { $group:
@@ -92,7 +104,7 @@ class stash::install(
   } ->
 
   file { '/etc/init.d/stash':
-    content => template('stash/stash.initscript.erb'),
+    content => template($initscript_template),
     mode    => '0755',
   }
 
