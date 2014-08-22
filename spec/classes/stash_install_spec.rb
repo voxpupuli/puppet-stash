@@ -12,7 +12,8 @@ describe 'stash::install' do
       :product => 'stash',
       :version => '2.12.0',
       :downloadURL => 'http://www.atlassian.com/software/stash/downloads/binary/',
-      :webappdir => '/opt/stash/atlassian-stash-2.12.0'
+      :webappdir => '/opt/stash/atlassian-stash-2.12.0',
+      :git_version => 'installed'
       }}
 
     it 'should install, but not upgrade, git' do
@@ -44,7 +45,8 @@ describe 'stash::install' do
       :uid   => 333,
       :gid   => 444,
       :downloadURL => 'http://downloads.atlassian.com/',
-      :webappdir => '/somewhere/stash'
+      :webappdir => '/somewhere/stash',
+      :git_version => 'installed'
       }}
 
     it { should contain_user('foo').with({
