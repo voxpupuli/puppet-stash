@@ -9,3 +9,4 @@ project_page 'https://github.com/mkrakowitzer/puppet-stash'
 
 ## Add dependencies, if any:
 dependency 'mkrakowitzer/deploy', '>= 0.0.1'
+dependency 'yguenane-repoforge', '>= 0.2.0'

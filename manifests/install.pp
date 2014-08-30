@@ -13,6 +13,7 @@ class stash::install(
   $uid         = $stash::uid,
   $gid         = $stash::gid,
   $git_version = $stash::git_version,
+  $repoforge   = $stash::repoforge,
 
   $downloadURL = $stash::downloadURL,
   $webappdir
@@ -21,6 +22,26 @@ class stash::install(
   case $::osfamily {
     'redhat': {
       $initscript_template = 'stash/stash.initscript.redhat.erb'
+      validate_bool($repoforge)
+      # If repoforge is not enabled by default, enable it
+      # but only allow git to be installed from it.
+      if ! defined(Class['repoforge']) and $repoforge {
+        class { 'repoforge':
+          enabled     => [ 'extras', ],
+          includepkgs => { 'extras' => 'git,perl-Git' },
+          before      => Package['git']
+         } ~>
+         exec { "${stash::product}_clean_yum_metadata":
+           command => "/usr/bin/yum clean metadata",
+           refreshonly => true
+         } ~>
+         # Git may already have been installed, so lets update it to a 
+         # supported version.
+         exec { "${stash::product}_upgrade_git":
+           command => "/usr/bin/yum -y upgrade git",
+           refreshonly => true,
+         }
+      }
     }
     'debian': {
       $initscript_template = 'stash/stash.initscript.debian.erb'

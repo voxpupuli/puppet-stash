@@ -72,7 +72,10 @@ class stash(
   $proxy = {},
 
   # Git version
-  $git_version = 'installed'
+  $git_version = 'installed',
+
+  # Enable repoforge by default for RHEL as stash requires a newer version of git
+  $repoforge   = true,
 ) {
 
   $webappdir    = "${installdir}/atlassian-${product}-${version}"
