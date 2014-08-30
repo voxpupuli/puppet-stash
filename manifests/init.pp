@@ -70,6 +70,9 @@ class stash(
 
   # Reverse https proxy
   $proxy = {},
+
+  # Git version
+  $git_version = 'installed'
 ) {
 
   $webappdir    = "${installdir}/atlassian-${product}-${version}"

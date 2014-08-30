@@ -12,7 +12,8 @@ describe 'stash::install' do
       :product => 'stash',
       :version => '2.12.0',
       :downloadURL => 'http://www.atlassian.com/software/stash/downloads/binary/',
-      :webappdir => '/opt/stash/atlassian-stash-2.12.0'
+      :webappdir => '/opt/stash/atlassian-stash-2.12.0',
+      :git_version => 'installed'
       }}
 
     it 'should install, but not upgrade, git' do
@@ -44,7 +45,8 @@ describe 'stash::install' do
       :uid   => 333,
       :gid   => 444,
       :downloadURL => 'http://downloads.atlassian.com/',
-      :webappdir => '/somewhere/stash'
+      :webappdir => '/somewhere/stash',
+      :git_version => 'installed'
       }}
 
     it { should contain_user('foo').with({
@@ -72,4 +74,34 @@ describe 'stash::install' do
     end
   end
 
+  context 'specify git version' do
+    let(:params) {{
+      :user  => 'stash',
+      :group => 'stash',
+      :installdir => '/opt/stash',
+      :homedir => '/home/stash',
+      :format => 'tar.gz',
+      :product => 'stash',
+      :version => '2.12.0',
+      :downloadURL => 'http://www.atlassian.com/software/stash/downloads/binary/',
+      :webappdir => '/opt/stash/atlassian-stash-2.12.0',
+      :git_version => '1.7.12'
+      }}
+
+    it 'should ensure a specific version of git is installed' do
+      should contain_package('git').with_ensure('1.7.12')
+    end
+    it { should contain_group('stash') }
+    it { should contain_user('stash').with_shell('/bin/bash') }
+    it 'should deploy stash 2.12.0 from tar.gz' do
+      should contain_deploy__file("atlassian-stash-2.12.0.tar.gz")
+    end
+    it 'should manage the stash home directory' do
+      should contain_file('/home/stash').with({
+        'ensure' => 'directory',
+        'owner' => 'stash',
+        'group' => 'stash'
+        })
+    end
+  end
 end
