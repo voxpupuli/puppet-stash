@@ -62,7 +62,6 @@ Support has also been added for reverse proxying stash via apache or nginx.
 
 Paramaters
 ----------
-  # JVM Settings
 ####`javahome`
 Specify the java home directory. No assumptions are made re the location of java and therefor this option is required. Default: undef
 ####`jvm_xms`
