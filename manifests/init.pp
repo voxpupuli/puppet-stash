@@ -46,7 +46,7 @@ class stash(
   $java_opts    = '',
 
   # Stash Settings
-  $version      = '2.12.0',
+  $version      = '3.2.4',
   $product      = 'stash',
   $format       = 'tar.gz',
   $installdir   = '/opt/stash',
