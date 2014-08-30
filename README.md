@@ -27,6 +27,14 @@ Schedule a weekly git garbage collect for all repositories.
 ```puppet
   class { 'stash::gc': }
 ```
+
+Enable external facts for puppet version.
+```puppet
+  class { 'stash::facts': }
+```
+
+A complete example is available at [vagrant-puppet-stash](http://github.com/mkrakowitzer/vagrant-puppet-stash)
+
 Customization
 -------------
 This module also allows for direct customization of the JVM, following [atlassians recommendations](https://confluence.atlassian.com/display/JIRA/Setting+Properties+and+Options+on+Startup)
