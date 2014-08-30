@@ -30,17 +30,18 @@ class stash::install(
           enabled     => [ 'extras', ],
           includepkgs => { 'extras' => 'git,perl-Git' },
           before      => Package['git']
-         } ~>
-         exec { "${stash::product}_clean_yum_metadata":
-           command => "/usr/bin/yum clean metadata",
-           refreshonly => true
-         } ~>
-         # Git may already have been installed, so lets update it to a 
-         # supported version.
-         exec { "${stash::product}_upgrade_git":
-           command => "/usr/bin/yum -y upgrade git",
-           refreshonly => true,
-         }
+        } ~>
+        exec { "${stash::product}_clean_yum_metadata":
+          command     => '/usr/bin/yum clean metadata',
+          refreshonly => true
+        } ~>
+        # Git may already have been installed, so lets update it to a 
+        # supported version.
+        exec { "${stash::product}_upgrade_git":
+          command     => '/usr/bin/yum -y upgrade git',
+          onlyif      => '/bin/rpm -qa git',
+          refreshonly => true,
+        }
       }
     }
     'debian': {

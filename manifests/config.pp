@@ -4,12 +4,20 @@
 #
 class stash::config(
   $version     = $stash::version,
+  $user        = $stash::user,
+  $group       = $stash::group,
 ) {
 
   # Atlassian changed where files are installed from ver 3.2.0
   # See issue #16 for more detail
   if versioncmp($version, '3.2.0') > 0 {
     $moved = 'shared/'
+    file { "${stash::homedir}/${moved}":
+      ensure  => 'directory',
+      owner   => $user,
+      group   => $group,
+      require => File[$stash::homedir],
+    }
   } else {
     $moved = undef
   }
@@ -29,7 +37,11 @@ class stash::config(
   file { "${stash::webappdir}/bin/user.sh":
     content => template('stash/user.sh.erb'),
     mode    => '0750',
-    require => [ Class['stash::install'], File[$stash::webappdir], File[$stash::homedir] ],
+    require => [
+      Class['stash::install'],
+      File[$stash::webappdir],
+      File[$stash::homedir]
+    ],
   }->
 
   file { "${stash::webappdir}/conf/server.xml":
@@ -42,7 +54,11 @@ class stash::config(
   file { "${stash::homedir}/${moved}stash-config.properties":
     content => template('stash/stash-config.properties.erb'),
     mode    => '0750',
-    require => [ Class['stash::install'], File[$stash::webappdir], File[$stash::homedir] ],
+    require => [
+      Class['stash::install'],
+      File[$stash::webappdir],
+      File[$stash::homedir]
+    ],
     notify  => Class['stash::service'],
   }
 }
