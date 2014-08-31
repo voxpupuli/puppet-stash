@@ -1,5 +1,7 @@
 puppet-stash
 ============
+[![Build
+Status](https://travis-ci.org/mkrakowitzer/puppet-stash.svg)](https://travis-ci.org/mkrakowitzer/puppet-stash)
 
 This is a puppet module to install stash
 
