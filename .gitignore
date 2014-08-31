@@ -1,0 +1,6 @@
+pkg/
+*kate-swp
+.kateproject.d
+*.swp
+*.settings
+*.project
