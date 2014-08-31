@@ -1,5 +1,5 @@
 name    'mkrakowitzer-stash'
-version '0.0.1'
+version '0.0.2'
 source 'https://github.com/mkrakowitzer/puppet-stash.git'
 author 'mkrakowitzer'
 license 'The MIT License (MIT)'
@@ -8,6 +8,6 @@ description 'Atlassian Stash - All of this was stolen from mkrakowitzer-confluen
 project_page 'https://github.com/mkrakowitzer/puppet-stash'
 
 ## Add dependencies, if any:
+dependency 'puppetlabs/stdlib', '>= 3.0.0'
 dependency 'mkrakowitzer/deploy', '>= 0.0.1'
-dependency 'yguenane-repoforge', '>= 0.2.0'
-dependency 'puppetlabs/stdlib', '>= 4.0.0'
+dependency 'yguenane/repoforge', '>= 0.2.0'

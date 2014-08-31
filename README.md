@@ -115,7 +115,7 @@ Testing
 Using [puppetlabs_spec_helper](https://github.com/puppetlabs/puppetlabs_spec_helper). Simply run:
 
 ```
-bundle install && rake spec
+bundle install && bundle exec rake spec
 ```
 
 to get results.
