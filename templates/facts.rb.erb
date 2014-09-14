@@ -17,5 +17,5 @@ pinfo.each do |key, value|
   if value.is_a? Array
      actual_value = value.join(',')
   end
-  puts "stash_#{key.chomp()} = #{actual_value.chomp}"
+  puts "stash_#{key.chomp()}=#{actual_value.chomp}"
 end

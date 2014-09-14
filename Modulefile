@@ -1,5 +1,5 @@
 name    'mkrakowitzer-stash'
-version '0.0.2'
+version '1.0.0'
 source 'https://github.com/mkrakowitzer/puppet-stash.git'
 author 'mkrakowitzer'
 license 'The MIT License (MIT)'

@@ -25,12 +25,10 @@
     -->
     <!--APR library loader. Documentation at /docs/apr.html -->
     <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
-    <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
-    <Listener className="org.apache.catalina.core.JasperListener" />
     <!-- Prevent memory leaks due to use of particular java/javax APIs-->
     <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
     <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
-    <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
+    <!--Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" /-->
 
     <!-- Global JNDI resources
          Documentation at /docs/jndi-resources-howto.html
@@ -47,10 +45,10 @@
     </GlobalNamingResources>
 
     <!-- A "Service" is a collection of one or more "Connectors" that share
-        a single "Container" Note:  A "Service" is not itself a "Container",
-        so you may not define subcomponents such as "Valves" at this level.
-        Documentation at /docs/config/service.html
-    -->
+         a single "Container" Note:  A "Service" is not itself a "Container",
+         so you may not define subcomponents such as "Valves" at this level.
+         Documentation at /docs/config/service.html
+     -->
     <Service name="Catalina">
 
         <!--The connectors can use a shared executor, you can define one or more named thread pools-->
@@ -68,10 +66,9 @@
              Define a non-SSL HTTP/1.1 Connector on port 7990
 
              If you change this port, you have to update scripts.cfg as well
-             to have the same port configuration. 
+             to have the same port configuration.
         -->
-        <Connector port="7990"
-                   protocol="HTTP/1.1"
+        <Connector port="7990" protocol="HTTP/1.1"
                    connectionTimeout="20000"
                    useBodyEncodingForURI="true"
                    redirectPort="8443"
@@ -92,12 +89,13 @@
                    redirectPort="8443" />
         -->
         <!-- Define a SSL HTTP/1.1 Connector on port 8443
-             This connector uses the JSSE configuration, when using APR, the
-             connector should be using the OpenSSL style configuration
-             described in the APR documentation -->
+             This connector uses the NIO implementation that requires the JSSE
+             style configuration. When using the APR/native implementation, the
+             OpenSSL style configuration is required as described in the APR/native
+             documentation -->
         <!--
-        <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
-                   maxThreads="150" scheme="https" secure="true"
+        <Connector port="8443" protocol="org.apache.coyote.http11.Http11NioProtocol"
+                   maxThreads="150" SSLEnabled="true" scheme="https" secure="true"
                    clientAuth="false" sslProtocol="TLS" />
         -->
 
@@ -131,19 +129,15 @@
                        resourceName="UserDatabase"/>
             </Realm>
 
-
             <Host name="localhost" appBase="webapps"
                   unpackWARs="true" autoDeploy="true"
                   xmlValidation="false" xmlNamespaceAware="false">
 
+                <!-- Before changing the context path for Stash, please read our documentation:
+                     https://confluence.atlassian.com/x/5oCNEQ
 
-               <!-- Before changing the context path for Stash, please read our documentation: 
-                        https://confluence.atlassian.com/x/5oCNEQ
-
-                    You will have to update scripts.cfg AND 
-                    rename webapps/ROOT directory.  
-   
-                -->
+                     You will have to update scripts.cfg
+                     AND rename webapps/ROOT directory. -->
 
                 <Context docBase="${catalina.home}/atlassian-stash"
                          path=""
@@ -161,7 +155,7 @@
                      Note: The pattern used is equivalent to using pattern="common" -->
                 <!--
                 <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
-                       prefix="localhost_access_log." suffix=".txt"
+                       prefix="localhost_access_log" suffix=".txt"
                        pattern="%h %l %u %t &quot;%r&quot; %s %b" />
                 -->
             </Host>
