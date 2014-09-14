@@ -13,7 +13,7 @@ class stash(
   $java_opts    = '',
 
   # Stash Settings
-  $version      = '3.2.4',
+  $version      = '3.3.0',
   $product      = 'stash',
   $format       = 'tar.gz',
   $installdir   = '/opt/stash',
@@ -45,7 +45,21 @@ class stash(
   $repoforge   = true,
 ) {
 
+  Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
+
   $webappdir    = "${installdir}/atlassian-${product}-${version}"
+
+  if $::stash_version {
+    # If the running version of stash is less than the expected version of stash
+    # Shut it down in preparation for upgrade.
+    if versioncmp($version, $::stash_version) > 0 {
+      notify { 'Attempting to upgrade stash': }
+      exec { 'service stash stop && sleep 15': }
+      if versioncmp($version, '3.2.0') > 0 {
+        exec { "rm -f ${homedir}/stash-config.properties": }
+      }
+    }
+  }
 
   anchor { 'stash::start':
   } ->

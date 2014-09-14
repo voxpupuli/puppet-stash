@@ -41,9 +41,9 @@ Customization
 -------------
 This module also allows for direct customization of the JVM, following [atlassians recommendations](https://confluence.atlassian.com/display/JIRA/Setting+Properties+and+Options+on+Startup)
 
-This is especially useful for setting properties such as http/https proxy settings.
+This is especially useful for setting properties such as HTTP/https proxy settings.
 
-Support has also been added for reverse proxying stash via apache or nginx.
+Support has also been added for reverse proxying stash via Apache or nginx.
 
 ```puppet
   class { 'stash':
@@ -62,7 +62,19 @@ Support has also been added for reverse proxying stash via apache or nginx.
   }
 ```
 
-Paramaters
+Upgrading Stash
+---------------
+It is now possible to cleanly upgrade stash by incrementing the version number.
+You must have included the stash::facts class prior to incrementing version numbers.
+
+```puppet
+  class { 'stash::facts': }
+```
+
+If the current running version of stash is less than the expected version of stash. 
+The module will stop the existing version of stash in preparation for upgrade.
+
+Parameters
 ----------
 ####`javahome`
 Specify the java home directory. No assumptions are made re the location of java and therefor this option is required. Default: undef
@@ -129,17 +141,6 @@ ruby-1.9.3-p484/bin/ruby -S rspec spec/classes/stash_install_spec.rb --color
 Finished in 0.38159 seconds
 1 example, 0 failures
 ```
-Support
--------
-Incrementing version numbers will upgrade stash. However there is some manual steps required:
-* stop stash
-* increment version number
-* run puppet. 
-* When upgraded from <3.2.0 to >=3.2.0 puppet will not run through cleanly as stash has some migration tasks to complete. Start stash, run puppet.
-
-Todo
-----
-Allow stash to upgrade automatically by incrementing the version number without manual intervention.
 
 License
 -------

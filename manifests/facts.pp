@@ -28,6 +28,10 @@ class stash::facts(
     $ruby_bin = '/usr/bin/env ruby'
   }
 
+  package { [ 'rubygem-json', 'ruby-json' ]:
+    ensure => present,
+  }
+
   file { '/etc/facter/facts.d/stash_facts.rb':
     ensure  => $ensure,
     content => template('stash/facts.rb.erb'),
