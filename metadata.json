@@ -12,7 +12,6 @@
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "5.0",
         "6.0"
       ]
     },
@@ -23,39 +22,6 @@
       ]
     }
   ],
-  "types": [
-  
-  ],
-  "checksums": {
-    "Gemfile": "e2dea07d5429ecd0c8343790548d5a47",
-    "Gemfile.lock": "a034dff14133431a0ef1f10d96b2e511",
-    "LICENSE.md": "93cceb8d5d24af1ec0efe9bc2f20becf",
-    "Modulefile": "384fe0eeb5f3cb4017b3130a8c4799ae",
-    "README.md": "ef9249705b43ad6572d1d4ee3cdd8d47",
-    "Rakefile": "687a137f56208b48e54f3cfef29156ca",
-    "manifests/config.pp": "ff8c11e1c43cbf39ea01ee8799c5206b",
-    "manifests/facts.pp": "73ca40890e2b8a4feecc5d430c256967",
-    "manifests/gc.pp": "5b43f87ffc6fa3588c126f56e91b5ec2",
-    "manifests/init.pp": "aaf95d608020a46d3daa4dcfd23619b1",
-    "manifests/install.pp": "bb1353428b6ae7757ac1361fde3326bb",
-    "manifests/service.pp": "4f27e506b3a3b140237adae1f90de10e",
-    "spec/classes/stash_config_spec.rb": "9a37a947847c2f22042a0b8eb7b9566c",
-    "spec/classes/stash_facts_spec.rb": "350db39c59a31d07810ebdb5c5c1e43c",
-    "spec/classes/stash_install_spec.rb": "ce9e5cd6ae225e1207ddeeb5fd3efe88",
-    "spec/classes/stash_service_spec.rb": "37a83f808827f3376cbb829cc13647fc",
-    "spec/fixtures/manifests/site.pp": "f90192d2e46700991b1e537411489052",
-    "spec/spec.opts": "d41d8cd98f00b204e9800998ecf8427e",
-    "spec/spec_helper.rb": "b078f472d1afc5bb536e2224cefef089",
-    "templates/facts.rb.erb": "78419ac1a5957f6af2f005b39ed6f8a9",
-    "templates/git-gc.sh.erb": "9b11d72e24f73864e02c023d64aa454c",
-    "templates/server.xml.erb": "c032308d7aff9be732bf54b3b1f0ad18",
-    "templates/setenv.sh.erb": "9b0f7bf343e736798674d478d2b59ee6",
-    "templates/stash-config.properties.erb": "082b2e5ba9b807841aae7a733a03d39c",
-    "templates/stash.initscript.debian.erb": "c6257f1f66b0ff84d9a49f90e0c582fc",
-    "templates/stash.initscript.redhat.erb": "f3d9cfcfc3a2e93a831b28c69a0a680f",
-    "templates/user.sh.erb": "57ebc9b81001bdaae83c94a270d29d17",
-    "tests/init.pp": "1c03c6da3788a121e75a06f24a3e36ab"
-  },
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
@@ -69,9 +35,17 @@
       "name": "yguenane/repoforge",
       "version_requirement": ">= 0.2.0"
     },
-    {"name":"puppetlabs/stdlib","version_requirement":">= 3.0.0"},
-    {"name":"mkrakowitzer/deploy","version_requirement":">= 0.0.1"},
-    {"name":"yguenane/repoforge","version_requirement":">= 0.2.0"}
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 3.0.0"
+    },
+    {
+      "name": "mkrakowitzer/deploy",
+      "version_requirement": ">= 0.0.1"
+    },
+    {
+      "name": "yguenane/repoforge",
+      "version_requirement": ">= 0.2.0"
+    }
   ]
-
 }
