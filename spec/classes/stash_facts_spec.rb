@@ -3,6 +3,7 @@ describe 'stash' do
 describe 'stash::facts' do
     regexp_pe = /^#\!\/opt\/puppet\/bin\/ruby$/
     regexp_oss = /^#\!\/usr\/bin\/env ruby$/
+    pe_external_fact_file = '/etc/puppetlabs/facter/facts.d/stash_facts.rb'
     external_fact_file = '/etc/facter/facts.d/stash_facts.rb'
 
     it { should contain_file(external_fact_file) }
@@ -11,7 +12,7 @@ describe 'stash::facts' do
     context 'with puppet enterprise' do
         let(:facts) { {:puppetversion => "3.4.3 (Puppet Enterprise 3.2.1)"} }
         it do
-          should contain_file(external_fact_file) \
+          should contain_file(pe_external_fact_file) \
             .with_content(regexp_pe)
         end
     end
