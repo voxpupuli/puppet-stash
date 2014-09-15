@@ -4,3 +4,4 @@ pkg/
 *.swp
 *.settings
 *.project
+Gemfile.lock

@@ -7,18 +7,23 @@ This is a puppet module to install stash
 
 Requirements
 ------------
-* Puppet 3.0+ tested 
-* Puppet 2.7+
-* dependency 'mkrakowitzer/deploy', '>= 0.0.1'
+* Puppet 3.4+ tested (CentOS6/Ubuntu12)
+* Puppet PE tested 3.3.x (CentOS6)
+* dependency - mkrakowitzer/deploy '>= 0.0.3'
+* dependency - [puppetlabs repositories](https://docs.puppetlabs.com/guides/puppetlabs_package_repositories.html)
+* tested on RHEL6 / CentOS6 / Ubuntu 12.04.
 
-
-Example
--------
+Examples
+--------
 ```puppet
   class { 'stash':
-    version        => '2.10.1',
-    installdir     => '/opt/atlassian/atlassian-stash',
-    homedir        => '/opt/atlassian/application-data/stash-home',
+    javahome    => '/opt/java',
+  }
+```
+
+```puppet
+  class { 'stash':
+    version        => '3.3.0',
     javahome       => '/opt/java',
     dburl          => 'jdbc:postgresql://stash.example.com:5433/stash',
     dbpassword     => $stashpass,

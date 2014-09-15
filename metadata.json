@@ -73,4 +73,5 @@
     {"name":"mkrakowitzer/deploy","version_requirement":">= 0.0.1"},
     {"name":"yguenane/repoforge","version_requirement":">= 0.2.0"}
   ]
+
 }

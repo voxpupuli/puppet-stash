@@ -3,6 +3,7 @@
 # /stash/home.  You can of course set it outside in the command terminal; that will also work.
 #
 STASH_HOME="<%= scope.lookupvar('stash::homedir') %>"
+JAVA_HOME=<%= scope.lookupvar('stash::javahome') %>
 
 #
 # Additional JAVA_OPTS
