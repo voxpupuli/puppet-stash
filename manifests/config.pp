@@ -6,6 +6,7 @@ class stash::config(
   $version     = $stash::version,
   $user        = $stash::user,
   $group       = $stash::group,
+  $proxy       = $stash::proxy,
 ) {
 
   # Atlassian changed where files are installed from ver 3.2.0
