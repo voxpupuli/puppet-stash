@@ -1,18 +1,24 @@
 {
   "name": "mkrakowitzer-stash",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "mkrakowitzer",
   "summary": "Install atlassian stash",
   "license": "The MIT License (MIT)",
   "source": "https://github.com/mkrakowitzer/puppet-stash.git",
   "project_page": "https://github.com/mkrakowitzer/puppet-stash",
   "issues_url": "https://github.com/mkrakowitzer/puppet-stash/issues",
-  "description": "Atlassian Stash - All of this was stolen from mkrakowitzer-confluence and adapted for my selfish needs",
+  "description": "Atlassian Stash",
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "6.0"
+        "6"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
       ]
     },
     {
@@ -20,32 +26,36 @@
       "operatingsystemrelease": [
         "12.04"
       ]
-    }
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
   ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 3.0.0"
+      "version_requirement": ">= 4.0.0"
     },
     {
       "name": "mkrakowitzer/deploy",
-      "version_requirement": ">= 0.0.1"
+      "version_requirement": ">= 0.0.3"
     },
     {
       "name": "yguenane/repoforge",
       "version_requirement": ">= 0.2.0"
     },
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 3.0.0"
-    },
-    {
-      "name": "mkrakowitzer/deploy",
-      "version_requirement": ">= 0.0.1"
-    },
-    {
-      "name": "yguenane/repoforge",
-      "version_requirement": ">= 0.2.0"
-    }
   ]
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">=3.4.0 <4.0.0"
+    }
+  ],
 }

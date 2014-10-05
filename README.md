@@ -7,11 +7,11 @@ This is a puppet module to install stash
 
 Requirements
 ------------
-* Puppet 3.4+ tested (CentOS6/Ubuntu12)
-* Puppet PE tested 3.3.x (CentOS6)
+* Puppet 3.4+ tested (CentOS6/Ubuntu12/Debian7)
+* Puppet PE tested 3.3.2 (CentOS6)
 * dependency - mkrakowitzer/deploy '>= 0.0.3'
 * dependency - [puppetlabs repositories](https://docs.puppetlabs.com/guides/puppetlabs_package_repositories.html)
-* tested on RHEL6 / CentOS6 / Ubuntu 12.04.
+* tested on RHEL6 / CentOS6 / Ubuntu 12.04 / Debian 7
 
 Examples
 --------
@@ -146,6 +146,14 @@ ruby-1.9.3-p484/bin/ruby -S rspec spec/classes/stash_install_spec.rb --color
 Finished in 0.38159 seconds
 1 example, 0 failures
 ```
+
+Using [Beaker - Puppet Labs cloud enabled acceptance testing tool.](https://github.com/puppetlabs/beaker).
+
+run (Additional yak shaving may be required):
+
+BEAKER_set=ubuntu-server-12042-x64 bundle exec rake beaker
+BEAKER_set==debian-73-x64 bundle exec rake beaker
+BEAKER_set==centos-64-x64 bundle exec rake beaker
 
 License
 -------

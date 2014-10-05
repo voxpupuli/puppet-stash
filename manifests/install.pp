@@ -28,7 +28,9 @@ class stash::install(
       if ! defined(Class['repoforge']) and $repoforge {
         class { 'repoforge':
           enabled     => [ 'extras', ],
-          includepkgs => { 'extras' => 'git,perl-Git' },
+          includepkgs => {
+            'extras' => 'git,perl-Git'
+          },
           before      => Package['git']
         } ~>
         exec { "${stash::product}_clean_yum_metadata":
