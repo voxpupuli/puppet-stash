@@ -32,8 +32,8 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
     on host, "mkdir -p #{host['distmoduledir']}"
     # Set puppet proxy, TODO: This is still hard coded
     if proxyurl
-      on host, "echo \"[user]\nhttp_proxy_host = 10.203.72.21\" >> #{host['puppetpath']}/puppet.conf"
-      on host, "echo \"http_proxy_port = 7070\" >> #{host['puppetpath']}/puppet.conf"
+      on host, "echo \"[user]\nhttp_proxy_host = 10.0.0.12\" >> #{host['puppetpath']}/puppet.conf"
+      on host, "echo \"http_proxy_port = 3128\" >> #{host['puppetpath']}/puppet.conf"
       on host, "sed -i '/templatedir/d' #{host['puppetpath']}/puppet.conf"
     end
   end

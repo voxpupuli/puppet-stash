@@ -9,23 +9,6 @@ proxyurl = ENV['http_proxy'] if ENV['http_proxy']
 
 describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
 
-  it 'installs apt-key over proxy' do
-    if proxyurl
-      pp1 = <<-EOS
-        if $::operatingsystem == 'Ubuntu' {
-          apt_key { 'apt.postgresql.org':
-            ensure            => 'present',
-            id                => 'ACCC4CF8',
-            source            => 'https://www.postgresql.org/media/keys/ACCC4CF8.asc',
-            keyserver_options => '--keyserver-options http-proxy=#{proxyurl}',
-          }
-        }
-      EOS
-      apply_manifest(pp1, :catch_failures => true)
-      apply_manifest(pp1, :catch_changes => true)
-    end
-  end
-
   it 'installs with defaults' do
     pp = <<-EOS
       $jh = $osfamily ? {
@@ -48,7 +31,8 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
         distribution => 'jdk',
       } ->
       class { 'stash':
-        downloadURL => 'http://10.43.230.24/',
+        downloadURL => 'http://10.0.0.12/',
+        version     => '3.2.4',
         javahome    => $jh,
       }
       class { 'stash::gc': }
@@ -74,8 +58,8 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
         default   => '/opt/java',
       }
       class { 'stash':
-        version     => '3.3.1',
-        downloadURL => 'http://10.43.230.24/',
+        version     => '3.3.0',
+        downloadURL => 'http://10.0.0.12/',
         javahome    => $jh,
       }
     EOS
