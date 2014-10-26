@@ -2,6 +2,7 @@ fixtures:
   symlinks:
     stash: "#{source_dir}"
   repositories:
-    deploy: "https://github.com/mkrakowitzer/puppet-deploy"
-    stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
-    repoforge: "https://github.com/Mylezeem/puppet-repoforge.git"
+    deploy: "http://github.com/mkrakowitzer/puppet-deploy"
+    stdlib: "http://github.com/puppetlabs/puppetlabs-stdlib.git"
+    repoforge: "http://github.com/Mylezeem/puppet-repoforge.git"
+    staging: "http://github.com/nanliu/puppet-staging"
