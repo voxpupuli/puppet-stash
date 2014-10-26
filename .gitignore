@@ -5,3 +5,4 @@ pkg/
 *.settings
 *.project
 Gemfile.lock
+.vagrant

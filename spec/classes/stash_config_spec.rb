@@ -6,7 +6,9 @@ describe 'stash' do
       let(:params) {{
         :version => '3.2.4',
       }}
-      it { should contain_file('/opt/stash/atlassian-stash-3.2.4/bin/setenv.sh')}
+      it { should contain_file('/opt/stash/atlassian-stash-3.2.4/bin/setenv.sh') \
+         .with_content(/JAVA_HOME=\/opt\/java/)
+      }
       it { should contain_file('/opt/stash/atlassian-stash-3.2.4/bin/user.sh')}
       it { should contain_file('/opt/stash/atlassian-stash-3.2.4/conf/server.xml')}
       it { should contain_file('/home/stash/shared/stash-config.properties')}
@@ -20,8 +22,11 @@ describe 'stash' do
           'proxyPort' => '443',
         },
       }}
-      it 'should ensure that reverse proxy is set' do
-        should contain_file('/opt/stash/atlassian-stash-3.4.0/conf/server.xml').with_content(/stash\.example\.co\.za/)
+      it do
+        should contain_file('/opt/stash/atlassian-stash-3.2.4/conf/server.xml') \
+          .with_content(/proxyName = \'stash\.example\.co\.za\'/)
+          .with_content(/proxyPort = \'443\'/)
+          .with_content(/scheme = \'https\'/)
       end
     end
     context 'jvm_xms => 1G' do
