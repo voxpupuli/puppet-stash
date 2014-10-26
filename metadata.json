@@ -2,7 +2,7 @@
   "name": "mkrakowitzer-stash",
   "version": "1.1.0",
   "author": "mkrakowitzer",
-  "summary": "Install atlassian stash",
+  "summary": "Install Atlassian stash",
   "license": "The MIT License (MIT)",
   "source": "https://github.com/mkrakowitzer/puppet-stash.git",
   "project_page": "https://github.com/mkrakowitzer/puppet-stash",
@@ -18,7 +18,7 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "6",
+        "6"
       ]
     },
     {
@@ -32,7 +32,7 @@
       "operatingsystemrelease": [
         "7"
       ]
-    },
+    }
   ],
   "dependencies": [
     {
@@ -43,13 +43,14 @@
       "name": "mkrakowitzer/deploy",
       "version_requirement": ">= 0.0.3"
     },
+    {
       "name": "nanliu/staging",
       "version_requirement": ">= 1.0.0"
     },
     {
       "name": "yguenane/repoforge",
       "version_requirement": ">= 0.2.0"
-    },
+    }
   ],
   "requirements": [
     {
@@ -60,5 +61,5 @@
       "name": "puppet",
       "version_requirement": ">=3.4.0 <4.0.0"
     }
-  ],
+  ]
 }
