@@ -1,4 +1,6 @@
 #puppet-stash
+[![Build
+Status](https://travis-ci.org/mkrakowitzer/puppet-stash.svg)](https://travis-ci.org/mkrakowitzer/puppet-stash)
 ####Table of Contents
 
 1. [Overview](#overview)
