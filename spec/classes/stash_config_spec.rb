@@ -4,7 +4,8 @@ describe 'stash' do
   describe 'stash::config' do
     context 'default params' do
       let(:params) {{
-        :version => '3.2.4',
+        :javahome  => '/opt/java',
+        :version   => '3.2.4',
       }}
       it { should contain_file('/opt/stash/atlassian-stash-3.2.4/bin/setenv.sh') \
          .with_content(/JAVA_HOME=\/opt\/java/)
@@ -23,7 +24,7 @@ describe 'stash' do
         },
       }}
       it do
-        should contain_file('/opt/stash/atlassian-stash-3.2.4/conf/server.xml') \
+        should contain_file('/opt/stash/atlassian-stash-3.4.0/conf/server.xml') \
           .with_content(/proxyName = \'stash\.example\.co\.za\'/)
           .with_content(/proxyPort = \'443\'/)
           .with_content(/scheme = \'https\'/)
