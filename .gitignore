@@ -6,3 +6,6 @@ pkg/
 *.project
 Gemfile.lock
 .vagrant
+spec/fixtures/*
+fixtures/
+vagrant_files/

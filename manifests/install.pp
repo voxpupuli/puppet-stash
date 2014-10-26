@@ -14,8 +14,9 @@ class stash::install(
   $gid         = $stash::gid,
   $git_version = $stash::git_version,
   $repoforge   = $stash::repoforge,
-
   $downloadURL = $stash::downloadURL,
+  $s_or_d      = $stash::staging_or_deploy,
+
   $webappdir
   ) {
 
@@ -84,21 +85,59 @@ class stash::install(
     }
   }
 
-  deploy::file { "atlassian-${product}-${version}.${format}":
-    target          => $webappdir,
-    url             => $downloadURL,
-    strip           => true,
-    notify          => Exec["chown_${webappdir}"],
-    owner           => $user,
-    group           => $group,
-    download_timout => 1800,
-    require         => [ File[$installdir], User[$user] ]
-  } ->
+  # Deploy files using either staging or deploy modules.
+  $file = "atlassian-${product}-${version}.${format}"
+  case $s_or_d {
+    'staging': {
+      require staging
+      if ! defined(File[$webappdir]) {
+        file { $webappdir:
+          ensure => 'directory',
+          owner  => $user,
+          group  => $group,
+        }
+      }
+      staging::file { $file:
+        source      => "${downloadURL}/${file}",
+        timeout     => 1800,
+      } ->
+      staging::extract { $file:
+        target  => $webappdir,
+        creates => "${webappdir}/conf",
+        strip   => 1,
+        user    => $user,
+        group   => $group,
+        notify  => Exec["chown_${webappdir}"],
+        before  => File[$homedir],
+        require => [
+          File[$installdir],
+          User[$user],
+          File[$webappdir] ],
+      }
+    }
+    'deploy': {
+      deploy::file { "atlassian-${product}-${version}.${format}":
+        target          => $webappdir,
+        url             => $downloadURL,
+        strip           => true,
+        owner           => $user,
+        group           => $group,
+        download_timout => 1800,
+        notify          => Exec["chown_${webappdir}"],
+        before          => File[$homedir],
+        require         => [ File[$installdir], User[$user] ]
+      }
+    }
+    'default': {
+      fail('staging_or_deploy parameter must equal "staging" or "deploy"')
+    }
+  }
 
   file { $homedir:
-    ensure => 'directory',
-    owner  => $user,
-    group  => $group,
+    ensure  => 'directory',
+    owner   => $user,
+    group   => $group,
+    require => User[$user],
   } ->
 
   exec { "chown_${webappdir}":

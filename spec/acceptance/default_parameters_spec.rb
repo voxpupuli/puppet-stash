@@ -52,6 +52,12 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
 
   it 'upgrades with defaults' do
     pp_update = <<-EOS
+      if versioncmp($::puppetversion,'3.6.1') >= 0 {
+        $allow_virtual_packages = hiera('allow_virtual_packages',false)
+        Package {
+          allow_virtual => $allow_virtual_packages,
+        }
+      }
       $jh = $osfamily ? {
         'RedHat'  => '/usr/lib/jvm/java-1.7.0-openjdk.x86_64',
         'Debian'  => '/usr/lib/jvm/java-7-openjdk-amd64',
