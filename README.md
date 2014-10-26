@@ -3,16 +3,16 @@
 
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with STASH](#setup)
-    * [STASH Prerequisites](#STASH-prerequisites)
-    * [What STASH affects](#what-STASH-affects)
-    * [Beginning with STASH](#beginning-with-STASH)
+3. [Setup - The basics of getting started with Stash](#setup)
+    * [Stash Prerequisites](#Stash-prerequisites)
+    * [What Stash affects](#what-Stash-affects)
+    * [Beginning with Stash](#beginning-with-Stash)
     * [Upgrades](#upgrades)
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 6. [Limitations - OS compatibility, etc.](#limitations)
 7. [Development - Guide for contributing to the module](#development)
-8. [Testing - How to test the STASH module](#testing)
+8. [Testing - How to test the Stash module](#testing)
 9. [Contributors](#contributors)
 
 ##Overview
@@ -21,28 +21,28 @@ This is a puppet module to install Atlassian Stash. On-premises source code mana
 
 ##Module Description
 
-This module installs/upgrades Atlassian's Enterprise source code management tool. The STASH module also manages the stash configuration files with Puppet. 
+This module installs/upgrades Atlassian's Enterprise source code management tool. The Stash module also manages the stash configuration files with Puppet. 
 
 ##Setup
-<a name="STASH-prerequisites">
-###STASH Prerequisites
-* STASH requires a Java Developers Kit (JDK) or Java Run-time Environment (JRE) platform to be installed on your server's operating system. Oracle JDK / JRE (formerly Sun JDK / JRE)  versions 7 and 8 and Open JDK/ JRE versions 7 and 8 are currently supported by Atlassian.
+<a name="Stash-prerequisites">
+###Stash Prerequisites
+* Stash requires a Java Developers Kit (JDK) or Java Run-time Environment (JRE) platform to be installed on your server's operating system. Oracle JDK / JRE (formerly Sun JDK / JRE)  versions 7 and 8 and Open JDK/ JRE versions 7 and 8 are currently supported by Atlassian.
 
-* STASH requires a relational database to store its configuration data. This module currently supports PostgreSQL 8.4 to 9.x and MySQL 5.x. We suggest using puppetlabs-postgresql/puppetlabs-mysql modules to configure/manage the database. The module uses PostgreSQL as a default.
+* Stash requires a relational database to store its configuration data. This module currently supports PostgreSQL 8.4 to 9.x and MySQL 5.x. We suggest using puppetlabs-postgresql/puppetlabs-mysql modules to configure/manage the database. The module uses PostgreSQL as a default.
 
-* Whilst not required, for production use we recommend using nginx/apache as a reverse proxy to STASH. We suggest using the jfryman/nginx puppet module.
+* Whilst not required, for production use we recommend using nginx/apache as a reverse proxy to Stash. We suggest using the jfryman/nginx puppet module.
 
-###What STASH affects
-If installing to an existing STASH instance, it is your responsibility to backup your database. We also recommend that you backup your STASH home directory and that you align your current STASH version with the version you intend to use with puppet STASH module.
+###What Stash affects
+If installing to an existing Stash instance, it is your responsibility to backup your database. We also recommend that you backup your Stash home directory and that you align your current Stash version with the version you intend to use with puppet Stash module.
 
-You must have your database setup with the account user that STASH will use. This can be done using the puppetlabs-postgresql and puppetlabs-mysql modules.
+You must have your database setup with the account user that Stash will use. This can be done using the puppetlabs-postgresql and puppetlabs-mysql modules.
 
-When using this module to upgrade STASH, please make sure you have a database/STASH home backup. We plan to include a class for backing up the stash home directory in a future release.
+When using this module to upgrade Stash, please make sure you have a database/Stash home backup. We plan to include a class for backing up the stash home directory in a future release.
 
 As RHEL 6 and its derivatives do not include a version of git that will work by default with stash. We enable the repoforge module as a default if it is not already enabled. Whilst this is not best practice, it is better than the module not working for inexperienced users. By default we will upgrade git if it is already installed and the repoforge repository is not enabled. Default: true. You can turn all this functionality off with 'repoforge => false' and manage git outside of the module.
 	
-###Beginning with STASH
-This puppet module will automatically download the STASH tar.gz from Atlassian and extracts it into /opt/stash/atlassian-stash-$version. The default STASH home is /home/stash.
+###Beginning with Stash
+This puppet module will automatically download the Stash tar.gz from Atlassian and extracts it into /opt/stash/atlassian-stash-$version. The default Stash home is /home/stash.
 
 #####Basic examples
 ```puppet
@@ -67,11 +67,11 @@ Enable external facts for stash version.
 ```puppet
   class { 'stash::facts': }
 ```
-A complete example with postgres/nginx/STASH is available [here](https://github.com/mkrakowitzer/vagrant-puppet-stash/blob/master/manifests/site.pp).
+A complete example with postgres/nginx/stash is available [here](https://github.com/mkrakowitzer/vagrant-puppet-stash/blob/master/manifests/site.pp).
 <a name="upgrades">
 #####Upgrades
 
-######Upgrades to STASH
+######Upgrades to Stash
 
 Stash can be upgraded by incrementing this version number. This will *STOP* the running instance of Stash and attempt to upgrade. You should take caution when doing large version upgrades. Always backup your database and your home directory. The stash::facts class is required for upgrades.
 
@@ -82,8 +82,8 @@ Stash can be upgraded by incrementing this version number. This will *STOP* the 
   }
   class { 'stash::facts': }
 ```
-######Upgrades to the STASH puppet Module
-mkrakowitzer-deploy has been replaced with nanliu-staging as the default module for deploying the STASH binaries. You can still use mkrakowitzer-deploy with the *staging_or_deploy => 'deploy'a.* nanliu-staging can not cleanup after itself, you may need to prune your /opt/staging directory if you upgrade often.
+######Upgrades to the Stash puppet Module
+mkrakowitzer-deploy has been replaced with nanliu-staging as the default module for deploying the Stash binaries. You can still use mkrakowitzer-deploy with the *staging_or_deploy => 'deploy'*. nanliu-staging can not cleanup after itself, you may need to prune your /opt/staging directory if you upgrade often.
 
 ```puppet
   class { 'stash':
@@ -94,7 +94,7 @@ mkrakowitzer-deploy has been replaced with nanliu-staging as the default module 
 
 ##Usage
 
-This module also allows for direct customization of the JVM, following [atlassians recommendations](https://confluence.atlassian.com/display/JIRA/Setting+Properties+and+Options+on+Startup)
+This module also allows for direct customization of the JVM, following [Atlassian's recommendations](https://confluence.atlassian.com/display/JIRA/Setting+Properties+and+Options+on+Startup)
 
 This is especially useful for setting properties such as HTTP/https proxy settings. Support has also been added for reverse proxying stash via Apache or nginx.
 
@@ -126,7 +126,7 @@ This is especially useful for setting properties such as HTTP/https proxy settin
 
 ### A Hiera example 
 
-This example is used in production for 500 users in an traditional enterprise environment. Your milage may vary. The dbpassword can be stored using eyaml hiera extension.
+This example is used in production for 500 users in an traditional enterprise environment. Your mileage may vary. The dbpassword can be stored using eyaml hiera extension.
 
 ```yaml
 # Stash configuration
@@ -163,23 +163,23 @@ stash::stash_stop: '/usr/sbin crm resource stop stash'
 
 ####Public Classes
 
-* `stash`: Main class, manages the installation and configuration of STASH.
-* `stash::facts`: Enable external facts for running instance of STASH. This class is required to handle upgrades of Stash. As it is an external fact, we chose not to enable it by default.
+* `stash`: Main class, manages the installation and configuration of Stash.
+* `stash::facts`: Enable external facts for running instance of Stash. This class is required to handle upgrades of Stash. As it is an external fact, we chose not to enable it by default.
 * `stash::gc`: Schedule a weekly git garbage collect for all repositories
 
 ####Private Classes
 
-* `stash::install`: Installs STASH binaries
-* `stash::config`: Modifies STASH/tomcat configuration files
-* `stash::service`: Manage the STASH service.
+* `stash::install`: Installs Stash binaries
+* `stash::config`: Modifies Stash/tomcat configuration files
+* `stash::service`: Manage the Stash service.
 
 ###Parameters
 
-####STASH parameters####
+####Stash parameters####
 #####`javahome`
 Specify the java home directory. No assumptions are made re the location of java and therefore this option is required. Default: undef
 #####`version`
-Specifies the version of STASH to install, defaults to latest available at time of module upload to the forge. It is **recommended** to pin the version number to avoid unnecessary upgrades of STASH
+Specifies the version of Stash to install, defaults to latest available at time of module upload to the forge. It is **recommended** to pin the version number to avoid unnecessary upgrades of Stash
 #####`format`
 The format of the file stash will be installed from. Default: 'tar.gz'
 #####`installdir`
@@ -254,7 +254,7 @@ We plan to support other Linux distributions and possibly Windows in the near fu
 Please feel free to raise any issues here for bug fixes. We also welcome feature requests. Feel free to make a pull request for anything and we make the effort to review and merge. We prefer with tests if possible.
 
 <a name="testing">
-##Testing - How to test the STASH module
+##Testing - How to test the Stash module
 Using [puppetlabs_spec_helper](https://github.com/puppetlabs/puppetlabs_spec_helper). Simply run:
 ```
 bundle install && bundle exec rake spec
