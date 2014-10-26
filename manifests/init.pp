@@ -43,6 +43,10 @@ class stash(
 
   # Enable repoforge by default for RHEL, stash requires a newer version of git
   $repoforge   = true,
+  # Command to stop stash in preparation to updgrade. # This is configurable 
+  # incase the stash service is managed outside of puppet. eg: using the 
+  # puppetlabs-corosync module: 'crm resource stop stash && sleep 15'
+  $stop_stash = 'service stash stop && sleep 15',
 ) {
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
@@ -54,7 +58,7 @@ class stash(
     # Shut it down in preparation for upgrade.
     if versioncmp($version, $::stash_version) > 0 {
       notify { 'Attempting to upgrade stash': }
-      exec { 'service stash stop && sleep 15': }
+      exec { $stop_stash: }
       if versioncmp($version, '3.2.0') > 0 {
         exec { "rm -f ${homedir}/stash-config.properties": }
       }
