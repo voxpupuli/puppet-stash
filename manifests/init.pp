@@ -44,10 +44,16 @@ class stash(
 
   # Enable repoforge by default for RHEL, stash requires a newer version of git
   $repoforge   = true,
+
   # Command to stop stash in preparation to updgrade. # This is configurable 
   # incase the stash service is managed outside of puppet. eg: using the 
   # puppetlabs-corosync module: 'crm resource stop stash && sleep 15'
   $stop_stash = 'service stash stop && sleep 15',
+
+  # Choose whether to use nanliu-staging, or mkrakowitzer-deploy
+  # Defaults to nanliu-staging as it is puppetlabs approved.
+  $staging_or_deploy = 'staging',
+
 ) {
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
