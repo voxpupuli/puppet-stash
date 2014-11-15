@@ -34,7 +34,9 @@ class stash(
   $downloadURL  = 'http://www.atlassian.com/software/stash/downloads/binary/',
 
   # Manage service
-  $manage_service  = true,
+  $service_manage = true,
+  $service_ensure = running,
+  $service_enable = true,
 
   # Reverse https proxy
   $proxy = {},

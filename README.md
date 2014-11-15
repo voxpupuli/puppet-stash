@@ -84,6 +84,15 @@ Stash can be upgraded by incrementing this version number. This will *STOP* the 
   }
   class { 'stash::facts': }
 ```
+If the stash service is managed outside of puppet the stop_stash paramater can be used to shut down stash.
+```puppet
+  class { 'stash':
+    javahome   => '/opt/java',
+    version    => '3.4.0',
+    stop_stash => 'crm resource stop stash && sleep 15',
+  }
+  class { 'stash::facts': }
+```
 ######Upgrades to the Stash puppet Module
 mkrakowitzer-deploy has been replaced with nanliu-staging as the default module for deploying the Stash binaries. You can still use mkrakowitzer-deploy with the *staging_or_deploy => 'deploy'*. nanliu-staging can not cleanup after itself, you may need to prune your /opt/staging directory if you upgrade often.
 
@@ -111,7 +120,7 @@ This is especially useful for setting properties such as HTTP/https proxy settin
     downloadURL    => 'http://example.co.za/pub/software/development-tools/atlassian/',
     dburl          => 'jdbc:postgresql://dbvip.example.co.za:5433/stash',
     dbpassword     => $stashpass,
-    manage_service => false,
+    service_manage => false,
     jvm_xms        => '1G',
     jvm_xmx        => '4G',
     java_opts      => '-Dhttp.proxyHost=proxy.example.co.za -Dhttp.proxyPort=8080 -Dhttps.proxyHost=proxy.example.co.za -Dhttps.proxyPort=8080 -Dhttp.nonProxyHosts=\"localhost|127.0.0.1|172.*.*.*|10.*.*.*|*.example.co.za\"',
@@ -137,7 +146,7 @@ stash::installdir:     '/opt/atlassian/atlassian-stash'
 stash::homedir:        '/opt/atlassian/application-data/stash-home'
 stash::javahome:       '/opt/java'
 stash::dburl:          'jdbc:postgresql://dbvip.example.co.za:5433/stash'
-stash::manage_service: false
+stash::service_manage: false
 stash::downloadURL:    'http://example.co.za/pub/software/development-tools/atlassian'
 stash::jvm_xms:        '1G'
 stash::jvm_xmx:        '4G'
@@ -227,8 +236,12 @@ None yet.
 
 #####`downloadURL`
 Where to download the stash binaries from. Default: 'http://www.atlassian.com/software/stash/downloads/binary/'
-#####`manage_service`
+#####`service_manage`
 Should puppet manage this service? Default: true
+#####`$service_ensure`
+Manage the stash service, defaults to 'running'
+#####`$service_enable`
+Defaults to 'true'
 #####`proxy`
 Reverse https proxy configuration. See examples for more detail. Default: {}
 #####`git_version`
