@@ -270,7 +270,7 @@ ldapname is deprecated and will be removed in a future version
 Finished in 2.02 seconds
 23 examples, 0 failures
 ```
-Using [Beaker - Puppet Labs cloud enabled acceptance testing tool.](https://github.com/puppetlabs/beaker).
+Using [Beaker - Puppet Labs cloud enabled acceptance testing tool.](https://github.com/puppetlabs/beaker)
 
 run (Additional yak shaving may be required):
 ```

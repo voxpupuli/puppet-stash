@@ -98,8 +98,8 @@ class stash::install(
         }
       }
       staging::file { $file:
-        source      => "${downloadURL}/${file}",
-        timeout     => 1800,
+        source  => "${downloadURL}/${file}",
+        timeout => 1800,
       } ->
       staging::extract { $file:
         target  => $webappdir,
@@ -128,7 +128,7 @@ class stash::install(
         require         => [ File[$installdir], User[$user] ]
       }
     }
-    'default': {
+    default: {
       fail('staging_or_deploy parameter must equal "staging" or "deploy"')
     }
   }
