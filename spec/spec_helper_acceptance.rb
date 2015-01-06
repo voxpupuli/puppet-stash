@@ -1,41 +1,14 @@
 require 'beaker-rspec/spec_helper'
 require 'beaker-rspec/helpers/serverspec'
 
-proxyurl = ENV['http_proxy'] if ENV['http_proxy']
-
 unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
   hosts.each do |host|
-    if proxyurl
-      # Set proxy for everything
-      on host, "echo 'proxy = #{proxyurl}' >> /root/.curlrc; exit 0"
-      on host, "echo \"---\nhttp-proxy: #{proxyurl}\" >> /root/.gemrc"
-      on host, "echo 'export http_proxy=#{proxyurl}' >> /root/.bashrc"
-      on host, "echo 'export https_proxy=#{proxyurl}' >> /root/.bashrc"
-      on host, 'echo "use_proxy = off" >> /etc/wgetrc'
-      # Allow proxy to cache better
-      on host, 'rm -f /etc/yum/pluginconf.d/fastestmirror.conf; exit 0'
-      on host, "sed -i 's/^mirrorlist=/#mirrorlist=/g'  /etc/yum.repos.d/*; exit 0"
-      on host, "sed -i 's/#baseurl=/baseurl=/g' /etc/yum.repos.d/*; exit 0"
-    end
     # This will install the latest available package on el and deb based
     # systems fail on windows and osx, and install via gem on other *nixes
     foss_opts = { :default_action => 'gem_install' }
-    if default.is_pe?; then
-      # TODO: fetch_http_dir hangs
-      # fetch_http_dir('http://10.43.230.24/el-6-x86_64','/opt/enterprise/dists/LATEST')
-      # TODO: install_pe doesnt work nativy, needs some work on my part
-      on host, 'wget -nv -P /opt/enterprise/dists/LATEST --reject "index.html*","*.gif" --cut-dirs=1 -np -nH --no-check-certificate -r http://10.43.230.24/el-6-x86_64/'
-      on host, ' yum localinstall -y /opt/enterprise/dists/LATEST/*.rpm'
-    else
-      install_puppet( foss_opts )
-    end
+    install_puppet( foss_opts )
     on host, "mkdir -p #{host['distmoduledir']}"
-    # Set puppet proxy, TODO: This is still hard coded
-    if proxyurl
-      on host, "echo \"[user]\nhttp_proxy_host = 10.0.0.12\" >> #{host['puppetpath']}/puppet.conf"
-      on host, "echo \"http_proxy_port = 3128\" >> #{host['puppetpath']}/puppet.conf"
-      on host, "sed -i '/templatedir/d' #{host['puppetpath']}/puppet.conf"
-    end
+    on host, "sed -i '/templatedir/d' #{host['puppetpath']}/puppet.conf"
   end
 end
 

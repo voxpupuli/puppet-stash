@@ -205,6 +205,9 @@ The group that stash files should be owned by. Default: 'stash'
 Specify a uid of the stash user. Default: undef
 #####`gid`
 Specify a gid of the stash user: Default: undef
+#####`context_path`
+Specify context path, defaults to ''.
+If modified, Once Stash has started, go to the administration area and click Server Settings (under 'Settings'). Append the new context path to your base URL.
 
 ####database parameters####
 

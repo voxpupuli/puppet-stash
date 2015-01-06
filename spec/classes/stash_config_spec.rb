@@ -28,6 +28,7 @@ describe 'stash' do
           .with_content(/proxyName = \'stash\.example\.co\.za\'/)
           .with_content(/proxyPort = \'443\'/)
           .with_content(/scheme = \'https\'/)
+          .with_content(/path=""/)
       end
     end
     context 'jvm_xms => 1G' do
@@ -68,6 +69,16 @@ describe 'stash' do
       it do
         should contain_file('/opt/stash/atlassian-stash-3.4.0/bin/setenv.sh')
           .with_content(/JAVA_OPTS="-Dhttp\.proxyHost=proxy\.example\.co\.za -Dhttp\.proxyPort=8080/)
+      end
+    end
+    context 'context_path => "stash"' do
+      let(:params) {{
+        :version      => '3.4.0',
+        :context_path => '/stash',
+      }}
+      it do
+        should contain_file('/opt/stash/atlassian-stash-3.4.0/conf/server.xml')
+          .with_content(/path="\/stash"/)
       end
     end
   end

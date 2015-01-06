@@ -23,6 +23,7 @@ class stash(
   $group        = 'stash',
   $uid          = undef,
   $gid          = undef,
+  $context_path = '',
 
   # Database Settings
   $dbuser       = 'stash',

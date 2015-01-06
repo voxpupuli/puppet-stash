@@ -1,3 +1,6 @@
+##2014-11-15 - Release 1.1.3
+###Summary
+- Add parameter context_path
 ##2014-11-15 - Release 1.1.2
 ###Summary
 - rename parameter manage_service to service_manage
