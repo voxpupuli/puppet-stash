@@ -3,10 +3,11 @@
 # This configures the stash module. See README.md for details
 #
 class stash::config(
-  $version     = $stash::version,
-  $user        = $stash::user,
-  $group       = $stash::group,
-  $proxy       = $stash::proxy,
+  $version      = $stash::version,
+  $user         = $stash::user,
+  $group        = $stash::group,
+  $proxy        = $stash::proxy,
+  $context_path = $stash::context_path,
 ) {
 
   # Atlassian changed where files are installed from ver 3.2.0

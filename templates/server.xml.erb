@@ -140,7 +140,7 @@
                      AND rename webapps/ROOT directory. -->
 
                 <Context docBase="${catalina.home}/atlassian-stash"
-                         path=""
+                         path="<%= @context_path %>"
                          reloadable="false"
                          useHttpOnly="true"/>
 
