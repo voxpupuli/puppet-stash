@@ -16,7 +16,7 @@ begin
     PuppetLint.configuration.log_format =
         '%{path}:%{linenumber}:%{check}:%{KIND}:%{message}'
 
-    task :default => [:spec,]
+    task :default => [:spec,:syntax,:validate,:lint]
   end
 rescue Gem::LoadError
 end

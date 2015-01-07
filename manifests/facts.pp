@@ -15,10 +15,11 @@
 # class { 'stash::facts': }
 #
 class stash::facts(
-  $ensure = 'present',
-  $port   = '7990',
-  $uri    = '127.0.0.1',
-) {
+  $ensure       = 'present',
+  $port         = '7990',
+  $uri          = '127.0.0.1',
+  $context_path = $stash::context_path,
+) inherits stash::params {
 
   # Puppet Enterprise supplies its own ruby version if your using it.
   # A modern ruby version is required to run the executable fact
@@ -42,7 +43,7 @@ class stash::facts(
   }
 
   if $::osfamily == 'RedHat' and $::puppetversion !~ /Puppet Enterprise/ {
-    package { [ 'rubygem-json', 'ruby-json' ]:
+    package { $json_packages:
       ensure => present,
     }
   }

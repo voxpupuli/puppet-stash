@@ -1,19 +1,28 @@
 require 'spec_helper_acceptance'
-# These tests are designed to ensure that the module, when ran with defaults,
-# sets up everything correctly and allows us to connect to stash.
 
-proxyurl = ENV['http_proxy'] if ENV['http_proxy']
+# It is sometimes faster to host jira / java files on a local webserver.
+# Set environment variable download_url to use local webserver
+# export download_url = 'http://10.0.0.XXX/'
+download_url = ENV['download_url'] if ENV['download_url']
+if ENV['download_url'] then
+  download_url = ENV['download_url']
+else
+  download_url = 'undef'
+end
+if download_url == 'undef' then
+  java_url = "'http://download.oracle.com/otn-pub/java/jdk/7u71-b14/'"
+else
+  java_url = download_url
+end
 
 # We add the sleeps everywhere to give stash enough
-# time to install/upgrade/run migration tasks/start/
+# time to install/upgrade/run migration tasks/start
 
 describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
 
   it 'installs with defaults' do
     pp = <<-EOS
       $jh = $osfamily ? {
-        'RedHat'  => '/usr/lib/jvm/java-1.7.0-openjdk.x86_64',
-        'Debian'  => '/usr/lib/jvm/java-7-openjdk-amd64',
         default   => '/opt/java',
       }
       if versioncmp($::puppetversion,'3.6.1') >= 0 {
@@ -27,13 +36,18 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
         version             => '9.3',
       }->
       class { 'postgresql::server': } ->
-      class { 'java':
-        distribution => 'jdk',
+      deploy::file { 'jdk-7u71-linux-x64.tar.gz':
+        target          => '/opt/java',
+        fetch_options   => '-q -c --header "Cookie: oraclelicense=accept-securebackup-cookie"',
+        url             => #{java_url},
+        download_timout => 1800,
+        strip           => true,
       } ->
       class { 'stash':
-        downloadURL => 'http://10.0.0.12/',
+        downloadURL => #{download_url},
         version     => '3.2.4',
         javahome    => $jh,
+        context_path => '/stash1',
       }
       class { 'stash::gc': }
       class { 'stash::facts': }
@@ -43,10 +57,11 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
       }
     EOS
     apply_manifest(pp, :catch_failures => true)
-    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990', :acceptable_exit_codes => [0]
     sleep 120
-    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990', :acceptable_exit_codes => [0]
+    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
     sleep 60
+    shell 'wget -q --tries=10 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
+    sleep 10
     apply_manifest(pp, :catch_changes => true)
   end
 
@@ -59,22 +74,20 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
         }
       }
       $jh = $osfamily ? {
-        'RedHat'  => '/usr/lib/jvm/java-1.7.0-openjdk.x86_64',
-        'Debian'  => '/usr/lib/jvm/java-7-openjdk-amd64',
         default   => '/opt/java',
       }
       class { 'stash':
         version     => '3.3.0',
-        downloadURL => 'http://10.0.0.12/',
+        downloadURL => #{download_url},
         javahome    => $jh,
+        context_path => '/stash1',
       }
     EOS
-    sleep 180
-    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990', :acceptable_exit_codes => [0]
     apply_manifest(pp_update, :catch_failures => true)
-    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990', :acceptable_exit_codes => [0]
     sleep 180
-    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990', :acceptable_exit_codes => [0]
+    shell 'wget -q --tries=10 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
+    sleep 180
+    shell 'wget -q --tries=10 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
     apply_manifest(pp_update, :catch_changes => true)
   end
 
@@ -104,6 +117,14 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
 
   describe user('stash') do
     it { should have_login_shell '/bin/bash' }
+  end
+
+  describe user('stash') do
+    it { should have_login_shell '/bin/bash' }
+  end
+
+  describe command('curl http://localhost:7990/stash1/setup') do
+    its(:stdout) { should match /This is the base URL of this installation of Stash/ }
   end
 
 end
