@@ -6,7 +6,7 @@
 require 'json'
 require 'open-uri'
 begin
-  url = 'http://<%= @uri %>:<%= @port %>/rest/api/1.0/application-properties'
+  url = 'http://<%= @uri %>:<%= @port %><%= @context_path %>/rest/api/1.0/application-properties'
   info = open(url, &:read)
 rescue
   exit 0
