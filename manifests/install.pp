@@ -22,7 +22,6 @@ class stash::install(
 
   case $::osfamily {
     'redhat': {
-      $initscript_template = 'stash/stash.initscript.redhat.erb'
       validate_bool($repoforge)
       # If repoforge is not enabled by default, enable it
       # but only allow git to be installed from it.
@@ -46,11 +45,8 @@ class stash::install(
           refreshonly => true,
         }
       }
-    }
-    'debian': {
-      $initscript_template = 'stash/stash.initscript.debian.erb'
-    }
-    default: {
+    } 'debian': {
+    } default: {
       fail("Class['stash::install']: Unsupported osfamily: ${::osfamily}")
     }
   }
@@ -144,11 +140,6 @@ class stash::install(
     command     => "/bin/chown -R ${user}:${group} ${webappdir}",
     refreshonly => true,
     subscribe   => User[$stash::user]
-  } ->
-
-  file { '/etc/init.d/stash':
-    content => template($initscript_template),
-    mode    => '0755',
   }
 
 }
