@@ -58,7 +58,7 @@ class stash(
   $staging_or_deploy = 'staging',
 
 ) {
- 
+
   include stash::params
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
