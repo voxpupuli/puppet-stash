@@ -15,11 +15,12 @@
 # class { 'stash::facts': }
 #
 class stash::facts(
-  $ensure       = 'present',
-  $port         = '7990',
-  $uri          = '127.0.0.1',
-  $context_path = $stash::context_path,
-) inherits stash::params {
+  $ensure        = 'present',
+  $port          = '7990',
+  $uri           = '127.0.0.1',
+  $context_path  = $stash::context_path,
+  $json_packages = $jira::params::json_packages,
+) {
 
   # Puppet Enterprise supplies its own ruby version if your using it.
   # A modern ruby version is required to run the executable fact

@@ -4,11 +4,14 @@
 # 
 class stash::service  (
 
-  $service_manage = $stash::service_manage,
-  $service_ensure = $stash::service_ensure,
-  $service_enable = $stash::service_enable,
+  $service_manage        = $stash::service_manage,
+  $service_ensure        = $stash::service_ensure,
+  $service_enable        = $stash::service_enable,
+  $service_file_location = $stash::params::service_file_location,
+  $service_file_template = $stash::params::service_file_template,
+  $service_lockfile      = $stash::params::service_lockfile,
 
-) inherits stash::params {
+) {
 
   validate_bool($service_manage)
 
