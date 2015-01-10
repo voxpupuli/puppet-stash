@@ -17,14 +17,25 @@ class stash::service  (
     mode    => '0755',
   }
 
-
   if $stash::service_manage {
+
     validate_string($service_ensure)
     validate_bool($service_enable)
+
+    if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '7' {
+      exec { 'refresh_systemd':
+        command     => 'systemctl daemon-reload',
+        refreshonly => true,
+        subscribe   => File[$service_file_location],
+        before      => Service['stash'],
+      }
+    }
+
     service { 'stash':
       ensure  => $service_ensure,
       enable  => $service_enable,
       require => File[$service_file_location],
     }
   }
+
 }
