@@ -97,7 +97,7 @@ case "$1" in
          log_failure_msg "$NAME is not running."
          return 1
        fi
-       status_of_proc -p $PIDFILE "" $NAME && exit 0 || exit $?
+       status_of_proc -p $PIDFILE "stash" $NAME && exit 0 || exit $?
        ;;
   restart|force-reload)
     #
