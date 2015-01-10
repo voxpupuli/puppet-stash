@@ -57,12 +57,13 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
       }
     EOS
     apply_manifest(pp, :catch_failures => true)
-    sleep 120
+    sleep 180
     shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
-    sleep 60
-    shell 'wget -q --tries=10 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
-    sleep 10
+    sleep 180
+    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
     apply_manifest(pp, :catch_changes => true)
+    sleep 10
+    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
   end
 
   it 'upgrades with defaults' do
@@ -85,10 +86,13 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
     EOS
     apply_manifest(pp_update, :catch_failures => true)
     sleep 180
-    shell 'wget -q --tries=10 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
+    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
     sleep 180
-    shell 'wget -q --tries=10 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
+    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
+    sleep 50
     apply_manifest(pp_update, :catch_changes => true)
+    sleep 10
+    shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
   end
 
   describe process("java") do
@@ -119,12 +123,11 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
     it { should have_login_shell '/bin/bash' }
   end
 
-  describe user('stash') do
-    it { should have_login_shell '/bin/bash' }
-  end
-
   describe command('curl http://localhost:7990/stash1/setup') do
     its(:stdout) { should match /This is the base URL of this installation of Stash/ }
   end
 
+#  describe command('sleep 10000') do
+#    its(:stdout) { should match /This is the base URL of this installation of Stash/ }
+#  end
 end
