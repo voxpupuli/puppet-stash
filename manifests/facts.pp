@@ -22,6 +22,8 @@ class stash::facts(
   $json_packages = $jira::params::json_packages,
 ) {
 
+  include stash::params
+
   # Puppet Enterprise supplies its own ruby version if your using it.
   # A modern ruby version is required to run the executable fact
   if $::puppetversion =~ /Puppet Enterprise/ {

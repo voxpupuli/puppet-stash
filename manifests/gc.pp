@@ -14,8 +14,7 @@
 # === Examples
 #
 # class { 'stash::gc': }
-
-
+#
 class stash::gc(
   $ensure  = 'present',
   $path    = '/usr/local/bin/git-gc.sh',
@@ -24,6 +23,8 @@ class stash::gc(
   $weekday = 'Sunday',
   $user    = $stash::user,
   ) {
+
+  include stash::params
 
   file { $path:
     ensure  => $ensure,
