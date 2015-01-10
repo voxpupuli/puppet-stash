@@ -2,7 +2,9 @@
 ###Summary
 - Add parameter context_path
 - Add RHEL/CentOS 7 support
+- Add Ubuntu 14.04 support
 - Update beaker tests
+- Only upgrade git on osfamily redhat version 6
 ##2014-11-15 - Release 1.1.2
 ###Summary
 - rename parameter manage_service to service_manage

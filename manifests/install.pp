@@ -20,34 +20,29 @@ class stash::install(
   $webappdir
   ) {
 
-  case $::osfamily {
-    'redhat': {
-      validate_bool($repoforge)
-      # If repoforge is not enabled by default, enable it
-      # but only allow git to be installed from it.
-      if ! defined(Class['repoforge']) and $repoforge {
-        class { 'repoforge':
-          enabled     => [ 'extras', ],
-          includepkgs => {
-            'extras' => 'git,perl-Git'
-          },
-          before      => Package['git']
-        } ~>
-        exec { "${stash::product}_clean_yum_metadata":
-          command     => '/usr/bin/yum clean metadata',
-          refreshonly => true
-        } ~>
-        # Git may already have been installed, so lets update it to a 
-        # supported version.
-        exec { "${stash::product}_upgrade_git":
-          command     => '/usr/bin/yum -y upgrade git',
-          onlyif      => '/bin/rpm -qa git',
-          refreshonly => true,
-        }
+  if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '6' {
+    validate_bool($repoforge)
+    # If repoforge is not enabled by default, enable it
+    # but only allow git to be installed from it.
+    if ! defined(Class['repoforge']) and $repoforge {
+      class { 'repoforge':
+        enabled     => [ 'extras', ],
+        includepkgs => {
+          'extras' => 'git,perl-Git'
+        },
+        before      => Package['git']
+      } ~>
+      exec { "${stash::product}_clean_yum_metadata":
+        command     => '/usr/bin/yum clean metadata',
+        refreshonly => true
+      } ~>
+      # Git may already have been installed, so lets update it to a 
+      # supported version.
+      exec { "${stash::product}_upgrade_git":
+        command     => '/usr/bin/yum -y upgrade git',
+        onlyif      => '/bin/rpm -qa git',
+        refreshonly => true,
       }
-    } 'debian': {
-    } default: {
-      fail("Class['stash::install']: Unsupported osfamily: ${::osfamily}")
     }
   }
 

@@ -59,6 +59,8 @@ class stash(
 
 ) {
 
+  include stash::params
+
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
   $webappdir    = "${installdir}/atlassian-${product}-${version}"

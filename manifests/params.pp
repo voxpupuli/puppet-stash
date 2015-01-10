@@ -20,7 +20,7 @@ class stash::params {
       $service_file_template   = 'stash/stash.initscript.redhat.erb'
       $service_lockfile        = '/var/lock/subsys/stash'
     } default: {
-   
+      fail("${::operatingsystem} ${::operatingsystemmajrelease} is not supported")
     }
   }
 }

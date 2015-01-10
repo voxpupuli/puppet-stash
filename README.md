@@ -262,8 +262,8 @@ Choose whether to use nanliu-staging, or mkrakowitzer-deploy. Defaults to 'stagi
 The puppetlabs repositories can be found at:
 http://yum.puppetlabs.com/ and http://apt.puppetlabs.com/
 
-* RedHat / CentOS 5/6
-* Ubuntu 12.04
+* RedHat / CentOS 5/6/7
+* Ubuntu 12.04 / 14.04
 * Debian 7
 
 We plan to support other Linux distributions and possibly Windows in the near future.

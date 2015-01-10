@@ -2,7 +2,6 @@ require 'rake'
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'rspec/core/rake_task'
 require 'puppet_blacksmith/rake_tasks'
-require 'pp'
 require 'puppet-lint/tasks/puppet-lint'
 
 LINT_IGNORES = ['rvm']
