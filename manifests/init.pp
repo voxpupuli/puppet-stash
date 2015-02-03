@@ -34,6 +34,14 @@ class stash(
   # Misc Settings
   $downloadURL  = 'http://www.atlassian.com/software/stash/downloads/binary/',
 
+  # Backup Settings
+  $backup_ensure       = 'present',
+  $backupclientURL     = 'https://maven.atlassian.com/content/repositories/atlassian-public/com/atlassian/stash/backup/stash-backup-distribution/',
+  $backupclientVersion = '1.6.0',
+  $backup_home         = '/opt/stash-backup',
+  $backupuser          = 'admin',
+  $backuppass          = 'password',
+
   # Manage service
   $service_manage = true,
   $service_ensure = running,
@@ -85,6 +93,8 @@ class stash(
   class { 'stash::config':
   } ~>
   class { 'stash::service':
+  } ->
+  class { 'stash::backup':
   } ->
   anchor { 'stash::end': }
 
