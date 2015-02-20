@@ -1,7 +1,7 @@
 language: ruby
 rvm:
   - 1.9.3
-script: "rake spec"
+script: "rake spec SPEC_OPTS='--format documentation'"
 env:
   - PUPPET_VERSION=3.4.2
 notifications:
