@@ -43,6 +43,7 @@ class stash(
   $proxy = {},
 
   # Git version
+  $git_manage  = true,
   $git_version = 'installed',
 
   # Enable repoforge by default for RHEL, stash requires a newer version of git
@@ -58,6 +59,8 @@ class stash(
   $staging_or_deploy = 'staging',
 
 ) {
+
+  validate_bool($git_manage)
 
   include stash::params
 
