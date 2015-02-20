@@ -1,3 +1,8 @@
+##2015-02-20 - Release 1.2.0
+###Summary
+- refacter params.pp for puppetlabs approved
+- remove if packaged defined block, module should be explicit about what it's managing.
+#
 ##2014-11-15 - Release 1.1.3
 ###Summary
 - Add parameter context_path

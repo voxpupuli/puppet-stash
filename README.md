@@ -245,8 +245,12 @@ Should puppet manage this service? Default: true
 Manage the stash service, defaults to 'running'
 #####`$service_enable`
 Defaults to 'true'
+#####`$stop_stash`
+If the stash service is managed outside of puppet the stop_stash paramater can be used to shut down stash for upgrades. Defaults to 'service stash stop && sleep 15'
 #####`proxy`
 Reverse https proxy configuration. See examples for more detail. Default: {}
+#####`git_manage`
+Should stash manage the git package. Can be 'true' or 'false', defaults to true.
 #####`git_version`
 The version of git to install. Default: 'installed'
 #####`repoforge`
