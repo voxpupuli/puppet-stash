@@ -2,7 +2,7 @@ node default {
   class { 'nginx': } ->
   class { 'postgresql::globals':
     manage_package_repo => true,
-    version => '9.3',
+    version             => '9.3',
   }->
   class { 'postgresql::server': } ->
   deploy::file { 'jdk-7u71-linux-x64.tar.gz':
@@ -13,10 +13,10 @@ node default {
     strip           => true,
   } ->
   class { 'stash':
-    version => '3.6.0',
+    version  => '3.6.0',
     javahome => '/opt/java',
-    proxy => {
-      scheme => 'http',
+    proxy    => {
+      scheme    => 'http',
       proxyName => $::ipaddress_eth1,
       proxyPort => '80',
     },
@@ -25,28 +25,28 @@ node default {
   class { 'stash::facts': }
   nginx::resource::vhost { 'all':
     server_name => [ 'localhost', '127.0.0.1' ],
-    www_root => '/vagrant/files',
+    www_root    => '/vagrant/files',
   }
   nginx::resource::upstream { 'stash':
-    ensure => present,
+    ensure  => present,
     members => [ 'localhost:7990' ],
   }
-  nginx::resource::vhost { '192.168.33.10':
-    ensure => present,
-    server_name => [ $::ipaddress_eth1, $::fqdn, $hostname ],
-    listen_port => '80',
-    proxy => 'http://stash',
-    proxy_read_timeout => '300',
+  nginx::resource::vhost { $::ipaddress_eth1:
+    ensure               => present,
+    server_name          => [ $::ipaddress_eth1, $::fqdn, $hostname ],
+    listen_port          => '80',
+    proxy                => 'http://stash',
+    proxy_read_timeout   => '300',
     location_cfg_prepend => {
-      'proxy_set_header X-Forwarded-Host' => '$host',
+      'proxy_set_header X-Forwarded-Host'   => '$host',
       'proxy_set_header X-Forwarded-Server' => '$host',
-      'proxy_set_header X-Forwarded-For' => '$proxy_add_x_forwarded_for',
-      'proxy_set_header Host' => '$host',
-      'proxy_redirect' => 'off',
+      'proxy_set_header X-Forwarded-For'    => '$proxy_add_x_forwarded_for',
+      'proxy_set_header Host'               => '$host',
+      'proxy_redirect'                      => 'off',
     }
   }
   postgresql::server::db { 'stash':
-    user => 'stash',
+    user     => 'stash',
     password => postgresql_password('stash', 'password'),
   }
 }
