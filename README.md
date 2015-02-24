@@ -69,7 +69,20 @@ Enable external facts for stash version.
 ```puppet
   class { 'stash::facts': }
 ```
-A complete example with postgres/nginx/stash is available [here](https://github.com/mkrakowitzer/vagrant-puppet-stash/blob/master/manifests/site.pp).
+Enable a stash backup
+```puppet
+  class { 'stash':
+    backup_ensure       => present,
+    backupclientVersion => '1.6.0',
+    backup_home         => '/opt/stash-backup',
+    backupuser          => 'admin',
+    backuppass          => 'password',
+  }
+
+  class { 'stash::backup': }
+```
+
+A complete example with postgres/nginx/stash is available [here](https://github.com/mkrakowitzer/vagrant-puppet-stash/blob/master/manifests/site.pp) or in the examples directory.
 <a name="upgrades">
 #####Upgrades
 
@@ -177,6 +190,7 @@ stash::stash_stop: '/usr/sbin crm resource stop stash'
 * `stash`: Main class, manages the installation and configuration of Stash.
 * `stash::facts`: Enable external facts for running instance of Stash. This class is required to handle upgrades of Stash. As it is an external fact, we chose not to enable it by default.
 * `stash::gc`: Schedule a weekly git garbage collect for all repositories
+* `stash::backup`: Schedule a backup of stash
 
 ####Private Classes
 
@@ -234,7 +248,10 @@ Default: ''
 Default: ''
 
 ####Tomcat parameters####
-None yet.
+
+#####`proxy`
+Reverse https proxy configuration. See examples for more detail. Default: {}
+
 ####Miscellaneous  parameters####
 
 #####`downloadURL`
@@ -247,8 +264,6 @@ Manage the stash service, defaults to 'running'
 Defaults to 'true'
 #####`$stop_stash`
 If the stash service is managed outside of puppet the stop_stash paramater can be used to shut down stash for upgrades. Defaults to 'service stash stop && sleep 15'
-#####`proxy`
-Reverse https proxy configuration. See examples for more detail. Default: {}
 #####`git_manage`
 Should stash manage the git package. Can be 'true' or 'false', defaults to true.
 #####`git_version`
@@ -258,6 +273,18 @@ Enable the repoforge yum repository by default for RHEL as stash requires a newe
 By default we will upgrade git to a supported version if it is already installed and the repoforge repository was not enabled. Default: true
 #####`$staging_or_deploy`
 Choose whether to use nanliu-staging, or mkrakowitzer-deploy. Defaults to 'staging' to use nanliu-staging as it is puppetlabs approved. Alternative option is 'deploy' to use mkrakowitzer-deploy.
+
+####Backup parameters####
+#####`backup_ensure`
+Enable or disable the backup cron job. Defaults to present.
+#####`backupclientVersion`
+The version of the backup client to install. Defaults to '1.6.0'
+#####`backup_home`
+Home directory to use for backups. Backups are created here under /archive. Defaults to '/opt/stash-backup'.
+#####`backupuser          => 'admin',
+The username to use to initiate the stash backup.
+#####`backuppass          => 'password',
+The password to use to initiate the stash backup.
 
 ##Limitations
 * Puppet 3.4+
