@@ -281,10 +281,10 @@ Enable or disable the backup cron job. Defaults to present.
 The version of the backup client to install. Defaults to '1.6.0'
 #####`backup_home`
 Home directory to use for backups. Backups are created here under /archive. Defaults to '/opt/stash-backup'.
-#####`backupuser          => 'admin',
-The username to use to initiate the stash backup.
-#####`backuppass          => 'password',
-The password to use to initiate the stash backup.
+#####`backupuser`
+The username to use to initiate the stash backup. Defaults to 'admin'
+#####`backuppass`
+The password to use to initiate the stash backup. Defaults to 'password'
 
 ##Limitations
 * Puppet 3.4+
