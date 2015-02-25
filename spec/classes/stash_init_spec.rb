@@ -1,6 +1,6 @@
 require 'spec_helper.rb'
 
-describe 'stash' do
+describe 'stash', :type => :class do
   context 'prepare for upgrade of stash' do
     let(:params) {{ :version => '3.3.3' }}
     let(:facts) {{ :stash_version => "2.10.1" }}

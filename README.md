@@ -78,8 +78,6 @@ Enable a stash backup
     backupuser          => 'admin',
     backuppass          => 'password',
   }
-
-  class { 'stash::backup': }
 ```
 
 A complete example with postgres/nginx/stash is available [here](https://github.com/mkrakowitzer/vagrant-puppet-stash/blob/master/manifests/site.pp) or in the examples directory.

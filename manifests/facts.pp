@@ -20,7 +20,7 @@ class stash::facts(
   $uri           = '127.0.0.1',
   $context_path  = $stash::context_path,
   $json_packages = $stash::params::json_packages,
-) {
+) inherits stash {
 
   # Puppet Enterprise supplies its own ruby version if your using it.
   # A modern ruby version is required to run the executable fact

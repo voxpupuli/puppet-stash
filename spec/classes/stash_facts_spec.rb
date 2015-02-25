@@ -1,38 +1,36 @@
 require 'spec_helper.rb'
-describe 'stash' do
-  describe 'stash::facts' do
-    regexp_pe = /^#\!\/opt\/puppet\/bin\/ruby$/
-    regexp_oss = /^#\!\/usr\/bin\/env ruby$/
-    pe_external_fact_file = '/etc/puppetlabs/facter/facts.d/stash_facts.rb'
-    external_fact_file = '/etc/facter/facts.d/stash_facts.rb'
+describe 'stash::facts', :type => :class  do
+  regexp_pe = /^#\!\/opt\/puppet\/bin\/ruby$/
+  regexp_oss = /^#\!\/usr\/bin\/env ruby$/
+  pe_external_fact_file = '/etc/puppetlabs/facter/facts.d/stash_facts.rb'
+  external_fact_file = '/etc/facter/facts.d/stash_facts.rb'
 
-    it { should contain_file(external_fact_file) }
+  it { should contain_file(external_fact_file) }
 
-    # Test puppet enterprise shebang generated correctly
-    context 'with puppet enterprise' do
-      let(:facts) { {:puppetversion => "3.4.3 (Puppet Enterprise 3.2.1)"} }
-      it do
-        should contain_file(pe_external_fact_file) \
-          .with_content(regexp_pe)
-      end
+  # Test puppet enterprise shebang generated correctly
+  context 'with puppet enterprise' do
+    let(:facts) { {:puppetversion => "3.4.3 (Puppet Enterprise 3.2.1)"} }
+    it do
+      should contain_file(pe_external_fact_file) \
+        .with_content(regexp_pe)
     end
-    # Test puppet oss shebang generated correctly
-    context 'with puppet oss' do
-      let(:facts) { {:puppetversion => "all other versions"} }
-      it do
-        should contain_file(external_fact_file) \
-          .with_content(regexp_oss)
-          .with_content(/7990\/rest\/api\//)
-      end
+  end
+  # Test puppet oss shebang generated correctly
+  context 'with puppet oss' do
+    let(:facts) { {:puppetversion => "all other versions"} }
+    it do
+      should contain_file(external_fact_file) \
+        .with_content(regexp_oss)
+        .with_content(/7990\/rest\/api\//)
     end
-    context 'with context' do
-      let(:params) {{
-        :context_path => '/stash',
-      }}
-      it do
-        should contain_file(external_fact_file) \
-          .with_content(/7990\/stash\/rest\/api\//)
-      end
+  end
+  context 'with context' do
+    let(:params) {{
+      :context_path => '/stash',
+    }}
+    it do
+      should contain_file(external_fact_file) \
+        .with_content(/7990\/stash\/rest\/api\//)
     end
   end
 end
