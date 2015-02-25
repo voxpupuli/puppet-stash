@@ -1,7 +1,12 @@
-##2015-02-20 - Release 1.2.0
+##2015-02-24 - Release 1.2.0
 ###Summary
 - refacter params.pp for puppetlabs approved
-- remove if packaged defined block, module should be explicit about what it's managing.
+- remove if packaged defined block, module should be explicit about what it is managing.
+- Bump default stash version
+- Add examples to examples directory
+- Add class to backup stash
+  - Thanks to Tim Hartmann +1
+
 #
 ##2014-11-15 - Release 1.1.3
 ###Summary
