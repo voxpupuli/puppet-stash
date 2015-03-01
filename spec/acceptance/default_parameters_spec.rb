@@ -31,11 +31,15 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
           allow_virtual => $allow_virtual_packages,
         }
       }
-     class { 'postgresql::globals':
+      class { 'postgresql::globals':
         manage_package_repo => true,
         version             => '9.3',
       }->
       class { 'postgresql::server': } ->
+      postgresql::server::db { 'stash':
+        user     => 'stash',
+        password => postgresql_password('stash', 'password'),
+      } ->
       deploy::file { 'jdk-7u71-linux-x64.tar.gz':
         target          => '/opt/java',
         fetch_options   => '-q -c --header "Cookie: oraclelicense=accept-securebackup-cookie"',
@@ -51,18 +55,14 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
       }
       class { 'stash::gc': }
       class { 'stash::facts': }
-      postgresql::server::db { 'stash':
-        user     => 'stash',
-        password => postgresql_password('stash', 'password'),
-      }
-    EOS
+   EOS
     apply_manifest(pp, :catch_failures => true)
     sleep 180
     shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
     sleep 180
     shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
     apply_manifest(pp, :catch_changes => true)
-    sleep 10
+    sleep 180
     shell 'wget -q --tries=180 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
   end
 
