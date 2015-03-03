@@ -11,7 +11,7 @@ describe 'stash::install' do
 
         context 'install stash with deploy module' do
           let(:params) {{
-            :version => '3.6.1',
+            :version => '3.7.0',
             :staging_or_deploy => 'deploy',
           }}
           it 'should install, but not upgrade, git' do
@@ -19,8 +19,8 @@ describe 'stash::install' do
           end
           it { should contain_group('stash') }
           it { should contain_user('stash').with_shell('/bin/bash') }
-          it 'should deploy stash 3.6.1 from tar.gz' do
-            should contain_deploy__file("atlassian-stash-3.6.1.tar.gz")
+          it 'should deploy stash 3.7.0 from tar.gz' do
+            should contain_deploy__file("atlassian-stash-3.7.0.tar.gz")
           end
           it 'should manage the stash home directory' do
             should contain_file('/home/stash').with({
@@ -33,7 +33,7 @@ describe 'stash::install' do
 
         context 'overwriting params' do
           let(:params) {{
-            :version => '3.6.1',
+            :version => '3.7.0',
             :product => 'stash',
             :format => 'tar.gz',
             :installdir => '/opt/stash',
@@ -54,8 +54,8 @@ describe 'stash::install' do
             })
           end
           it { should contain_group('bar') }
-          it 'should deploy stash 3.6.1 from tar.gz' do
-            should contain_deploy__file("atlassian-stash-3.6.1.tar.gz").with({
+          it 'should deploy stash 3.7.0 from tar.gz' do
+            should contain_deploy__file("atlassian-stash-3.7.0.tar.gz").with({
               'url' => 'http://downloads.atlassian.com/',
               'owner' => 'foo',
               'group' => 'bar'
@@ -72,7 +72,7 @@ describe 'stash::install' do
 
         context 'specify git version' do
           let(:params) {{
-            :version => '3.6.1',
+            :version => '3.7.0',
             :git_version => '1.7.12',
             :staging_or_deploy => 'deploy',
             }}
@@ -82,8 +82,8 @@ describe 'stash::install' do
           end
           it { should contain_group('stash') }
           it { should contain_user('stash').with_shell('/bin/bash') }
-          it 'should deploy stash 3.6.1 from tar.gz' do
-            should contain_deploy__file("atlassian-stash-3.6.1.tar.gz")
+          it 'should deploy stash 3.7.0 from tar.gz' do
+            should contain_deploy__file("atlassian-stash-3.7.0.tar.gz")
           end
           it 'should manage the stash home directory' do
             should contain_file('/home/stash').with({

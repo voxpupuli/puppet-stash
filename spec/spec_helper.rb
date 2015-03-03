@@ -11,7 +11,7 @@ end
 
 RSpec.configure do |c|
   c.default_facts = {
-    :stash_version    => '3.6.1',
+    :stash_version    => '3.7.0',
     :staging_http_get => 'curl',
     :os_maj_version   => '6',
     :puppetversion    => '3.7.4',
