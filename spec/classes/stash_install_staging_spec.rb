@@ -16,9 +16,9 @@ describe 'stash::install' do
             should contain_package('git').with_ensure('installed')
           end
           it { should contain_group('stash') }
-          it { should contain_user('stash').with_shell('/bin/bash') }
+          it { should contain_user('stash').with_shell('/bin/true') }
           it 'should deploy stash from tar.gz' do
-	    str = "atlassian-stash-3.7.0.tar.gz"
+	          str = "atlassian-stash-3.7.0.tar.gz"
             should contain_staging__file(str).with({
               'source' => 'http://www.atlassian.com/software/stash/downloads/binary//atlassian-stash-3.7.0.tar.gz',
               })
@@ -43,17 +43,18 @@ describe 'stash::install' do
             :group       => 'bar',
             :uid         => 333,
             :gid         => 444,
+            :shell       => '/bin/bash',
             :downloadURL => 'http://downloads.atlassian.com/',
             :git_version => 'installed',
           }}
           it do
-	    should contain_user('foo').with({
+            should contain_user('foo').with({
               'home'  => '/random/homedir',
               'shell' => '/bin/bash',
               'uid'   => 333,
               'gid'   => 444
              })
-	  end
+          end
           it { should contain_group('bar') }
           it 'should deploy stash 3.7.0 from tar.gz' do
             should contain_staging__file("atlassian-stash-3.7.0.tar.gz").with({
@@ -79,7 +80,7 @@ describe 'stash::install' do
             should contain_package('git').with_ensure('1.7.12')
           end
           it { should contain_group('stash') }
-          it { should contain_user('stash').with_shell('/bin/bash') }
+          it { should contain_user('stash').with_shell('/bin/true') }
           it 'should deploy stash from tar.gz' do
             should contain_deploy__file("atlassian-stash-3.7.0.tar.gz")
           end

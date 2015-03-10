@@ -23,6 +23,7 @@ class stash(
   $group        = 'stash',
   $uid          = undef,
   $gid          = undef,
+  $shell        = '/bin/true',
   $context_path = '',
 
   # Database Settings

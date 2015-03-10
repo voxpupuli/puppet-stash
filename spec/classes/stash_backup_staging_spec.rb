@@ -11,7 +11,7 @@ describe 'stash::backup' do
 
         context 'install stash backup client  with staging module' do
           it { should contain_group('stash') }
-          it { should contain_user('stash').with_shell('/bin/bash') }
+          it { should contain_user('stash').with_shell('/bin/true') }
           it 'should deploy stash backup client 1.6.0 from tar.gz' do
             should contain_staging__file("stash-backup-distribution-1.6.0.tar.gz")
           end
