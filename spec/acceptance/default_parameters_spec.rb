@@ -120,7 +120,7 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   end
 
   describe user('stash') do
-    it { should have_login_shell '/bin/bash' }
+    it { should have_login_shell '/bin/true' }
   end
 
   describe command('curl http://localhost:7990/stash1/setup') do

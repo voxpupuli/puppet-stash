@@ -18,7 +18,7 @@ describe 'stash::install' do
             should contain_package('git').with_ensure('installed')
           end
           it { should contain_group('stash') }
-          it { should contain_user('stash').with_shell('/bin/bash') }
+          it { should contain_user('stash').with_shell('/bin/true') }
           it 'should deploy stash 3.6.1 from tar.gz' do
             should contain_deploy__file("atlassian-stash-3.6.1.tar.gz")
           end
@@ -42,6 +42,7 @@ describe 'stash::install' do
             :group => 'bar',
             :uid   => 333,
             :gid   => 444,
+            :shell => '/bin/bash',
             :downloadURL => 'http://downloads.atlassian.com/',
             :git_version => 'installed',
             :staging_or_deploy => 'deploy',
@@ -81,7 +82,7 @@ describe 'stash::install' do
             should contain_package('git').with_ensure('1.7.12')
           end
           it { should contain_group('stash') }
-          it { should contain_user('stash').with_shell('/bin/bash') }
+          it { should contain_user('stash').with_shell('/bin/true') }
           it 'should deploy stash 3.6.1 from tar.gz' do
             should contain_deploy__file("atlassian-stash-3.6.1.tar.gz")
           end

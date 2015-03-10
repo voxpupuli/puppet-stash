@@ -12,6 +12,7 @@ class stash::install(
   $group       = $stash::group,
   $uid         = $stash::uid,
   $gid         = $stash::gid,
+  $shell       = $stash::shell,
   $git_version = $stash::git_version,
   $repoforge   = $stash::repoforge,
   $downloadURL = $stash::downloadURL,
@@ -59,7 +60,7 @@ class stash::install(
 
   user { $user:
     comment          => 'Stash daemon account',
-    shell            => '/bin/bash',
+    shell            => $shell,
     home             => $homedir,
     password         => '*',
     password_min_age => '0',
