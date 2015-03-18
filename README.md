@@ -19,6 +19,8 @@ Status](https://travis-ci.org/mkrakowitzer/puppet-stash.svg)](https://travis-ci.
 
 ##Overview
 
+:warning: This is the final release of this module before it is deprecated with a 999.999.999 version. This module will be moving the the puppet-community namespace on github and the puppet namespace on puppetforge soon.
+
 This is a puppet module to install Atlassian Stash. On-premises source code management for Git that's secure, fast, and enterprise grade.
 
 ##Module Description

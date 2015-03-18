@@ -1,3 +1,13 @@
+##2015-02-24 - Release 1.2.1
+###Summary
+
+Note: This is the final release of this module before it is deprecated with a 999.999.999 version. This module will be moving the the puppet-community namespace on github and the puppet namespace on puppetforge soon.
+
+- Bump stash to the version  (3.7.0)
+- Refactor spec tests to make use of rspec-puppet-facts gem
+- Add sudo: false to travis file.
+- fix issue where git gc scripts has incorrect repo path for version 3.2+
+
 ##2015-02-24 - Release 1.2.0
 ###Summary
 - refacter params.pp for puppetlabs approved
