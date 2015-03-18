@@ -22,9 +22,16 @@ class stash::gc(
   $hour    = 0,
   $weekday = 'Sunday',
   $user    = $stash::user,
+  $homedir = $stash::homedir,
   ) {
 
   include stash::params
+
+  if versioncmp($::stash_version, '3.2') < 0 {
+    $shared = ''
+  } else {
+    $shared = '/shared'
+  }
 
   file { $path:
     ensure  => $ensure,
