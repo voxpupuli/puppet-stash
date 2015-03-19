@@ -23,10 +23,6 @@ node default {
   }
   class { 'stash::gc': }
   class { 'stash::facts': }
-  nginx::resource::vhost { 'all':
-    server_name => [ 'localhost', '127.0.0.1' ],
-    www_root    => '/vagrant/files',
-  }
   nginx::resource::upstream { 'stash':
     ensure  => present,
     members => [ 'localhost:7990' ],
