@@ -1,12 +1,12 @@
 {
-  "name": "mkrakowitzer-stash",
-  "version": "1.2.1",
-  "author": "mkrakowitzer",
+  "name": "puppet-stash",
+  "version": "1.2.2",
+  "author": "puppetcommunity",
   "summary": "Install Atlassian stash",
   "license": "MIT",
-  "source": "https://github.com/mkrakowitzer/puppet-stash.git",
-  "project_page": "https://github.com/mkrakowitzer/puppet-stash",
-  "issues_url": "https://github.com/mkrakowitzer/puppet-stash/issues",
+  "source": "https://github.com/puppet-community/puppet-stash.git",
+  "project_page": "https://github.com/puppet-community/puppet-stash",
+  "issues_url": "https://github.com/puppet-community/puppet-stash/issues",
   "description": "Module to install Atlassian Stash. On-premises source code management for Git that's secure, fast, and enterprise grade.",
   "operatingsystem_support": [
     {
