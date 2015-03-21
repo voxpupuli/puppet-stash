@@ -19,3 +19,5 @@ env:
 notifications:
   email:
     - merritt@krakowitzer.com
+deploy:
+  secure: "HJzcyYqTo3Wrg7Jye1c+BLLv3P2JbXIePIFt0hd25fnlxyjMl2FIWjqwxJ0LO6mFSXU/PxEkfrqjyhzRodtMS5x9Ut90hWV3gSFDWSXBVssVrCSZgQMksXa+tQhk6ieWy3t0sdJmuuALr2v+SrDG2UybTggfKfNdM2k277rdR7w="
