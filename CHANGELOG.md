@@ -1,3 +1,8 @@
+##2015-02-24 - Release 1.2.2
+###Summary
+
+- Update metadata, README, CHANGELOG to point to new namespace.
+
 ##2015-02-24 - Release 1.2.1
 ###Summary
 

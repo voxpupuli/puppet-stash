@@ -1,6 +1,7 @@
 #puppet-stash
-[![Build
-Status](https://travis-ci.org/mkrakowitzer/puppet-stash.svg)](https://travis-ci.org/mkrakowitzer/puppet-stash)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/stash.svg)](https://forge.puppetlabs.com/puppet/stash)
+[![Build Status](https://travis-ci.org/puppet-community/puppet-stash.svg?branch=master)](https://travis-ci.org/puppet-community/puppet-stash)
+
 ####Table of Contents
 
 1. [Overview](#overview)
@@ -18,8 +19,6 @@ Status](https://travis-ci.org/mkrakowitzer/puppet-stash.svg)](https://travis-ci.
 9. [Contributors](#contributors)
 
 ##Overview
-
-:warning: This is the final release of this module before it is deprecated with a 999.999.999 version. This module will be moving the the puppet-community namespace on github and the puppet namespace on puppetforge soon.
 
 This is a puppet module to install Atlassian Stash. On-premises source code management for Git that's secure, fast, and enterprise grade.
 
