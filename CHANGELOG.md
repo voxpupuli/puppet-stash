@@ -1,3 +1,8 @@
+##2015-XX-XX - Release 1.X.X
+###Summary
+
+- Issue #58, Do not hard code java path in backup class.
+
 ##2015-02-24 - Release 1.2.2
 ###Summary
 

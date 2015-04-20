@@ -16,6 +16,7 @@ class stash::backup(
   $downloadURL          = $stash::backupclientURL,
   $s_or_d               = $stash::staging_or_deploy,
   $backup_home          = $stash::backup_home,
+  $javahome             = $stash::javahome,
   ) {
 
   $appdir = "${backup_home}/${product}-backup-client-${version}"
@@ -74,8 +75,15 @@ class stash::backup(
       fail('staging_or_deploy parameter must equal "staging" or "deploy"')
     }
   }
+
+  if $javahome {
+    $java_bin = "${javahome}/bin/java"
+  } else {
+    $java_bin = '/usr/bin/java'
+  }
+
   # Enable Cronjob
-  $backup_cmd = "/usr/bin/java -Dstash.password=\"${backuppass}\" -Dstash.user=\"${backupuser}\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=${homedir} -Dbackup.home=${backup_home}/archives -jar ${appdir}/stash-backup-client.jar"
+  $backup_cmd = "${java_bin} -Dstash.password=\"${backuppass}\" -Dstash.user=\"${backupuser}\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=${homedir} -Dbackup.home=${backup_home}/archives -jar ${appdir}/stash-backup-client.jar"
 
   cron { 'Backup Stash':
     ensure  => $ensure,
