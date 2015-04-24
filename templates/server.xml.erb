@@ -68,7 +68,7 @@
              If you change this port, you have to update scripts.cfg as well
              to have the same port configuration.
         -->
-        <Connector port="7990" protocol="HTTP/1.1"
+        <Connector port="<%= @tomcat_port %>" protocol="HTTP/1.1"
                    connectionTimeout="20000"
                    useBodyEncodingForURI="true"
                    redirectPort="8443"

@@ -96,6 +96,17 @@ describe 'stash::config' do
               .with_content(/path="\/stash"/)
           end
         end
+
+        context 'tomcat_port => "7991"' do
+          let(:params) {{
+            :version      => '3.7.0',
+            :tomcat_port => '7991',
+          }}
+          it do
+            should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml')
+              .with_content(/<Connector port="7991"/)
+          end
+        end
       end
     end
   end

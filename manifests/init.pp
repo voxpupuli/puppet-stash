@@ -24,6 +24,7 @@ class stash(
   $uid          = undef,
   $gid          = undef,
   $context_path = '',
+  $tomcat_port  = 7990,
 
   # Database Settings
   $dbuser       = 'stash',
@@ -57,8 +58,8 @@ class stash(
   # Enable repoforge by default for RHEL, stash requires a newer version of git
   $repoforge   = true,
 
-  # Command to stop stash in preparation to updgrade. # This is configurable 
-  # incase the stash service is managed outside of puppet. eg: using the 
+  # Command to stop stash in preparation to updgrade. # This is configurable
+  # incase the stash service is managed outside of puppet. eg: using the
   # puppetlabs-corosync module: 'crm resource stop stash && sleep 15'
   $stop_stash = 'service stash stop && sleep 15',
 
