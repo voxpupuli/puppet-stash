@@ -2,6 +2,7 @@
 ###Summary
 
 - Issue #58, Do not hard code java path in backup class.
+- Issue #61, stash backup should be able to cleanup old archives.
 
 ##2015-02-24 - Release 1.2.2
 ###Summary

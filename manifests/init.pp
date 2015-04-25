@@ -41,6 +41,7 @@ class stash(
   $backup_home         = '/opt/stash-backup',
   $backupuser          = 'admin',
   $backuppass          = 'password',
+  $backup_keep_age     = '4w',
 
   # Manage service
   $service_manage = true,
