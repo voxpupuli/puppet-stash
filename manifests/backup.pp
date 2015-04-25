@@ -17,6 +17,7 @@ class stash::backup(
   $s_or_d               = $stash::staging_or_deploy,
   $backup_home          = $stash::backup_home,
   $javahome             = $stash::javahome,
+  $keep_age             = $stash::backup_keep_age,
   ) {
 
   $appdir = "${backup_home}/${product}-backup-client-${version}"
@@ -92,4 +93,13 @@ class stash::backup(
     hour    => 5,
     minute  => 0,
   }
+
+  tidy { 'remove_old_archives': 
+    path    => "${backup_home}/archives",
+    age     => $keep_age,
+    matches => "*.tar",
+    type    => 'mtime',
+    recurse => 1,
+  }
+
 }

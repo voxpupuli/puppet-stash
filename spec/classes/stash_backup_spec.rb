@@ -47,6 +47,15 @@ describe 'stash::backup' do
               'minute'  => '0',
             })
           end
+          it 'should remove old archives' do
+            should contain_tidy('remove_old_archives').with({
+              'path'    => '/opt/stash-backup/archives',
+              'age'     => '4w',
+              'matches' => '*.tar',
+              'type'    => 'mtime',
+              'recurse' => 1,
+            })
+          end
         end
 
         context 'install stash backup client with deploy module' do
@@ -119,6 +128,19 @@ describe 'stash::backup' do
             should contain_class('stash').with_backupuser('myuser').with_backuppass('mypass')
             should contain_cron('Backup Stash').with({
               'command' => '/usr/bin/java -Dstash.password="mypass" -Dstash.user="myuser" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-1.6.0/stash-backup-client.jar',
+            })
+          end
+        end
+
+        context 'should remove old archives' do
+          let(:params) {{
+            :backup_keep_age => '1y',
+            :backup_home     => '/my/backup',
+          }}
+          it do
+            should contain_tidy('remove_old_archives').with({
+              'path'=> '/my/backup/archives',
+              'age' => '1y',
             })
           end
         end

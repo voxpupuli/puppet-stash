@@ -78,6 +78,7 @@ Enable a stash backup
     backup_home         => '/opt/stash-backup',
     backupuser          => 'admin',
     backuppass          => 'password',
+    backup_keep_age     => '3d',
   }
 ```
 
@@ -287,6 +288,8 @@ Home directory to use for backups. Backups are created here under /archive. Defa
 The username to use to initiate the stash backup. Defaults to 'admin'
 #####`backuppass`
 The password to use to initiate the stash backup. Defaults to 'password'
+#####`backup_keep_age`
+How long to keep the backup archives for. You can choose seconds, minutes, hours, days, or weeks by specifying the first letter of any of those words (e.g., ‘1w’). Specifying 0 will remove all files.
 
 ##Limitations
 * Puppet 3.4+
