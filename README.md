@@ -24,7 +24,7 @@ This is a puppet module to install Atlassian Stash. On-premises source code mana
 
 ##Module Description
 
-This module installs/upgrades Atlassian's Enterprise source code management tool. The Stash module also manages the stash configuration files with Puppet. 
+This module installs/upgrades Atlassian's Enterprise source code management tool. The Stash module also manages the stash configuration files with Puppet.
 
 ##Setup
 <a name="Stash-prerequisites">
@@ -43,7 +43,7 @@ You must have your database setup with the account user that Stash will use. Thi
 When using this module to upgrade Stash, please make sure you have a database/Stash home backup. We plan to include a class for backing up the stash home directory in a future release.
 
 As RHEL 6 and its derivatives do not include a version of git that will work by default with stash. We enable the repoforge module as a default if it is not already enabled. Whilst this is not best practice, it is better than the module not working for inexperienced users. By default we will upgrade git if it is already installed and the repoforge repository is not enabled. Default: true. You can turn all this functionality off with 'repoforge => false' and manage git outside of the module.
-	
+
 ###Beginning with Stash
 This puppet module will automatically download the Stash tar.gz from Atlassian and extracts it into /opt/stash/atlassian-stash-$version. The default Stash home is /home/stash.
 
@@ -142,12 +142,13 @@ This is especially useful for setting properties such as HTTP/https proxy settin
       proxyPort    => '443',
     },
     staging_or_deploy => 'deploy',
+    tomcat_port    => '7991'
   }
   class { 'stash::facts': }
   class { 'stash::gc': }
 ```
 
-### A Hiera example 
+### A Hiera example
 
 This example is used in production for 500 users in an traditional enterprise environment. Your mileage may vary. The dbpassword can be stored using eyaml hiera extension.
 
@@ -221,6 +222,8 @@ Specify a gid of the stash user: Default: undef
 #####`context_path`
 Specify context path, defaults to ''.
 If modified, Once Stash has started, go to the administration area and click Server Settings (under 'Settings'). Append the new context path to your base URL.
+#####`tomcat_port`
+Specify the port that you wish to run tomcat under, defaults to 7990
 
 ####database parameters####
 
