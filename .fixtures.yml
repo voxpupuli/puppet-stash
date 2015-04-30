@@ -4,5 +4,6 @@ fixtures:
   repositories:
     deploy: "http://github.com/mkrakowitzer/puppet-deploy"
     stdlib: "http://github.com/puppetlabs/puppetlabs-stdlib.git"
+    inifile: "http://github.com/puppetlabs/puppetlabs-inifile.git"
     repoforge: "http://github.com/Mylezeem/puppet-repoforge.git"
     staging: "http://github.com/nanliu/puppet-staging"

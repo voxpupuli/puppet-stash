@@ -14,6 +14,7 @@ describe 'stash::config' do
             {
               :javahome  => '/opt/java',
               :version   => '3.7.0',
+              :tomcat_port => '7990',
            }
           end
           it do
@@ -30,9 +31,9 @@ describe 'stash::config' do
             should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml')
               .with_content(/<Connector port="7990"/)
               .with_content(/path=""/)
-              .without_content(/proxyName/) 
-              .without_content(/proxyPort/) 
-              .without_content(/scheme/) 
+              .without_content(/proxyName/)
+              .without_content(/proxyPort/)
+              .without_content(/scheme/)
           end
 
           it do
@@ -41,6 +42,12 @@ describe 'stash::config' do
               .with_content(/jdbc\.url=jdbc:postgresql:\/\/localhost:5432\/stash/)
               .with_content(/jdbc\.user=stash/)
               .with_content(/jdbc\.password=password/)
+          end
+
+          it do
+            should contain_ini_setting('stash_httpport').with({
+              'value' => '7990',
+            })
           end
         end
 
@@ -136,6 +143,12 @@ describe 'stash::config' do
           it do
             should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml')
               .with_content(/<Connector port="7991"/)
+          end
+
+          it do
+            should contain_ini_setting('stash_httpport').with({
+              'value' => '7991',
+            })
           end
         end
       end
