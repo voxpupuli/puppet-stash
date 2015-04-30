@@ -61,6 +61,18 @@ describe 'stash::config' do
           end
         end
 
+        context 'stash 3.8.0' do
+          let(:params) do
+            {
+              :version   => '3.8.0',
+           }
+          end
+          it do
+            should_not contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml')
+            should contain_file('/home/stash/shared/server.xml')
+          end
+        end
+
         context 'jvm_xms => 1G' do
           let(:params) {{
             :version => '3.7.0',
