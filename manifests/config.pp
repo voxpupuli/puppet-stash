@@ -54,6 +54,16 @@ class stash::config(
     notify  => Class['stash::service'],
   } ->
 
+  ini_setting { 'stash_httpport':
+    ensure  => present,
+    path    => "${stash::webappdir}/conf/scripts.cfg",
+    section => '',
+    setting => 'stash_httpport',
+    value   => $tomcat_port,
+    require => Class['stash::install'],
+    before  => Class['stash::service'],
+  } ->
+
   file { "${stash::homedir}/${moved}stash-config.properties":
     content => template('stash/stash-config.properties.erb'),
     mode    => '0750',
