@@ -30,6 +30,12 @@ class stash::config(
     group => $stash::group,
   }
 
+  if versioncmp($version, '3.8.0') >= 0 {
+    $server_xml = "${stash::homedir}/shared/server.xml"
+  } else {
+    $server_xml = "${stash::webappdir}/conf/server.xml"
+  }
+
   file { "${stash::webappdir}/bin/setenv.sh":
     content => template('stash/setenv.sh.erb'),
     mode    => '0750',
@@ -47,7 +53,7 @@ class stash::config(
     ],
   }->
 
-  file { "${stash::webappdir}/conf/server.xml":
+  file { $server_xml:
     content => template('stash/server.xml.erb'),
     mode    => '0640',
     require => Class['stash::install'],
