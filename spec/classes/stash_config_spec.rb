@@ -51,6 +51,24 @@ describe 'stash::config' do
           end
         end
 
+        context 'stash 3.8.1' do
+          let(:params) do
+            {
+              :version   => '3.8.1',
+            }
+          end
+
+          it do
+            should contain_file('/home/stash/shared/stash-config.properties')
+              .with_content(/setup\.displayName=stash/)
+              .with_content(/setup\.baseUrl=https:\/\/foo.example.com/)
+              .with_content(/setup\.sysadmin\.username=admin/)
+              .with_content(/setup\.sysadmin\.password=stash/)
+              .with_content(/setup\.sysadmin\.displayName=Stash Admin/)
+              .with_content(/setup\.sysadmin\.emailAddress=/)
+          end
+        end
+
         context 'proxy settings ' do
           let(:params) {{
             :version     => '3.7.0',

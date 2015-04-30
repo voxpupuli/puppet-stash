@@ -26,6 +26,15 @@ class stash(
   $context_path = '',
   $tomcat_port  = 7990,
 
+  # Stash 3.8 initialization configurations
+  $display_name  = 'stash',
+  $base_url      = "https://${::fqdn}",
+  $license       = '',
+  $sysadmin_username = 'admin',
+  $sysadmin_password = 'stash',
+  $sysadmin_name  = 'Stash Admin',
+  $sysadmin_email = '',
+
   # Database Settings
   $dbuser       = 'stash',
   $dbpassword   = 'password',
