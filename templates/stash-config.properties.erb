@@ -1,3 +1,12 @@
+<% if scope.function_versioncmp([scope['stash::version'], '3.8.0']) >= 0 -%>
+setup.displayName=<%= scope['stash::display_name'] %>
+setup.baseUrl=<%= scope['stash::base_url'] %>
+setup.license=<%= scope['stash::license'] %>
+setup.sysadmin.username=<%= scope['stash::sysadmin_username'] %>
+setup.sysadmin.password=<%= scope['stash::sysadmin_password'] %>
+setup.sysadmin.displayName=<%= scope['stash::sysadmin_name'] %>
+setup.sysadmin.emailAddress=<%= scope['stash::sysadmin_email'] %>
+<% end -%>
 jdbc.driver=<%= scope.lookupvar('stash::dbdriver') %>
 jdbc.url=<%= scope.lookupvar('stash::dburl') %>
 jdbc.user=<%= scope.lookupvar('stash::dbuser') %>
