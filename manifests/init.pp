@@ -60,6 +60,8 @@ class stash(
 
   # Reverse https proxy
   $proxy = {},
+  # Options for the AJP connector
+  $ajp   = {},
 
   # Git version
   $git_manage  = true,
@@ -81,6 +83,7 @@ class stash(
 ) {
 
   validate_bool($git_manage)
+  validate_hash($ajp)
 
   include stash::params
 
@@ -97,6 +100,19 @@ class stash(
       if versioncmp($version, '3.2.0') > 0 {
         exec { "rm -f ${homedir}/stash-config.properties": }
       }
+    }
+  }
+
+  if ! empty($ajp) {
+    if ! has_key($ajp, 'port') {
+      fail('You need to specify a valid port for the AJP connector.')
+    } else {
+      validate_re($ajp['port'], '^\d+$')
+    }
+    if ! has_key($ajp, 'protocol') {
+      fail('You need to specify a valid protocol for the AJP connector.')
+    } else {
+      validate_re($ajp['protocol'], ['^AJP/1.3$', '^org.apache.coyote.ajp'])
     }
   }
 

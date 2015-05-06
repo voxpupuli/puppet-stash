@@ -99,6 +99,24 @@ describe 'stash::config' do
           end
         end
 
+        context 'AJP connector' do
+          let(:params) {{
+            :version     => '3.7.0',
+            :ajp   => {
+              'scheme'    => 'https',
+              'proxyName' => 'stash.example.co.za',
+              'proxyPort' => '443',
+              'port'      => '8009',
+              'protocol'  => 'AJP/1.3',
+            },
+          }}
+          it do
+            should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml') \
+              .with_content(/port = "8009"/)
+              .with_content(/Connector enableLookups="false"/)
+          end
+        end
+
         context 'stash 3.8.0' do
           let(:params) do
             {
