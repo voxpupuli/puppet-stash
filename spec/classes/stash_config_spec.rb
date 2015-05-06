@@ -69,6 +69,19 @@ describe 'stash::config' do
           end
         end
 
+        context 'git path' do
+          let(:params) do
+            {
+              :git_path   => '/opt/rh/git19/root/usr/bin/git',
+            }
+          end
+
+          it do
+            should contain_file('/home/stash/shared/stash-config.properties')
+              .with_content(/plugin\.stash-scm-git\.path\.executable=/)
+          end
+        end
+
         context 'proxy settings ' do
           let(:params) {{
             :version     => '3.7.0',

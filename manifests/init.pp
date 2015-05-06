@@ -64,6 +64,7 @@ class stash(
   # Git version
   $git_manage  = true,
   $git_version = 'installed',
+  $git_path = undef,
 
   # Enable repoforge by default for RHEL, stash requires a newer version of git
   $repoforge   = true,

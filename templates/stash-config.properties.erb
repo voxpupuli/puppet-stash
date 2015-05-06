@@ -7,6 +7,9 @@ setup.sysadmin.password=<%= scope['stash::sysadmin_password'] %>
 setup.sysadmin.displayName=<%= scope['stash::sysadmin_name'] %>
 setup.sysadmin.emailAddress=<%= scope['stash::sysadmin_email'] %>
 <% end -%>
+<% if scope['stash::git_path'] -%>
+plugin.stash-scm-git.path.executable=<%= scope['stash::git_path'] %>
+<% end -%>
 jdbc.driver=<%= scope.lookupvar('stash::dbdriver') %>
 jdbc.url=<%= scope.lookupvar('stash::dburl') %>
 jdbc.user=<%= scope.lookupvar('stash::dbuser') %>
