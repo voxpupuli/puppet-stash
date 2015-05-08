@@ -69,6 +69,19 @@ describe 'stash::config' do
           end
         end
 
+        context 'git path' do
+          let(:params) do
+            {
+              :git_path   => '/opt/rh/git19/root/usr/bin/git',
+            }
+          end
+
+          it do
+            should contain_file('/home/stash/shared/stash-config.properties')
+              .with_content(/plugin\.stash-scm-git\.path\.executable=/)
+          end
+        end
+
         context 'proxy settings ' do
           let(:params) {{
             :version     => '3.7.0',
@@ -83,6 +96,24 @@ describe 'stash::config' do
               .with_content(/proxyName = \'stash\.example\.co\.za\'/)
               .with_content(/proxyPort = \'443\'/)
               .with_content(/scheme = \'https\'/)
+          end
+        end
+
+        context 'AJP connector' do
+          let(:params) {{
+            :version     => '3.7.0',
+            :ajp   => {
+              'scheme'    => 'https',
+              'proxyName' => 'stash.example.co.za',
+              'proxyPort' => '443',
+              'port'      => '8009',
+              'protocol'  => 'AJP/1.3',
+            },
+          }}
+          it do
+            should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml') \
+              .with_content(/port = "8009"/)
+              .with_content(/Connector enableLookups="false"/)
           end
         end
 
