@@ -3,22 +3,21 @@
 # This installs the stash module. See README.md for details
 #
 class stash::install(
-  $version      = $stash::version,
-  $product      = $stash::product,
-  $format       = $stash::format,
-  $installdir   = $stash::installdir,
-  $homedir      = $stash::homedir,
-  $user         = $stash::user,
-  $user_manage  = $stash::user_manage,
-  $group        = $stash::group,
-  $group_manage = $stash::group_manage,
-  $uid          = $stash::uid,
-  $gid          = $stash::gid,
-  $git_version  = $stash::git_version,
-  $repoforge    = $stash::repoforge,
-  $downloadURL  = $stash::downloadURL,
-  $s_or_d       = $stash::staging_or_deploy,
-  $git_manage   = $stash::git_manage,
+  $version        = $stash::version,
+  $product        = $stash::product,
+  $format         = $stash::format,
+  $installdir     = $stash::installdir,
+  $homedir        = $stash::homedir,
+  $manage_usr_grp = $stash::manage_usr_grp,
+  $user           = $stash::user,
+  $group          = $stash::group,
+  $uid            = $stash::uid,
+  $gid            = $stash::gid,
+  $git_version    = $stash::git_version,
+  $repoforge      = $stash::repoforge,
+  $downloadURL    = $stash::downloadURL,
+  $s_or_d         = $stash::staging_or_deploy,
+  $git_manage     = $stash::git_manage,
 
   $webappdir
   ) {
@@ -54,14 +53,13 @@ class stash::install(
     }
   }
 
-  if $group_manage {
+  if $manage_usr_grp {
+    #Manage the group in the module
     group { $group:
       ensure => present,
       gid    => $gid,
     }
-  }
-
-  if $user_manage {
+    #Manage the user in the module
     user { $user:
       comment          => 'Stash daemon account',
       shell            => '/bin/bash',

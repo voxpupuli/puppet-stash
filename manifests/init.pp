@@ -23,12 +23,11 @@ class stash(
   $tomcat_port  = 7990,
 
   # User and Group Management Settings
-  $user         = 'stash',
-  $user_manage  = true,
-  $group        = 'stash',
-  $group_manage = true,
-  $uid          = undef,
-  $gid          = undef,
+  $manage_usr_grp = true,
+  $user           = 'stash',
+  $group          = 'stash',
+  $uid            = undef,
+  $gid            = undef,
 
   # Stash 3.8 initialization configurations
   $display_name  = 'stash',

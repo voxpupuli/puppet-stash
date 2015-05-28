@@ -32,77 +32,41 @@ describe 'stash::install' do
           end
         end
       
-        context 'when managing the user and group outside the module' do
+        context 'when managing the user and group inside the module' do
           let(:params) {{
-            :user_manage  => 'false',
-            :group_manage => 'false',
+            :manage_usr_grp  => true,
           }}
           context 'when no user or group are specified' do
-            it do
-              should_not contain_user('stash').with({
-                'comment'          => 'Stash daemon account',
-                'shell'            => '/bin/bash',
-                'home'             => '/test/my/dir',
-                'password'         => '*',
-                'password_min_age' => '0',
-                'password_max_age' => '99999',
-                'managehome'       => true,
-                'uid'              => '1234',
-                'gid'              => '5678' 
-              })
-            end 
-            it do
-              should_not contain_group('stash').with({
-                'ensure' => 'present',
-                'gid'    => '5678' 
-              })
-            end
+            it { should contain_user('stash') }
+            it { should contain_group('stash') }
           end
           context 'when a user and group is specified' do
             let(:params) {{
               :user  => 'mystashuser',
               :group => 'mystashgroup'
             }}
-            it do
-              should_not contain_user('mystashuser').with({
-                'comment'          => 'Stash daemon account',
-                'shell'            => '/bin/bash',
-                'home'             => '/test/my/dir',
-                'password'         => '*',
-                'password_min_age' => '0',
-                'password_max_age' => '99999',
-                'managehome'       => true,
-                'uid'              => '1234',
-                'gid'              => '5678' 
-              })
-            end 
-            it do
-              should_not contain_group('mystashgroup').with({
-                'ensure' => 'present',
-                'gid'    => '5678'
-              })
-            end
+            it { should contain_user('mystashuser') }
+            it { should contain_group('mystashgroup') }
           end
         end
 
-        #context 'when managing the user and group inside the module' do
-        #  let(:params) {{
-        #    :user_manage  => 'true',
-        #    :group_manage => 'true'
-        #  }}
-        #  context 'when no user or group are specified' do
-        #    it { should contain_user('stash') }
-        #    it { should contain_group('stash') }
-        #  end
-        #  context 'when a user and group is specified' do
-        #    let(:params) {{
-        #      :user  => 'mystashuser',
-        #      :group => 'mystashgroup'
-        #    }}
-        #    it { should contain_user('mystashuser') }
-        #    it { should contain_group('mystashgroup') }
-        #  end
-        #end
+        context 'when managing the user and group outside the module' do
+          let(:params) {{
+            :manage_usr_grp  => false,
+          }}
+          context 'when no user or group are specified' do
+            it {  should_not contain_user('stash') }
+            it {  should_not contain_group('stash') }
+          end
+          context 'when a user and group is specified' do
+            let(:params) {{
+              :user  => 'mystashuser',
+              :group => 'mystashgroup'
+            }}
+            it {  should_not contain_user('stash') }
+            it {  should_not contain_group('stash') }
+          end
+        end
 
         context 'overwriting params' do
           let(:params) {{
