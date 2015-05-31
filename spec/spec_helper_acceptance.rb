@@ -37,12 +37,13 @@ RSpec.configure do |c|
         on host, '/usr/sbin/locale-gen'
         on host, '/usr/sbin/update-locale'
       end
-      on host, puppet('module','install','puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
-      on host, puppet('module','install','puppetlabs-postgresql'), { :acceptable_exit_codes => [0,1] }
-      on host, puppet('module','install','yguenane-repoforge'), { :acceptable_exit_codes => [0,1] }
       on host, puppet('module','install','mkrakowitzer-deploy'), { :acceptable_exit_codes => [0,1] }
-      on host, puppet('module','install','puppetlabs-java'), { :acceptable_exit_codes => [0,1] }
       on host, puppet('module','install','nanliu-staging'), { :acceptable_exit_codes => [0,1] }
+      on host, puppet('module','install','puppetlabs-inifile'), { :acceptable_exit_codes => [0,1] }
+      on host, puppet('module','install','puppetlabs-java'), { :acceptable_exit_codes => [0,1] }
+      on host, puppet('module','install','puppetlabs-postgresql'), { :acceptable_exit_codes => [0,1] }
+      on host, puppet('module','install','puppetlabs-stdlib'), { :acceptable_exit_codes => [0,1] }
+      on host, puppet('module','install','yguenane-repoforge'), { :acceptable_exit_codes => [0,1] }
     end
   end
 end
