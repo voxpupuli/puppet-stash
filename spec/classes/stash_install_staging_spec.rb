@@ -51,20 +51,21 @@ describe 'stash::install' do
         end
 
         context 'when managing the user and group outside the module' do
-          let(:params) {{
-            :manage_usr_grp  => false,
-          }}
           context 'when no user or group are specified' do
+            let(:params) {{
+              :manage_usr_grp  => false
+            }}
             it {  should_not contain_user('stash') }
             it {  should_not contain_group('stash') }
           end
           context 'when a user and group is specified' do
             let(:params) {{
-              :user  => 'mystashuser',
-              :group => 'mystashgroup'
+              :user           => 'mystashuser',
+              :group          => 'mystashgroup',
+              :manage_usr_grp => false
             }}
-            it {  should_not contain_user('stash') }
-            it {  should_not contain_group('stash') }
+            it {  should_not contain_user('mystashuser') }
+            it {  should_not contain_group('mystashgroup') }
           end
         end
 
