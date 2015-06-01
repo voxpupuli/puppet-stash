@@ -212,6 +212,9 @@ The format of the file stash will be installed from. Default: 'tar.gz'
 The installation directory of the stash binaries. Default: '/opt/stash'
 #####`homedir`
 The home directory of stash. Configuration files are stored here. Default: '/home/stash'
+#####`manage_usr_grp`
+Whether or not this module will manage the stash user and group associated with the install. 
+You must either allow the module to manage both aspects or handle both outside the module. Default: true
 #####`user`
 The user that stash should run as, as well as the ownership of stash related files. Default: 'stash'
 #####`group`

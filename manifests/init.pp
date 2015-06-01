@@ -19,12 +19,15 @@ class stash(
   $format       = 'tar.gz',
   $installdir   = '/opt/stash',
   $homedir      = '/home/stash',
-  $user         = 'stash',
-  $group        = 'stash',
-  $uid          = undef,
-  $gid          = undef,
   $context_path = '',
   $tomcat_port  = 7990,
+
+  # User and Group Management Settings
+  $manage_usr_grp = true,
+  $user           = 'stash',
+  $group          = 'stash',
+  $uid            = undef,
+  $gid            = undef,
 
   # Stash 3.8 initialization configurations
   $display_name  = 'stash',

@@ -31,6 +31,43 @@ describe 'stash::install' do
           end
         end
 
+        context 'when managing the user and group inside the module' do
+          let(:params) {{
+            :manage_usr_grp  => true,
+          }}
+          context 'when no user or group are specified' do
+            it { should contain_user('stash') }
+            it { should contain_group('stash') }
+          end
+          context 'when a user and group is specified' do
+            let(:params) {{
+              :user  => 'mystashuser',
+              :group => 'mystashgroup'
+            }}
+            it { should contain_user('mystashuser') }
+            it { should contain_group('mystashgroup') }
+          end
+        end
+
+        context 'when managing the user and group outside the module' do
+          context 'when no user or group are specified' do
+            let(:params) {{
+              :manage_usr_grp  => false
+            }}
+            it {  should_not contain_user('stash') }
+            it {  should_not contain_group('stash') }
+          end
+          context 'when a user and group is specified' do
+            let(:params) {{
+              :user           => 'mystashuser',
+              :group          => 'mystashgroup',
+              :manage_usr_grp => false
+            }}
+            it {  should_not contain_user('mystashuser') }
+            it {  should_not contain_group('mystashgroup') }
+          end
+        end
+
         context 'overwriting params' do
           let(:params) {{
             :version => '3.7.0',
