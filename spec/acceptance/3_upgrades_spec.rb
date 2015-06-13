@@ -34,9 +34,11 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
     apply_manifest(pp_update, :catch_failures => true)
     shell 'wget -q --tries=20 --retry-connrefused --read-timeout=10 localhost:7990/stash1'
     sleep 120
-    apply_manifest(pp_update, :catch_failures => true)
     shell 'wget -q --tries=20 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
-    sleep 50
+    apply_manifest(pp_update, :catch_failures => true)
+    shell 'wget -q --tries=20 --retry-connrefused --read-timeout=10 localhost:7990/stash1'
+    sleep 120
+    shell 'wget -q --tries=20 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
     apply_manifest(pp_update, :catch_changes => true)
     sleep 10
     shell 'wget -q --tries=20 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
