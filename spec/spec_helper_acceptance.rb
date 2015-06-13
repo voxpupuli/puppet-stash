@@ -12,6 +12,15 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
   end
 end
 
+proxy_host = ENV['BEAKER_PACKAGE_PROXY'] || ''
+if !proxy_host.empty?
+  hosts.each do |host|
+    on host, "echo 'export http_proxy='#{proxy_host}'' >> /root/.bashrc"
+    on host, "echo 'export https_proxy='#{proxy_host}'' >> /root/.bashrc"
+    on host, "echo 'export no_proxy=\"localhost,127.0.0.1,localaddress,.localdomain.com,#{host.name}\"' >> /root/.bashrc"
+  end
+end
+
 UNSUPPORTED_PLATFORMS = ['AIX','windows','Solaris']
 
 RSpec.configure do |c|
