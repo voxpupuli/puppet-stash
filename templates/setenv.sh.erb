@@ -82,19 +82,9 @@ fi
 
 JAVA_OPTS="-Xms${JVM_MINIMUM_MEMORY} -Xmx${JVM_MAXIMUM_MEMORY} ${JAVA_OPTS} ${JVM_REQUIRED_ARGS} ${JVM_SUPPORT_RECOMMENDED_ARGS} ${STASH_HOME_MINUSD}"
 
-# PermGen size needs to be increased if encountering OutOfMemoryError: PermGen problems. Specifying PermGen size is
-# not valid on IBM JDKs
+# PermGen size needs to be increased if encountering OutOfMemoryError: PermGen problems.
 STASH_MAX_PERM_SIZE=<%= scope.lookupvar('stash::jvm_permgen') %>
-if [ -f "${PRGDIR}/permgen.sh" ]; then
-    echo "Detecting JVM PermGen support..."
-    . "${PRGDIR}/permgen.sh"
-    if [ $JAVA_PERMGEN_SUPPORTED = "true" ]; then
-        echo "PermGen switch is supported. Setting to ${STASH_MAX_PERM_SIZE}\n"
-        JAVA_OPTS="-XX:MaxPermSize=${STASH_MAX_PERM_SIZE} ${JAVA_OPTS}"
-    else
-        echo "PermGen switch is NOT supported and will NOT be set automatically.\n"
-    fi
-fi
+JAVA_OPTS="-XX:MaxPermSize=${STASH_MAX_PERM_SIZE} ${JAVA_OPTS}"
 
 export JAVA_OPTS
 
