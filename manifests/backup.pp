@@ -94,10 +94,10 @@ class stash::backup(
     minute  => 0,
   }
 
-  tidy { 'remove_old_archives': 
+  tidy { 'remove_old_archives':
     path    => "${backup_home}/archives",
     age     => $keep_age,
-    matches => "*.tar",
+    matches => '*.tar',
     type    => 'mtime',
     recurse => 1,
   }
