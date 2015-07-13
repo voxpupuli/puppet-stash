@@ -44,6 +44,8 @@ When using this module to upgrade Stash, please make sure you have a database/St
 
 As RHEL 6 and its derivatives do not include a version of git that will work by default with stash. We enable the repoforge module as a default if it is not already enabled. Whilst this is not best practice, it is better than the module not working for inexperienced users. By default we will upgrade git if it is already installed and the repoforge repository is not enabled. Default: true. You can turn all this functionality off with 'repoforge => false' and manage git outside of the module.
 
+When upgrading stash from < 3.8.0 to >= 3.8.0 puppet will notify the stash service to restart for two puppet runs. This is because the stash upgrade makes file attribute and content changes to the stash-config.properties. See issue #74
+
 ###Beginning with Stash
 This puppet module will automatically download the Stash tar.gz from Atlassian and extracts it into /opt/stash/atlassian-stash-$version. The default Stash home is /home/stash.
 
