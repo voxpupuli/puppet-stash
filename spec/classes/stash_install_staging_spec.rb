@@ -18,7 +18,7 @@ describe 'stash::install' do
           it { should contain_group('stash') }
           it { should contain_user('stash').with_shell('/bin/bash') }
           it 'should deploy stash from tar.gz' do
-	    str = "atlassian-stash-3.7.0.tar.gz"
+            str = "atlassian-stash-3.7.0.tar.gz"
             should contain_staging__file(str).with({
               'source' => 'http://www.atlassian.com/software/stash/downloads/binary//atlassian-stash-3.7.0.tar.gz',
               })
@@ -84,13 +84,13 @@ describe 'stash::install' do
             :git_version => 'installed',
           }}
           it do
-	    should contain_user('foo').with({
+            should contain_user('foo').with({
               'home'  => '/random/homedir',
               'shell' => '/bin/bash',
               'uid'   => 333,
               'gid'   => 444
-             })
-	  end
+            })
+          end
           it { should contain_group('bar') }
           it 'should deploy stash 3.7.0 from tar.gz' do
             should contain_staging__file("atlassian-stash-3.7.0.tar.gz").with({
@@ -126,6 +126,43 @@ describe 'stash::install' do
               'owner' => 'stash',
               'group' => 'stash'
             })
+          end
+        end
+
+        context 'manage mysql connector' do
+          context 'when dburl parameter is set' do
+            let(:params) {{
+              :version => '3.7.0',
+              :dburl   => 'jdbc.url=jdbc:mysql://localhost:3306/stash?foo?bar?',
+            }}
+            it { should contain_class('mysql_java_connector').with({
+              'links'      => '/opt/stash/atlassian-stash-3.7.0/lib',
+              'version'    => '5.1.36',
+              'installdir' => '/opt/MySQL-connector',
+            })}
+          end
+          context 'when dburl parameter is not set' do
+            it { should_not contain_class('mysql_java_connector') }
+          end
+          context 'mysql connector is disabled' do
+            let(:params) {{
+              :dburl  => 'jdbc.url=jdbc:mysql://localhost:3306/stash?foo?bar?',
+              :mysql_connector_manage => false,
+            }}
+            it { should_not contain_class('mysql_java_connector') }
+          end
+          context 'when dburl parameter is set with custom params' do
+            let(:params) {{
+              :version                    => '4.0.0',
+              :dburl                      => 'jdbc.url=jdbc:mysql://localhost:3306/stash?foo?bar?',
+              :mysql_connector_version    => '5.99.111',
+              :mysql_connector_installdir => '/opt/custom',
+            }}
+            it { should contain_class('mysql_java_connector').with({
+              'links'      => '/opt/stash/atlassian-stash-4.0.0/lib',
+              'version'    => '5.99.111',
+              'installdir' => '/opt/custom',
+            })}
           end
         end
       end

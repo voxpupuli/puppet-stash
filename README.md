@@ -242,6 +242,15 @@ The uri to the stash database server. Default: 'jdbc:postgresql://localhost:5432
 #####`dbdriver`
 The driver to use to connect to the database. Default: 'org.postgresql.Driver'
 
+####MySQL parameters####
+
+#####`mysql_connector_manage`
+Manage the MySQL java connector. Defaults to true.
+#####`mysql_connector_version`
+Specifies the version of MySQL Java Connector you would like installed. Defaults to '5.1.36' 
+#####`mysql_connector_installdir`
+Installation directory of the MySQL connector. Defaults to '/opt/MySQL-connector'
+
 ####JVM Java parameters####
 
 #####`jvm_xms`
