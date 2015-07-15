@@ -1,8 +1,18 @@
-##2015-XX-XX - Release 1.X.X
+##2015-07-16 - Release 1.3.0
 ###Summary
 
-- Issue #58, Do not hard code java path in backup class.
-- Issue #61, stash backup should be able to cleanup old archives.
+- Issue #58 Do not hard code java path in backup class.
+- Issue #61 stash backup should be able to cleanup old archives.
+- Issue #62 Add support for stash 3.8. server.xml has updated path.
+- Issue #63 Add stash 3.8 automated setup options
+- Issue #74 Update README.md to document upgrade issue
+- Update beaker tests
+- Fix rake lint tasks
+- Removed reference to permgen.sh
+- Add more granular control around the stash user and group.
+- Fix tomcat port in service output
+
+Thanks to Nan Liu, Stephen Schmidt, Michael Goodness
 
 ##2015-02-24 - Release 1.2.2
 ###Summary
