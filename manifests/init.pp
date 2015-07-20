@@ -37,6 +37,7 @@ class stash(
   $sysadmin_password = 'stash',
   $sysadmin_name  = 'Stash Admin',
   $sysadmin_email = '',
+  $config_properties = {},
 
   # Database Settings
   $dbuser       = 'stash',
@@ -83,6 +84,7 @@ class stash(
 ) {
 
   validate_bool($git_manage)
+  validate_hash($config_properties)
 
   include stash::params
 

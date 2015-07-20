@@ -281,6 +281,8 @@ Enable the repoforge yum repository by default for RHEL as stash requires a newe
 By default we will upgrade git to a supported version if it is already installed and the repoforge repository was not enabled. Default: true
 #####`$staging_or_deploy`
 Choose whether to use nanliu-staging, or mkrakowitzer-deploy. Defaults to 'staging' to use nanliu-staging as it is puppetlabs approved. Alternative option is 'deploy' to use mkrakowitzer-deploy.
+#####`config_properties`
+Extra configuration options for stash (stash-config.properties). See https://confluence.atlassian.com/display/STASH/Stash+config+properties for available options. Must be a hash, Default: {}
 
 ####Backup parameters####
 #####`backup_ensure`

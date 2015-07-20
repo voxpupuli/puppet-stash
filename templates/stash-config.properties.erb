@@ -6,6 +6,9 @@ setup.sysadmin.username=<%= scope['stash::sysadmin_username'] %>
 setup.sysadmin.password=<%= scope['stash::sysadmin_password'] %>
 setup.sysadmin.displayName=<%= scope['stash::sysadmin_name'] %>
 setup.sysadmin.emailAddress=<%= scope['stash::sysadmin_email'] %>
+<%- @config_properties.sort.each do |key,value| -%>
+<%=   key %>=<%= value %>
+<%- end -%>
 <% end -%>
 jdbc.driver=<%= scope.lookupvar('stash::dbdriver') %>
 jdbc.url=<%= scope.lookupvar('stash::dburl') %>
