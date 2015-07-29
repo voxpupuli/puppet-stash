@@ -69,6 +69,43 @@ describe 'stash::config' do
           end
         end
 
+        context 'stash 3.8.1 with additional stash-config.properties values' do
+          let(:params) do
+            {
+              :version   => '3.8.1',
+              :config_properties => {
+                'aaaa'   => 'bbbb',
+                'cccc'   => 'dddd',
+              },
+            }
+          end
+
+          it do
+            should contain_file('/home/stash/shared/stash-config.properties')
+              .with_content(/^aaaa=bbbb$/)
+              .with_content(/^cccc=dddd$/)
+          end
+        end
+
+        context 'stash 3.7.0 with additional stash-config.properties values' do
+          let(:params) do
+            {
+              :version   => '3.7.0',
+              :config_properties => {
+                'aaaa'   => 'bbbb',
+                'cccc'   => 'dddd',
+              },
+            }
+          end
+
+          it do
+            should_not contain_file('/home/stash/shared/stash-config.properties')
+              .with_content(/^aaaa=bbbb$/)
+              .with_content(/^cccc=dddd$/)
+          end
+        end
+
+
         context 'proxy settings ' do
           let(:params) {{
             :version     => '3.7.0',
