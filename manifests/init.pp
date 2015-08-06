@@ -81,6 +81,11 @@ class stash(
   # Defaults to nanliu-staging as it is puppetlabs approved.
   $staging_or_deploy = 'staging',
 
+  # MySQL Connector Settings
+  $mysql_connector_manage     = true,
+  $mysql_connector_version    = '5.1.36',
+  $mysql_connector_installdir = undef,
+
 ) {
 
   validate_bool($git_manage)
