@@ -13,7 +13,9 @@ describe 'stash::backup' do
           it { should contain_group('stash') }
           it { should contain_user('stash').with_shell('/bin/bash') }
           it 'should deploy stash backup client 1.9.1 from tar.gz' do
-            should contain_staging__file("stash-backup-distribution-1.9.1.tar.gz")
+            should contain_staging__file("stash-backup-distribution-1.9.1.tar.gz").with({
+              'source' => 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/1.9.1/stash-backup-distribution-1.9.1.tar.gz'
+            })
             should contain_staging__extract("stash-backup-distribution-1.9.1.tar.gz").with({
               'creates' => '/opt/stash-backup/stash-backup-client-1.9.1/lib',
               'strip'   => '1',
