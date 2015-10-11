@@ -5,6 +5,8 @@
 #
 class stash::backup(
   $ensure               = $stash::backup_ensure,
+  $schedule_hour        = $stash::backup_schedule_hour,
+  $schedule_minute      = $stash::backup_schedule_minute,
   $backupuser           = $stash::backupuser,
   $backuppass           = $stash::backuppass,
   $version              = $stash::backupclientVersion,
@@ -90,8 +92,8 @@ class stash::backup(
     ensure  => $ensure,
     command => $backup_cmd,
     user    => $user,
-    hour    => 5,
-    minute  => 0,
+    hour    => $schedule_hour,
+    minute  => $schedule_minute,
   }
 
   tidy { 'remove_old_archives':

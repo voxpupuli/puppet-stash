@@ -77,12 +77,14 @@ Enable external facts for stash version.
 Enable a stash backup
 ```puppet
   class { 'stash':
-    backup_ensure       => present,
-    backupclientVersion => '1.6.0',
-    backup_home         => '/opt/stash-backup',
-    backupuser          => 'admin',
-    backuppass          => 'password',
-    backup_keep_age     => '3d',
+    backup_ensure          => present,
+    backupclientVersion    => '1.6.0',
+    backup_home            => '/opt/stash-backup',
+    backupuser             => 'admin',
+    backuppass             => 'password',
+    backup_keep_age        => '3d',
+    backup_schedule_hour   => '5',
+    backup_schedule_minute => '0',
   }
 ```
 
@@ -308,6 +310,10 @@ The username to use to initiate the stash backup. Defaults to 'admin'
 The password to use to initiate the stash backup. Defaults to 'password'
 #####`backup_keep_age`
 How long to keep the backup archives for. You can choose seconds, minutes, hours, days, or weeks by specifying the first letter of any of those words (e.g., ‘1w’). Specifying 0 will remove all files.
+#####`backup_schedule_hour`
+Hour schedule for when to perform backup. Defaults to '5'.
+#####`backup_schedule_minute`
+Minute schedule for when to perform backup. Defaults to '0'.
 
 ##Limitations
 * Puppet 3.4+

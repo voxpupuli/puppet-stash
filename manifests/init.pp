@@ -49,13 +49,15 @@ class stash(
   $downloadURL  = 'http://www.atlassian.com/software/stash/downloads/binary/',
 
   # Backup Settings
-  $backup_ensure       = 'present',
-  $backupclientURL     = 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution',
-  $backupclientVersion = '1.9.1',
-  $backup_home         = '/opt/stash-backup',
-  $backupuser          = 'admin',
-  $backuppass          = 'password',
-  $backup_keep_age     = '4w',
+  $backup_ensure          = 'present',
+  $backupclientURL        = 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution',
+  $backupclientVersion    = '1.9.1',
+  $backup_home            = '/opt/stash-backup',
+  $backupuser             = 'admin',
+  $backuppass             = 'password',
+  $backup_schedule_hour   = '5',
+  $backup_schedule_minute = '0',
+  $backup_keep_age        = '4w',
 
   # Manage service
   $service_manage = true,
