@@ -7,6 +7,7 @@ unless ENV['RS_PROVISION'] == 'no' or ENV['BEAKER_provision'] == 'no'
     # systems fail on windows and osx, and install via gem on other *nixes
     foss_opts = { :default_action => 'gem_install' }
     install_puppet( foss_opts )
+    install_package( host, 'git')
     on host, "mkdir -p #{host['distmoduledir']}"
     on host, "sed -i '/templatedir/d' #{host['puppetpath']}/puppet.conf"
   end
@@ -47,6 +48,7 @@ RSpec.configure do |c|
         on host, '/usr/sbin/update-locale'
       end
       on host, puppet('module','install','mkrakowitzer-deploy'), { :acceptable_exit_codes => [0,1] }
+      on host, '/usr/bin/git clone https://github.com/puppet-community/puppet-archive.git /etc/puppet/modules/archive'
       on host, puppet('module','install','nanliu-staging'), { :acceptable_exit_codes => [0,1] }
       on host, puppet('module','install','puppetlabs-inifile'), { :acceptable_exit_codes => [0,1] }
       on host, puppet('module','install','puppetlabs-java'), { :acceptable_exit_codes => [0,1] }

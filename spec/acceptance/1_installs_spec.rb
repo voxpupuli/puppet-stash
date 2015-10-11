@@ -33,7 +33,7 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
       }
       class { 'postgresql::globals':
         manage_package_repo => true,
-        version             => '9.3',
+        version             => '9.4',
       }->
       class { 'postgresql::server': } ->
       postgresql::server::db { 'stash':
@@ -49,13 +49,14 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
       } ->
       class { 'stash':
         downloadURL   => #{download_url},
-        version       => '3.2.4',
+        checksum      => 'a80cbed70843e9a394867adc800f7704',
+        version       => '3.9.2',
         javahome      => $jh,
         context_path  => '/stash1',
         backupclientURL => #{download_url},
       }
       include ::stash::facts
-   EOS
+  EOS
     apply_manifest(pp, :catch_failures => true)
     sleep 180
     shell 'wget -q --tries=20 --retry-connrefused --read-timeout=10 localhost:7990/stash1'
@@ -88,18 +89,18 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   end
 
   describe command('curl http://localhost:7990/stash1/setup') do
-    its(:stdout) { should match /This is the base URL of this installation of Stash/ }
+    its(:stdout) { should match (/This is the base URL of this installation of Stash/) }
   end
 
   describe command('facter -p stash_version') do
-    its(:stdout) { should match /3\.2\.4/ }
+    its(:stdout) { should match (/3\.9\.2/) }
   end
 
   describe cron do
-    it { should have_entry('0 5 * * * /opt/java/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-1.6.0/stash-backup-client.jar').with_user('stash') }
+    it { should have_entry('0 5 * * * /opt/java/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-1.9.1/stash-backup-client.jar').with_user('stash') }
   end
 
-  describe file('/opt/stash-backup/stash-backup-client-1.6.0/stash-backup-client.jar') do
+  describe file('/opt/stash-backup/stash-backup-client-1.9.1/stash-backup-client.jar') do
     it { should be_file }
     it { should be_owned_by 'stash' }
   end

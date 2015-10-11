@@ -16,14 +16,17 @@ class stash::install(
   $git_version    = $stash::git_version,
   $repoforge      = $stash::repoforge,
   $downloadURL    = $stash::downloadURL,
-  $s_or_d         = $stash::staging_or_deploy,
+  $deploy_module  = $stash::deploy_module,
   $git_manage     = $stash::git_manage,
   $dburl          = $stash::dburl,
+  $checksum       = $stash::checksum,
   $mysqlc_manage  = $stash::mysql_connector_manage,
   $mysqlc_version = $stash::mysql_connector_version,
   $mysqlc_install = $stash::mysql_connector_installdir,
   $webappdir,
   ) {
+
+  include '::archive'
   
   if $git_manage {
     if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '6' {
@@ -86,16 +89,18 @@ class stash::install(
 
   # Deploy files using either staging or deploy modules.
   $file = "atlassian-${product}-${version}.${format}"
-  case $s_or_d {
+
+  if ! defined(File[$webappdir]) {
+    file { $webappdir:
+      ensure => 'directory',
+      owner  => $user,
+      group  => $group,
+    }
+  }
+
+  case $deploy_module {
     'staging': {
       require staging
-      if ! defined(File[$webappdir]) {
-        file { $webappdir:
-          ensure => 'directory',
-          owner  => $user,
-          group  => $group,
-        }
-      }
       staging::file { $file:
         source  => "${downloadURL}/${file}",
         timeout => 1800,
@@ -114,21 +119,27 @@ class stash::install(
           File[$webappdir] ],
       }
     }
-    'deploy': {
-      deploy::file { "atlassian-${product}-${version}.${format}":
-        target          => $webappdir,
-        url             => $downloadURL,
-        strip           => true,
-        owner           => $user,
-        group           => $group,
-        download_timout => 1800,
-        notify          => Exec["chown_${webappdir}"],
-        before          => File[$homedir],
-        require         => [ File[$installdir], User[$user] ]
+    'archive': {
+      archive { "/tmp/${file}":
+        ensure        => present,
+        extract       => true,
+        extract_path  => $installdir,
+        source        => "${downloadURL}/${file}",
+        creates       => "${webappdir}/conf",
+        cleanup       => true,
+        checksum_type => 'md5',
+        checksum      => $checksum,
+        user          => $user,
+        group         => $group,
+        before        => File[$webappdir],
+        require       => [
+          File[$installdir],
+          User[$user],
+        ],
       }
     }
     default: {
-      fail('staging_or_deploy parameter must equal "staging" or "deploy"')
+      fail('deploy_module parameter must equal "archive" or staging""')
     }
   }
 
@@ -142,7 +153,7 @@ class stash::install(
   exec { "chown_${webappdir}":
     command     => "/bin/chown -R ${user}:${group} ${webappdir}",
     refreshonly => true,
-    subscribe   => User[$stash::user]
+    subscribe   => [ User[$user], File[$webappdir] ],
   }
 
   if $dburl =~ /jdbc\.url=jdbc:mysql:/ and $mysqlc_manage {
