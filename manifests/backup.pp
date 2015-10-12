@@ -69,7 +69,7 @@ class stash::backup(
         group        => $group,
         creates      => "${appdir}/lib",
         cleanup      => true,
-        before       => File[$appdir]
+        before       => File[$appdir],
       }
     }
     default: {

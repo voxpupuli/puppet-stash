@@ -1,10 +1,10 @@
 node default {
-  class { 'nginx': } ->
-  class { 'postgresql::globals':
+  class { '::nginx': } ->
+  class { '::postgresql::globals':
     manage_package_repo => true,
     version             => '9.3',
   }->
-  class { 'postgresql::server': } ->
+  class { '::postgresql::server': } ->
   deploy::file { 'jdk-7u71-linux-x64.tar.gz':
     target          => '/opt/java',
     fetch_options   => '-q -c --header "Cookie: oraclelicense=accept-securebackup-cookie"',
@@ -12,7 +12,7 @@ node default {
     download_timout => 1800,
     strip           => true,
   } ->
-  class { 'stash':
+  class { '::stash':
     version  => '3.6.0',
     javahome => '/opt/java',
     proxy    => {
@@ -21,8 +21,8 @@ node default {
       proxyPort => '80',
     },
   }
-  class { 'stash::gc': }
-  class { 'stash::facts': }
+  class { '::stash::gc': }
+  class { '::stash::facts': }
   nginx::resource::upstream { 'stash':
     ensure  => present,
     members => [ 'localhost:7990' ],
@@ -39,7 +39,7 @@ node default {
       'proxy_set_header X-Forwarded-For'    => '$proxy_add_x_forwarded_for',
       'proxy_set_header Host'               => '$host',
       'proxy_redirect'                      => 'off',
-    }
+    },
   }
   postgresql::server::db { 'stash':
     user     => 'stash',

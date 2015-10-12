@@ -15,7 +15,7 @@ class stash::install(
   $gid            = $stash::gid,
   $git_version    = $stash::git_version,
   $repoforge      = $stash::repoforge,
-  $download_url    = $stash::download_url,
+  $download_url   = $stash::download_url,
   $deploy_module  = $stash::deploy_module,
   $git_manage     = $stash::git_manage,
   $dburl          = $stash::dburl,
@@ -34,16 +34,16 @@ class stash::install(
       # If repoforge is not enabled by default, enable it
       # but only allow git to be installed from it.
       if ! defined(Class['repoforge']) and $repoforge {
-        class { 'repoforge':
+        class { '::repoforge':
           enabled     => [ 'extras', ],
           includepkgs => {
-            'extras' => 'git,perl-Git'
+            'extras' => 'git,perl-Git',
           },
-          before      => Package['git']
+          before      => Package['git'],
         } ~>
         exec { "${stash::product}_clean_yum_metadata":
           command     => '/usr/bin/yum clean metadata',
-          refreshonly => true
+          refreshonly => true,
         } ~>
         # Git may already have been installed, so lets update it to a 
         # supported version.
@@ -157,7 +157,7 @@ class stash::install(
   }
 
   if $dburl =~ /jdbc\.url=jdbc:mysql:/ and $mysqlc_manage {
-    class { 'mysql_java_connector':
+    class { '::mysql_java_connector':
       links      => "${webappdir}/lib",
       version    => $mysqlc_version,
       installdir => $mysqlc_install,
