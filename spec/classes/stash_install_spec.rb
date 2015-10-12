@@ -83,7 +83,7 @@ describe 'stash::install' do
               :group         => 'bar',
               :uid           => 333,
               :gid           => 444,
-              :downloadURL   => 'http://downloads.atlassian.com/',
+              :download_url   => 'http://downloads.atlassian.com/',
               :git_version   => 'installed',
               :deploy_module => 'staging',
             }

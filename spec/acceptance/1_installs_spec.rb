@@ -48,12 +48,12 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
         strip           => true,
       } ->
       class { 'stash':
-        downloadURL   => #{download_url},
+        download_url   => #{download_url},
         checksum      => 'a80cbed70843e9a394867adc800f7704',
         version       => '3.9.2',
         javahome      => $jh,
         context_path  => '/stash1',
-        backupclientURL => #{download_url},
+        backupclient_url => #{download_url},
       }
       include ::stash::facts
   EOS

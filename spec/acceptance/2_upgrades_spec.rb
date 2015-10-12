@@ -26,7 +26,7 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
       class { 'stash':
         version       => '3.11.4',
         deploy_module => 'staging',
-        downloadURL   => #{download_url},
+        download_url   => #{download_url},
         javahome      => $jh,
         context_path  => '/stash1',
       }

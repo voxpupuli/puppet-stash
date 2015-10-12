@@ -46,13 +46,13 @@ class stash(
   $dbdriver     = 'org.postgresql.Driver',
 
   # Misc Settings
-  $downloadURL  = 'http://www.atlassian.com/software/stash/downloads/binary/',
+  $download_url  = 'http://www.atlassian.com/software/stash/downloads/binary/',
   $checksum     = undef,
 
   # Backup Settings
   $backup_ensure          = 'present',
-  $backupclientURL        = 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution',
-  $backupclientVersion    = '1.9.1',
+  $backupclient_url        = 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution',
+  $backupclient_version    = '1.9.1',
   $backup_home            = '/opt/stash-backup',
   $backupuser             = 'admin',
   $backuppass             = 'password',

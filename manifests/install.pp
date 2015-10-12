@@ -15,7 +15,7 @@ class stash::install(
   $gid            = $stash::gid,
   $git_version    = $stash::git_version,
   $repoforge      = $stash::repoforge,
-  $downloadURL    = $stash::downloadURL,
+  $download_url    = $stash::download_url,
   $deploy_module  = $stash::deploy_module,
   $git_manage     = $stash::git_manage,
   $dburl          = $stash::dburl,
@@ -102,7 +102,7 @@ class stash::install(
     'staging': {
       require staging
       staging::file { $file:
-        source  => "${downloadURL}/${file}",
+        source  => "${download_url}/${file}",
         timeout => 1800,
       } ->
       staging::extract { $file:
@@ -124,7 +124,7 @@ class stash::install(
         ensure        => present,
         extract       => true,
         extract_path  => $installdir,
-        source        => "${downloadURL}/${file}",
+        source        => "${download_url}/${file}",
         creates       => "${webappdir}/conf",
         cleanup       => true,
         checksum_type => 'md5',
