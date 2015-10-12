@@ -72,7 +72,7 @@ describe 'stash::backup' do
 
         context 'should contain custom backup client version' do
           let(:params) {{
-            :backupclientVersion  => '99.43.111',
+            :backupclient_version  => '99.43.111',
           }}
           it do
             should contain_archive("/tmp/stash-backup-distribution-99.43.111.tar.gz").with({

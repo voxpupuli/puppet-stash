@@ -25,7 +25,7 @@ class stash::gc(
   $homedir = $stash::homedir,
   ) {
 
-  include stash::params
+  include ::stash::params
 
   if versioncmp($::stash_version, '3.2') < 0 {
     $shared = ''

@@ -9,14 +9,14 @@ class stash::backup(
   $schedule_minute      = $stash::backup_schedule_minute,
   $backupuser           = $stash::backupuser,
   $backuppass           = $stash::backuppass,
-  $version              = $stash::backupclientVersion,
+  $version              = $stash::backupclient_version,
   $product              = $stash::product,
   $format               = $stash::format,
   $homedir              = $stash::homedir,
   $user                 = $stash::user,
   $group                = $stash::group,
   $deploy_module        = $stash::deploy_module,
-  $downloadURL          = $stash::backupclientURL,
+  $download_url          = $stash::backupclient_url,
   $backup_home          = $stash::backup_home,
   $javahome             = $stash::javahome,
   $keep_age             = $stash::backup_keep_age,
@@ -47,7 +47,7 @@ class stash::backup(
     'staging': {
       require staging
       staging::file { $file:
-        source  => "${downloadURL}/${version}/${file}",
+        source  => "${download_url}/${version}/${file}",
         timeout => 1800,
       } ->
       staging::extract { $file:
@@ -64,12 +64,12 @@ class stash::backup(
         ensure       => present,
         extract      => true,
         extract_path => $backup_home,
-        source       => "${downloadURL}/${version}/${file}",
+        source       => "${download_url}/${version}/${file}",
         user         => $user,
         group        => $group,
         creates      => "${appdir}/lib",
         cleanup      => true,
-        before       => File[$appdir]
+        before       => File[$appdir],
       }
     }
     default: {
