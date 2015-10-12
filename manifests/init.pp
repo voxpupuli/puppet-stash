@@ -47,6 +47,7 @@ class stash(
 
   # Misc Settings
   $downloadURL  = 'http://www.atlassian.com/software/stash/downloads/binary/',
+  $checksum     = undef,
 
   # Backup Settings
   $backup_ensure          = 'present',
@@ -79,9 +80,8 @@ class stash(
   # puppetlabs-corosync module: 'crm resource stop stash && sleep 15'
   $stop_stash = 'service stash stop && sleep 15',
 
-  # Choose whether to use nanliu-staging, or mkrakowitzer-deploy
-  # Defaults to nanliu-staging as it is puppetlabs approved.
-  $staging_or_deploy = 'staging',
+  # Choose whether to use puppet-staging, or puppet-archive
+  $deploy_module = 'archive',
 
   # MySQL Connector Settings
   $mysql_connector_manage     = true,

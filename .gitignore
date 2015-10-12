@@ -9,3 +9,4 @@ Gemfile.lock
 spec/fixtures/*
 fixtures/
 vagrant_files/
+log/

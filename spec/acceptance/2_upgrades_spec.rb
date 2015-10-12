@@ -12,7 +12,7 @@ end
 
 describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
 
-  it 'upgrades to 3.3.0 with defaults and context /stash1' do
+  it 'upgrades to 3.11.4 with defaults and context /stash1' do
     pp_update = <<-EOS
       if versioncmp($::puppetversion,'3.6.1') >= 0 {
         $allow_virtual_packages = hiera('allow_virtual_packages',false)
@@ -24,7 +24,8 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
         default   => '/opt/java',
       }
       class { 'stash':
-        version       => '3.3.0',
+        version       => '3.11.4',
+        deploy_module => 'staging',
         downloadURL   => #{download_url},
         javahome      => $jh,
         context_path  => '/stash1',
@@ -74,7 +75,7 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   end
 
   describe command('facter -p stash_version') do
-    its(:stdout) { should match /3\.3\.0/ }
+    its(:stdout) { should match /3\.11\.4/ }
   end
 
 end

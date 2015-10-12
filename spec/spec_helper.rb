@@ -18,3 +18,5 @@ RSpec.configure do |c|
   }
 end
 
+STASH_VERSION = '3.9.2'
+BACKUP_VERSION = '1.9.1'

@@ -14,11 +14,13 @@ describe 'stash' do
 
           it { is_expected.to contain_class('stash') }
           it { is_expected.to contain_class('stash::params') }
+          it { is_expected.to contain_anchor('stash::start').that_comes_before('stash::install') }
           it { is_expected.to contain_class('stash::install').that_comes_before('stash::config') }
           it { is_expected.to contain_class('stash::config') }
           it { is_expected.to contain_class('stash::backup') }
           it { is_expected.to contain_class('stash::service').that_subscribes_to('stash::config') }
-          it { is_expected.to contain_class('staging') }
+          it { is_expected.to contain_anchor('stash::end').that_requires('stash::service') }
+          it { is_expected.to contain_class('archive') }
 
           it { is_expected.to contain_service('stash') }
         end
