@@ -101,7 +101,7 @@ class stash::backup(
     age     => $keep_age,
     matches => '*.tar',
     type    => 'mtime',
-    recurse => 1,
+    recurse => 2,
   }
 
 }
