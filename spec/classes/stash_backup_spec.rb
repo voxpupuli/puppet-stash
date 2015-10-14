@@ -55,7 +55,7 @@ describe 'stash::backup' do
               'age'     => '4w',
               'matches' => '*.tar',
               'type'    => 'mtime',
-              'recurse' => 1,
+              'recurse' => 2,
             })
           end
         end
