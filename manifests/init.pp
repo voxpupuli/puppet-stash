@@ -46,12 +46,13 @@ class stash(
   $dbdriver     = 'org.postgresql.Driver',
 
   # Misc Settings
-  $downloadURL  = 'http://www.atlassian.com/software/stash/downloads/binary/',
+  $download_url  = 'http://www.atlassian.com/software/stash/downloads/binary/',
+  $checksum     = undef,
 
   # Backup Settings
   $backup_ensure          = 'present',
-  $backupclientURL        = 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution',
-  $backupclientVersion    = '1.9.1',
+  $backupclient_url       = 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution',
+  $backupclient_version   = '1.9.1',
   $backup_home            = '/opt/stash-backup',
   $backupuser             = 'admin',
   $backuppass             = 'password',
@@ -79,9 +80,8 @@ class stash(
   # puppetlabs-corosync module: 'crm resource stop stash && sleep 15'
   $stop_stash = 'service stash stop && sleep 15',
 
-  # Choose whether to use nanliu-staging, or mkrakowitzer-deploy
-  # Defaults to nanliu-staging as it is puppetlabs approved.
-  $staging_or_deploy = 'staging',
+  # Choose whether to use puppet-staging, or puppet-archive
+  $deploy_module = 'archive',
 
   # MySQL Connector Settings
   $mysql_connector_manage     = true,
@@ -93,7 +93,7 @@ class stash(
   validate_bool($git_manage)
   validate_hash($config_properties)
 
-  include stash::params
+  include ::stash::params
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
@@ -113,15 +113,10 @@ class stash(
 
   anchor { 'stash::start':
   } ->
-  class { 'stash::install':
-    webappdir => $webappdir
-  } ->
-  class { 'stash::config':
-  } ~>
-  class { 'stash::service':
-  } ->
-  class { 'stash::backup':
-  } ->
+  class { '::stash::install': webappdir => $webappdir, } ->
+  class { '::stash::config': } ~>
+  class { '::stash::service': } ->
+  class { '::stash::backup': } ->
   anchor { 'stash::end': }
 
 }

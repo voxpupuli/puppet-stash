@@ -73,12 +73,11 @@ class stash::config(
 
   file { "${stash::homedir}/${moved}stash-config.properties":
     content => template('stash/stash-config.properties.erb'),
-    mode    => '0750',
+    mode    => '0640',
     require => [
       Class['stash::install'],
       File[$stash::webappdir],
       File[$stash::homedir]
     ],
-    notify  => Class['stash::service'],
   }
 }

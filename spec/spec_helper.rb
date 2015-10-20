@@ -11,10 +11,14 @@ end
 
 RSpec.configure do |c|
   c.default_facts = {
-    :stash_version    => '3.7.0',
+    :stash_version    => '3.9.2',
     :staging_http_get => 'curl',
     :os_maj_version   => '6',
     :puppetversion    => '3.7.4',
   }
 end
 
+STASH_VERSION = '3.11.4'
+BACKUP_VERSION = '1.9.1'
+BITBUCKET_VERSION = '4.0.2'
+BITBUCKET_BACKUP_VERSION = '2.0.0'

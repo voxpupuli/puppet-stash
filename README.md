@@ -24,6 +24,11 @@
 
 This is a puppet module to install Atlassian Stash. On-premises source code management for Git that's secure, fast, and enterprise grade.
 
+|Module Version   | Support Stash versions  |
+|-----------------|-------------------------|
+| 1.3.0           | 3.0.0 - 3.9.2           |
+| 2.0.0           | 3.9.2 - 4.x.x           |
+
 ##Module Description
 
 This module installs/upgrades Atlassian's Enterprise source code management tool. The Stash module also manages the stash configuration files with Puppet.
@@ -78,7 +83,7 @@ Enable a stash backup
 ```puppet
   class { 'stash':
     backup_ensure          => present,
-    backupclientVersion    => '1.6.0',
+    backupclient_version    => '1.6.0',
     backup_home            => '/opt/stash-backup',
     backupuser             => 'admin',
     backuppass             => 'password',
@@ -112,15 +117,6 @@ If the stash service is managed outside of puppet the stop_stash paramater can b
   }
   class { 'stash::facts': }
 ```
-######Upgrades to the Stash puppet Module
-mkrakowitzer-deploy has been replaced with nanliu-staging as the default module for deploying the Stash binaries. You can still use mkrakowitzer-deploy with the *staging_or_deploy => 'deploy'*. nanliu-staging can not cleanup after itself, you may need to prune your /opt/staging directory if you upgrade often.
-
-```puppet
-  class { 'stash':
-    javahome          => '/opt/java',
-    staging_or_deploy => 'deploy',
-  }
-```
 
 ##Usage
 
@@ -136,7 +132,7 @@ This is especially useful for setting properties such as HTTP/https proxy settin
     installdir     => '/opt/atlassian/atlassian-stash',
     homedir        => '/opt/atlassian/application-data/stash-home',
     javahome       => '/opt/java',
-    downloadURL    => 'http://example.co.za/pub/software/development-tools/atlassian/',
+    download_url    => 'http://example.co.za/pub/software/development-tools/atlassian/',
     dburl          => 'jdbc:postgresql://dbvip.example.co.za:5433/stash',
     dbpassword     => $stashpass,
     service_manage => false,
@@ -148,7 +144,6 @@ This is especially useful for setting properties such as HTTP/https proxy settin
       proxyName    => 'stash.example.co.za',
       proxyPort    => '443',
     },
-    staging_or_deploy => 'deploy',
     tomcat_port    => '7991'
   }
   class { 'stash::facts': }
@@ -167,7 +162,7 @@ stash::homedir:        '/opt/atlassian/application-data/stash-home'
 stash::javahome:       '/opt/java'
 stash::dburl:          'jdbc:postgresql://dbvip.example.co.za:5433/stash'
 stash::service_manage: false
-stash::downloadURL:    'http://example.co.za/pub/software/development-tools/atlassian'
+stash::download_url:    'http://example.co.za/pub/software/development-tools/atlassian'
 stash::jvm_xms:        '1G'
 stash::jvm_xmx:        '4G'
 stash::java_opts: >
@@ -184,7 +179,6 @@ stash::proxy:
   scheme:     'https'
   proxyName:  'stash.example.co.za'
   proxyPort:  '443'
-stash::staging_or_deploy: 'deploy'
 stash::stash_stop: '/usr/sbin crm resource stop stash'
 ```
 
@@ -275,8 +269,10 @@ Reverse https proxy configuration. See examples for more detail. Default: {}
 
 ####Miscellaneous  parameters####
 
-#####`downloadURL`
+#####`download_url`
 Where to download the stash binaries from. Default: 'http://www.atlassian.com/software/stash/downloads/binary/'
+#####`checksum`
+The md5 checksum of the archive file. Only supported with `deploy_module => archive`. Defaults to 'undef'
 #####`service_manage`
 Should puppet manage this service? Default: true
 #####`$service_ensure`
@@ -292,16 +288,16 @@ The version of git to install. Default: 'installed'
 #####`repoforge`
 Enable the repoforge yum repository by default for RHEL as stash requires a newer version of git.
 By default we will upgrade git to a supported version if it is already installed and the repoforge repository was not enabled. Default: true
-#####`$staging_or_deploy`
-Choose whether to use nanliu-staging, or mkrakowitzer-deploy. Defaults to 'staging' to use nanliu-staging as it is puppetlabs approved. Alternative option is 'deploy' to use mkrakowitzer-deploy.
+#####`deploy_module`
+Module to use for installed stash archive fille. Supports puppet-archive and puppet-staging. Defaults to 'archive'. Archive supports md5 hash checking, Staging support s3 buckets. 
 #####`config_properties`
 Extra configuration options for stash (stash-config.properties). See https://confluence.atlassian.com/display/STASH/Stash+config+properties for available options. Must be a hash, Default: {}
 
 ####Backup parameters####
 #####`backup_ensure`
 Enable or disable the backup cron job. Defaults to present.
-#####`backupclientVersion`
-The version of the backup client to install. Defaults to '1.6.0'
+#####`backupclient_version`
+The version of the backup client to install. Defaults to '1.9.1'
 #####`backup_home`
 Home directory to use for backups. Backups are created here under /archive. Defaults to '/opt/stash-backup'.
 #####`backupuser`
