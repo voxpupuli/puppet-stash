@@ -26,8 +26,6 @@ class stash::install(
   $webappdir,
   ) {
 
-  include '::archive'
-  
   if $git_manage {
     if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '6' {
       validate_bool($repoforge)
