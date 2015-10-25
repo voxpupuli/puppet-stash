@@ -12,10 +12,6 @@ describe 'stash' do
             { :version => STASH_VERSION }
           end
 
-          it 'should install, but not upgrade, git' do
-            should contain_package('git').with_ensure('installed')
-          end
-
           it 'should deploy stash from archive' do
             should contain_archive("/tmp/atlassian-stash-#{STASH_VERSION}.tar.gz")
               .with('extract_path' => '/opt/stash',
@@ -79,7 +75,6 @@ describe 'stash' do
                 :uid           => 333,
                 :gid           => 444,
                 :download_url  => 'http://downloads.atlassian.com/',
-                :git_version   => 'installed',
                 :deploy_module => 'staging',
               }
             end
@@ -107,15 +102,6 @@ describe 'stash' do
               should contain_file('/random/homedir').with('ensure' => 'directory',
                                                           'owner' => 'foo',
                                                           'group' => 'bar')
-            end
-          end
-
-          context 'specify git version' do
-            let(:params) do
-              { :git_version => '1.7.12' }
-            end
-            it 'should ensure a specific version of git is installed' do
-              should contain_package('git').with_ensure('1.7.12')
             end
           end
 

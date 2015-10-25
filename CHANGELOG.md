@@ -1,3 +1,7 @@
+##2015-XX-XX - Release 2.0.0
+###Summary
+- Remove support for installing git, a git module should be used
+
 ##2015-07-16 - Release 1.3.0
 ###Summary
 
