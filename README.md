@@ -49,8 +49,6 @@ You must have your database setup with the account user that Stash will use. Thi
 
 When using this module to upgrade Stash, please make sure you have a database/Stash home backup. We plan to include a class for backing up the stash home directory in a future release.
 
-As RHEL 6 and its derivatives do not include a version of git that will work by default with stash. We enable the repoforge module as a default if it is not already enabled. Whilst this is not best practice, it is better than the module not working for inexperienced users. By default we will upgrade git if it is already installed and the repoforge repository is not enabled. Default: true. You can turn all this functionality off with 'repoforge => false' and manage git outside of the module.
-
 When upgrading stash from < 3.8.0 to >= 3.8.0 puppet will notify the stash service to restart for two puppet runs. This is because the stash upgrade makes file attribute and content changes to the stash-config.properties. See issue #74
 
 ###Beginning with Stash
@@ -93,7 +91,6 @@ Enable a stash backup
   }
 ```
 
-A complete example with postgres/nginx/stash is available [here](https://github.com/mkrakowitzer/vagrant-puppet-stash/blob/master/manifests/site.pp) or in the examples directory.
 <a name="upgrades">
 #####Upgrades
 
@@ -281,13 +278,6 @@ Manage the stash service, defaults to 'running'
 Defaults to 'true'
 #####`$stop_stash`
 If the stash service is managed outside of puppet the stop_stash paramater can be used to shut down stash for upgrades. Defaults to 'service stash stop && sleep 15'
-#####`git_manage`
-Should stash manage the git package. Can be 'true' or 'false', defaults to true.
-#####`git_version`
-The version of git to install. Default: 'installed'
-#####`repoforge`
-Enable the repoforge yum repository by default for RHEL as stash requires a newer version of git.
-By default we will upgrade git to a supported version if it is already installed and the repoforge repository was not enabled. Default: true
 #####`deploy_module`
 Module to use for installed stash archive fille. Supports puppet-archive and puppet-staging. Defaults to 'archive'. Archive supports md5 hash checking, Staging support s3 buckets. 
 #####`config_properties`

@@ -13,11 +13,9 @@ class stash::install(
   $group          = $stash::group,
   $uid            = $stash::uid,
   $gid            = $stash::gid,
-  $git_version    = $stash::git_version,
   $repoforge      = $stash::repoforge,
   $download_url   = $stash::download_url,
   $deploy_module  = $stash::deploy_module,
-  $git_manage     = $stash::git_manage,
   $dburl          = $stash::dburl,
   $checksum       = $stash::checksum,
   $mysqlc_manage  = $stash::mysql_connector_manage,
@@ -28,37 +26,6 @@ class stash::install(
 
   include '::archive'
   
-  if $git_manage {
-    if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '6' {
-      validate_bool($repoforge)
-      # If repoforge is not enabled by default, enable it
-      # but only allow git to be installed from it.
-      if ! defined(Class['repoforge']) and $repoforge {
-        class { '::repoforge':
-          enabled     => [ 'extras', ],
-          includepkgs => {
-            'extras' => 'git,perl-Git',
-          },
-          before      => Package['git'],
-        } ~>
-        exec { "${stash::product}_clean_yum_metadata":
-          command     => '/usr/bin/yum clean metadata',
-          refreshonly => true,
-        } ~>
-        # Git may already have been installed, so lets update it to a 
-        # supported version.
-        exec { "${stash::product}_upgrade_git":
-          command     => '/usr/bin/yum -y upgrade git',
-          onlyif      => '/bin/rpm -qa git',
-          refreshonly => true,
-        }
-      }
-    }
-    package { 'git':
-      ensure => $git_version,
-    }
-  }
-
   if $manage_usr_grp {
     #Manage the group in the module
     group { $group:

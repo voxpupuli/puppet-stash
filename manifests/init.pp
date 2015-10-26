@@ -68,13 +68,6 @@ class stash(
   # Reverse https proxy
   $proxy = {},
 
-  # Git version
-  $git_manage  = true,
-  $git_version = 'installed',
-
-  # Enable repoforge by default for RHEL, stash requires a newer version of git
-  $repoforge   = true,
-
   # Command to stop stash in preparation to updgrade. # This is configurable
   # incase the stash service is managed outside of puppet. eg: using the
   # puppetlabs-corosync module: 'crm resource stop stash && sleep 15'
@@ -90,7 +83,6 @@ class stash(
 
 ) {
 
-  validate_bool($git_manage)
   validate_hash($config_properties)
 
   include ::stash::params
