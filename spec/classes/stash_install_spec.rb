@@ -104,48 +104,6 @@ describe 'stash' do
                                                           'group' => 'bar')
             end
           end
-
-          context 'manage mysql connector' do
-            context 'when dburl parameter is set' do
-              let(:params) do
-                { :version => STASH_VERSION,
-                  :dburl   => 'jdbc.url=jdbc:mysql://localhost:3306/stash?foo?bar?',
-                }
-              end
-              it do
-                should contain_class('mysql_java_connector')
-                  .with('links'      => "/opt/stash/atlassian-stash-#{STASH_VERSION}/lib",
-                        'version'    => '5.1.36',
-                        'installdir' => '/opt/MySQL-connector',)
-              end
-            end
-            context 'when dburl parameter is not set' do
-              it { should_not contain_class('mysql_java_connector') }
-            end
-            context 'mysql connector is disabled' do
-              let(:params) do
-                { :dburl => 'jdbc.url=jdbc:mysql://localhost:3306/stash?foo?bar?',
-                  :mysql_connector_manage => false,
-                }
-              end
-              it { should_not contain_class('mysql_java_connector') }
-            end
-            context 'when dburl parameter is set with custom params' do
-              let(:params) do
-                { :version                    => '99.0.0',
-                  :dburl                      => 'jdbc.url=jdbc:mysql://localhost:3306/stash?foo?bar?',
-                  :mysql_connector_version    => '5.99.111',
-                  :mysql_connector_installdir => '/opt/custom',
-                }
-              end
-              it do
-                should contain_class('mysql_java_connector')
-                  .with('links'      => '/opt/stash/atlassian-stash-99.0.0/lib',
-                        'version'    => '5.99.111',
-                        'installdir' => '/opt/custom',)
-              end
-            end
-          end
         end
       end
     end
