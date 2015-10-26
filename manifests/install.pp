@@ -18,9 +18,6 @@ class stash::install(
   $deploy_module  = $stash::deploy_module,
   $dburl          = $stash::dburl,
   $checksum       = $stash::checksum,
-  $mysqlc_manage  = $stash::mysql_connector_manage,
-  $mysqlc_version = $stash::mysql_connector_version,
-  $mysqlc_install = $stash::mysql_connector_installdir,
   $webappdir,
   ) {
 
@@ -121,14 +118,6 @@ class stash::install(
     command     => "/bin/chown -R ${user}:${group} ${webappdir}",
     refreshonly => true,
     subscribe   => [ User[$user], File[$webappdir] ],
-  }
-
-  if $dburl =~ /jdbc\.url=jdbc:mysql:/ and $mysqlc_manage {
-    class { '::mysql_java_connector':
-      links      => "${webappdir}/lib",
-      version    => $mysqlc_version,
-      installdir => $mysqlc_install,
-    }
   }
 
 }

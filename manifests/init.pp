@@ -76,11 +76,6 @@ class stash(
   # Choose whether to use puppet-staging, or puppet-archive
   $deploy_module = 'archive',
 
-  # MySQL Connector Settings
-  $mysql_connector_manage     = true,
-  $mysql_connector_version    = '5.1.36',
-  $mysql_connector_installdir = undef,
-
 ) {
 
   validate_hash($config_properties)

@@ -45,7 +45,7 @@ This module installs/upgrades Atlassian's Enterprise source code management tool
 ###What Stash affects
 If installing to an existing Stash instance, it is your responsibility to backup your database. We also recommend that you backup your Stash home directory and that you align your current Stash version with the version you intend to use with puppet Stash module.
 
-You must have your database setup with the account user that Stash will use. This can be done using the puppetlabs-postgresql and puppetlabs-mysql modules.
+You must have your database setup with the account user that Stash will use. This can be done using the puppetlabs-postgresql and puppetlabs-mysql modules. The mysql java connector can be installed using the [puppet/mysql_java_connector](https://forge.puppetlabs.com/puppet/mysql_java_connector) module.
 
 When using this module to upgrade Stash, please make sure you have a database/Stash home backup. We plan to include a class for backing up the stash home directory in a future release.
 
@@ -236,15 +236,6 @@ The database password for the database user. Default: 'password'
 The uri to the stash database server. Default: 'jdbc:postgresql://localhost:5432/stash'
 #####`dbdriver`
 The driver to use to connect to the database. Default: 'org.postgresql.Driver'
-
-####MySQL parameters####
-
-#####`mysql_connector_manage`
-Manage the MySQL java connector. Defaults to true.
-#####`mysql_connector_version`
-Specifies the version of MySQL Java Connector you would like installed. Defaults to '5.1.36' 
-#####`mysql_connector_installdir`
-Installation directory of the MySQL connector. Defaults to '/opt/MySQL-connector'
 
 ####JVM Java parameters####
 
