@@ -19,10 +19,12 @@ node default {
   class { '::stash':
     version  => $version,
     javahome => '/opt/java',
+    dbdriver => 'com.mysql.jdbc.Driver',
   } ->
 
   class { '::mysql_java_connector':
-    links => [ "/opt/stash/atlassian-stash-${version}/lib" ],
+    links    => [ "/opt/stash/atlassian-stash-${version}/lib" ],
+    notify   => Service['stash'],
   }
 
   class { '::stash::facts': }
