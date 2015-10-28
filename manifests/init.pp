@@ -79,7 +79,7 @@ class stash(
 
   case $version {
     /[1-3]\..*/: { $product = 'stash' }
-    default:     { $product = 'product' }
+    default:     { $product = 'bitbucket' }
   }
 
   validate_hash($config_properties)
