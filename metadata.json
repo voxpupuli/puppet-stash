@@ -55,6 +55,10 @@
       "version_requirement": ">= 1.0.0"
     },
     {
+      "name": "voxpupuli/archive",
+      "version_requirement": ">= 0.4.4"
+    },
+    {
       "name": "yguenane/repoforge",
       "version_requirement": ">= 0.2.0"
     }
