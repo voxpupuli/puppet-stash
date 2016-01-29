@@ -1,6 +1,6 @@
 #puppet-stash
 [![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/stash.svg)](https://forge.puppetlabs.com/puppet/stash)
-[![Build Status](https://travis-ci.org/puppet-community/puppet-stash.svg?branch=master)](https://travis-ci.org/puppet-community/puppet-stash)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-stash.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-stash)
 
 :warning: This module is going through a number of changes in preparation for version 4 (Bitbucket-server). It is recommended to use the puppet-forge versions and not the github master branch.
 

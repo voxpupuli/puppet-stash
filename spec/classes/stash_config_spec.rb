@@ -18,7 +18,7 @@ describe 'stash' do
             end
             it do
               should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh') \
-                .with_content(%r{JAVA_HOME=\/opt\/java})
+                .with_content(%r{JAVA_HOME=/opt/java})
                 .with_content(/^JVM_MINIMUM_MEMORY="256m"/)
                 .with_content(/^JVM_MAXIMUM_MEMORY="1024m"/)
                 .with_content(/^STASH_MAX_PERM_SIZE=256m/)
@@ -37,7 +37,7 @@ describe 'stash' do
             it do
               should contain_file('/home/stash/shared/stash-config.properties')
                 .with_content(/jdbc\.driver=org\.postgresql\.Driver/)
-                .with_content(%r{jdbc\.url=jdbc:postgresql://localhost:5432/stash})
+                .with_content(%r{jdbc.url=jdbc:postgresql://localhost:5432/stash})
                 .with_content(/jdbc\.user=stash/)
                 .with_content(/jdbc\.password=password/)
             end
@@ -55,7 +55,7 @@ describe 'stash' do
             it do
               should contain_file('/home/stash/shared/stash-config.properties')
                 .with_content(/setup\.displayName=stash/)
-                .with_content(%r{setup\.baseUrl=https://foo.example.com})
+                .with_content(%r{setup.baseUrl=https://foo.example.com})
                 .with_content(/setup\.sysadmin\.username=admin/)
                 .with_content(/setup\.sysadmin\.password=stash/)
                 .with_content(/setup\.sysadmin\.displayName=Stash Admin/)
@@ -65,7 +65,8 @@ describe 'stash' do
 
           context 'stash 3.8.1 with additional stash-config.properties values' do
             let(:params) do
-              { :version => '3.8.1',
+              {
+                :version   => '3.8.1',
                 :config_properties => {
                   'aaaa'   => 'bbbb',
                   'cccc'   => 'dddd',
@@ -82,7 +83,8 @@ describe 'stash' do
 
           context 'stash 3.7.0 with additional stash-config.properties values' do
             let(:params) do
-              { :version => '3.7.0',
+              {
+                :version   => '3.7.0',
                 :config_properties => {
                   'aaaa'   => 'bbbb',
                   'cccc'   => 'dddd',
