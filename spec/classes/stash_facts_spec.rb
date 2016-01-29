@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe 'stash::facts', :type => :class  do
+describe 'stash::facts', :type => :class do
   context 'supported operating systems' do
     on_supported_os.each do |os, facts|
       context "on #{os} #{facts}" do
         let(:facts) do
           facts
         end
-        regexp_pe = /^#\!\/opt\/puppet\/bin\/ruby$/
-        regexp_oss = /^#\!\/usr\/bin\/env ruby$/
+        regexp_pe = %r{^#\!/opt/puppet/bin/ruby$}
+        regexp_oss = %r{^#\!/usr/bin/env ruby$}
         pe_external_fact_file = '/etc/puppetlabs/facter/facts.d/stash_facts.rb'
         external_fact_file = '/etc/facter/facts.d/stash_facts.rb'
 
@@ -17,7 +17,7 @@ describe 'stash::facts', :type => :class  do
         # Test puppet enterprise shebang generated correctly
         context 'with puppet enterprise' do
           let(:facts) do
-            facts.merge({ :puppetversion => "3.4.3 (Puppet Enterprise 3.2.1)"})
+            facts.merge(:puppetversion => '3.4.3 (Puppet Enterprise 3.2.1)')
           end
           it do
             should contain_file(pe_external_fact_file) \
@@ -30,7 +30,7 @@ describe 'stash::facts', :type => :class  do
           it do
             should contain_file(external_fact_file) \
               .with_content(regexp_oss)
-              .with_content(/7990\/rest\/api\//)
+              .with_content(%r{7990/rest/api/})
           end
         end
 
@@ -40,7 +40,7 @@ describe 'stash::facts', :type => :class  do
           }}
           it do
             should contain_file(external_fact_file) \
-              .with_content(/7990\/stash\/rest\/api\//)
+              .with_content(%r{7990/stash/rest/api/})
           end
         end
       end

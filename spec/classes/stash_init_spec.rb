@@ -7,8 +7,8 @@ describe 'stash' do
         let(:facts) do
           facts
         end
-        context "test class without any parameters" do
-          let(:params) {{ }}
+        context 'test class without any parameters' do
+          let(:params) { {} }
 
           it { is_expected.to compile.with_all_deps }
 
@@ -32,11 +32,10 @@ describe 'stash' do
       let(:facts) {{
         :osfamily        => 'Solaris',
         :operatingsystem => 'Nexenta',
-	:operatingsystemmajrelease => '7',
+        :operatingsystemmajrelease => '7',
       }}
 
       it { expect { is_expected.to contain_service('stash') }.to raise_error(Puppet::Error, /Nexenta 7 not supported/) }
     end
   end
 end
-

@@ -4,12 +4,12 @@ require 'spec_helper_acceptance'
 # Set environment variable download_url to use local webserver
 # export download_url = 'http://10.0.0.XXX/'
 download_url = ENV['download_url'] if ENV['download_url']
-if ENV['download_url'] then
+if ENV['download_url']
   download_url = ENV['download_url']
 else
   download_url = 'undef'
 end
-if download_url == 'undef' then
+if download_url == 'undef'
   java_url = "'http://download.oracle.com/otn-pub/java/jdk/8u45-b14/'"
 else
   java_url = download_url
@@ -19,7 +19,6 @@ end
 # time to install/upgrade/run migration tasks/start
 
 describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
-
   it 'installs with defaults and context /stash1' do
     pp = <<-EOS
       $jh = $osfamily ? {
@@ -66,7 +65,7 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
     shell 'wget -q --tries=20 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
   end
 
-  describe process("java") do
+  describe process('java') do
     it { should be_running }
   end
 
@@ -89,11 +88,11 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   end
 
   describe command('curl http://localhost:7990/stash1/setup') do
-    its(:stdout) { should match (/This is the base URL of this installation of Stash/) }
+    its(:stdout) { should match(/This is the base URL of this installation of Stash/) }
   end
 
   describe command('facter -p stash_version') do
-    its(:stdout) { should match (/3\.9\.2/) }
+    its(:stdout) { should match(/3\.9\.2/) }
   end
 
   describe cron do
@@ -104,5 +103,4 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
     it { should be_file }
     it { should be_owned_by 'stash' }
   end
-
 end
