@@ -1,13 +1,14 @@
 {
   "name": "puppet-stash",
   "version": "2.0.0",
-  "author": "puppetcommunity",
+  "author": "puppet",
   "summary": "Install Atlassian stash",
   "license": "MIT",
   "source": "https://github.com/voxpupuli/puppet-stash.git",
   "project_page": "https://github.com/voxpupuli/puppet-stash",
   "issues_url": "https://github.com/voxpupuli/puppet-stash/issues",
   "description": "Module to install Atlassian Stash. On-premises source code management for Git that's secure, fast, and enterprise grade.",
+  "tags": ["stash"],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
