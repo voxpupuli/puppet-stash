@@ -66,7 +66,7 @@ describe 'stash' do
           context 'stash 3.8.1 with additional stash-config.properties values' do
             let(:params) do
               {
-                :version   => '3.8.1',
+                :version => '3.8.1',
                 :config_properties => {
                   'aaaa'   => 'bbbb',
                   'cccc'   => 'dddd',
@@ -84,7 +84,7 @@ describe 'stash' do
           context 'stash 3.7.0 with additional stash-config.properties values' do
             let(:params) do
               {
-                :version   => '3.7.0',
+                :version => '3.7.0',
                 :config_properties => {
                   'aaaa'   => 'bbbb',
                   'cccc'   => 'dddd',
