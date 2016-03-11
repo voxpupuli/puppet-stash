@@ -1,11 +1,11 @@
 require 'spec_helper_acceptance'
 
 download_url = ENV['download_url'] if ENV['download_url']
-if ENV['download_url']
-  download_url = ENV['download_url']
-else
-  download_url = 'undef'
-end
+download_url = if ENV['download_url']
+                 ENV['download_url']
+               else
+                 'undef'
+               end
 
 # We add the sleeps everywhere to give stash enough
 # time to install/upgrade/run migration tasks/start
