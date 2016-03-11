@@ -13,7 +13,6 @@ class stash::install(
   $group          = $stash::group,
   $uid            = $stash::uid,
   $gid            = $stash::gid,
-  $repoforge      = $stash::repoforge,
   $download_url   = $stash::download_url,
   $deploy_module  = $stash::deploy_module,
   $dburl          = $stash::dburl,

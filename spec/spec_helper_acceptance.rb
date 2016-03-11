@@ -22,7 +22,7 @@ unless proxy_host.empty?
   end
 end
 
-UNSUPPORTED_PLATFORMS = %w(AIX windows Solaris)
+UNSUPPORTED_PLATFORMS = %w(AIX windows Solaris).freeze
 
 RSpec.configure do |c|
   # Project root
@@ -54,7 +54,6 @@ RSpec.configure do |c|
       on host, puppet('module', 'install', 'puppetlabs-java'), :acceptable_exit_codes => [0, 1]
       on host, puppet('module', 'install', 'puppetlabs-postgresql'), :acceptable_exit_codes => [0, 1]
       on host, puppet('module', 'install', 'puppetlabs-stdlib'), :acceptable_exit_codes => [0, 1]
-      on host, puppet('module', 'install', 'yguenane-repoforge'), :acceptable_exit_codes => [0, 1]
     end
   end
 end
