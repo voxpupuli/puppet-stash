@@ -10,19 +10,27 @@ describe 'stash' do
           end
 
           context 'default params' do
+            let(:params) do
+              { :javahome => '/opt/java' }
+            end
             it { should contain_service('stash') }
           end
 
           context 'overwriting service_manage param' do
             let(:params) do
-              { :service_manage => false }
+              {
+                :javahome       => '/opt/java',
+                :service_manage => false,
+              }
             end
             it { should_not contain_service('stash') }
           end
 
           context 'overwriting service params' do
             let(:params) do
-              { :service_ensure => 'stopped',
+              {
+                :javahome       => '/opt/java',
+                :service_ensure => 'stopped',
                 :service_enable => false,
               }
             end

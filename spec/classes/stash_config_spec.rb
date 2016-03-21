@@ -11,8 +11,9 @@ describe 'stash' do
 
           context 'default params' do
             let(:params) do
-              { :javahome    => '/opt/java',
+              {
                 :version     => '3.7.0',
+                :javahome    => '/opt/java',
                 :tomcat_port => '7990',
               }
             end
@@ -49,7 +50,10 @@ describe 'stash' do
 
           context 'stash 3.8.1' do
             let(:params) do
-              { :version => '3.8.1' }
+              {
+                :version  => '3.8.1',
+                :javahome => '/opt/java',
+              }
             end
 
             it do
@@ -66,10 +70,11 @@ describe 'stash' do
           context 'stash 3.8.1 with additional stash-config.properties values' do
             let(:params) do
               {
-                :version => '3.8.1',
+                :version           => '3.8.1',
+                :javahome          => '/opt/java',
                 :config_properties => {
-                  'aaaa'   => 'bbbb',
-                  'cccc'   => 'dddd',
+                  'aaaa' => 'bbbb',
+                  'cccc' => 'dddd',
                 },
               }
             end
@@ -84,10 +89,11 @@ describe 'stash' do
           context 'stash 3.7.0 with additional stash-config.properties values' do
             let(:params) do
               {
-                :version => '3.7.0',
+                :version           => '3.7.0',
+                :javahome          => '/opt/java',
                 :config_properties => {
-                  'aaaa'   => 'bbbb',
-                  'cccc'   => 'dddd',
+                  'aaaa' => 'bbbb',
+                  'cccc' => 'dddd',
                 },
               }
             end
@@ -101,8 +107,10 @@ describe 'stash' do
 
           context 'proxy settings ' do
             let(:params) do
-              { :version => '3.7.0',
-                :proxy   => {
+              {
+                :version  => '3.7.0',
+                :javahome => '/opt/java',
+                :proxy    => {
                   'scheme'    => 'https',
                   'proxyName' => 'stash.example.co.za',
                   'proxyPort' => '443',
@@ -119,7 +127,10 @@ describe 'stash' do
 
           context 'stash 3.8.0' do
             let(:params) do
-              { :version => '3.8.0' }
+              {
+                :version  => '3.8.0',
+                :javahome => '/opt/java',
+              }
             end
             it do
               should_not contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml')
@@ -129,8 +140,10 @@ describe 'stash' do
 
           context 'jvm_xms => 1G' do
             let(:params) do
-              { :version => '3.7.0',
-                :jvm_xms => '1G',
+              {
+                :version  => '3.7.0',
+                :javahome => '/opt/java',
+                :jvm_xms  => '1G',
               }
             end
             it do
@@ -141,8 +154,10 @@ describe 'stash' do
 
           context 'jvm_xmx => 4G' do
             let(:params) do
-              { :version => '3.7.0',
-                :jvm_xmx => '4G',
+              {
+                :version  => '3.7.0',
+                :javahome => '/opt/java',
+                :jvm_xmx  => '4G',
               }
             end
             it do
@@ -153,7 +168,9 @@ describe 'stash' do
 
           context 'jvm_permgen => 384m' do
             let(:params) do
-              { :version     => '3.7.0',
+              {
+                :version     => '3.7.0',
+                :javahome    => '/opt/java',
                 :jvm_permgen => '384m',
               }
             end
@@ -165,7 +182,9 @@ describe 'stash' do
 
           context 'java_opts => "-Dhttp.proxyHost=proxy.example.co.za -Dhttp.proxyPort=8080"' do
             let(:params) do
-              { :version   => '3.7.0',
+              {
+                :version   => '3.7.0',
+                :javahome  => '/opt/java',
                 :java_opts => '-Dhttp.proxyHost=proxy.example.co.za -Dhttp.proxyPort=8080',
               }
             end
@@ -177,7 +196,9 @@ describe 'stash' do
 
           context 'context_path => "stash"' do
             let(:params) do
-              { :version      => '3.7.0',
+              {
+                :version      => '3.7.0',
+                :javahome     => '/opt/java',
                 :context_path => '/stash',
               }
             end
@@ -189,7 +210,9 @@ describe 'stash' do
 
           context 'tomcat_port => "7991"' do
             let(:params) do
-              { :version     => '3.7.0',
+              {
+                :version     => '3.7.0',
+                :javahome    => '/opt/java',
                 :tomcat_port => '7991',
               }
             end

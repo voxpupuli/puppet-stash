@@ -9,7 +9,10 @@ describe 'stash' do
             facts
           end
           let(:params) do
-            { :version => STASH_VERSION }
+            {
+              :version  => STASH_VERSION,
+              :javahome => '/opt/java',
+            }
           end
 
           it 'should deploy stash from archive' do
@@ -38,7 +41,10 @@ describe 'stash' do
 
           context 'when managing the user and group inside the module' do
             let(:params) do
-              { :manage_usr_grp => true }
+              {
+                :javahome       => '/opt/java',
+                :manage_usr_grp => true,
+              }
             end
             context 'when no user or group are specified' do
               it { should contain_user('stash').with_shell('/bin/bash') }
@@ -46,8 +52,10 @@ describe 'stash' do
             end
             context 'when a user and group is specified' do
               let(:params) do
-                { :user  => 'mystashuser',
-                  :group => 'mystashgroup'
+                {
+                  :javahome => '/opt/java',
+                  :user     => 'mystashuser',
+                  :group    => 'mystashgroup'
                 }
               end
               it { should contain_user('mystashuser') }
@@ -58,7 +66,10 @@ describe 'stash' do
           context 'when managing the user and group outside the module' do
             context 'when no user or group are specified' do
               let(:params) do
-                { :manage_usr_grp => false }
+                {
+                  :javahome       => '/opt/java',
+                  :manage_usr_grp => false,
+                }
               end
               it { should_not contain_user('stash') }
               it { should_not contain_group('stash') }
@@ -67,7 +78,9 @@ describe 'stash' do
 
           context 'overwriting params' do
             let(:params) do
-              { :version       => STASH_VERSION,
+              {
+                :version       => STASH_VERSION,
+                :javahome      => '/opt/java',
                 :installdir    => '/custom/stash',
                 :homedir       => '/random/homedir',
                 :user          => 'foo',

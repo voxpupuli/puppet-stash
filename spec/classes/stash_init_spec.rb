@@ -7,8 +7,15 @@ describe 'stash' do
         let(:facts) do
           facts
         end
-        context 'test class without any parameters' do
-          let(:params) { {} }
+        context 'with javahome not set' do
+          it('should fail') {
+            should raise_error(Puppet::Error, /You need to specify a value for javahome/)
+          }
+        end
+        context 'with javahome set' do
+          let(:params) do
+            { :javahome => '/opt/java' }
+          end
 
           it { is_expected.to compile.with_all_deps }
           it { is_expected.to contain_class('stash') }
