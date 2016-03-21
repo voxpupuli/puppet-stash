@@ -2,9 +2,8 @@ fixtures:
   symlinks:
     stash: "#{source_dir}"
   repositories:
-    stdlib: "http://github.com/puppetlabs/puppetlabs-stdlib.git"
-    inifile: "http://github.com/puppetlabs/puppetlabs-inifile.git"
-    repoforge: "http://github.com/Mylezeem/puppet-repoforge.git"
-    archive: "http://github.com/puppet-community/puppet-archive"
-    staging: "http://github.com/puppet-community/puppet-staging"
-    mysql_java_connector: "http://github.com/puppet-community/puppet-mysql_java_connector"
+    archive:              "https://github.com/voxpupuli/puppet-archive.git"
+    inifile:              "https://github.com/puppetlabs/puppetlabs-inifile.git"
+    mysql_java_connector: "https://github.com/voxpupuli/puppet-mysql_java_connector.git"
+    staging:              "https://github.com/voxpupuli/puppet-staging.git"
+    stdlib:               "https://github.com/puppetlabs/puppetlabs-stdlib.git"
