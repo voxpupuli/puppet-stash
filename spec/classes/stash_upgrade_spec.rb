@@ -8,11 +8,11 @@ describe 'stash' do
           facts
         end
         context 'prepare for upgrade of stash' do
-          let(:params) do
-            { :javahome => '/opt/java' }
-          end
           let(:facts) do
             facts.merge(:stash_version => '3.1.0')
+          end
+          let(:params) do
+            { :javahome => '/opt/java' }
           end
           it 'should stop service and remove old config file' do
             should contain_exec('service stash stop && sleep 15')

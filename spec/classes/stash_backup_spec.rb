@@ -10,13 +10,16 @@ describe 'stash' do
           end
 
           context 'install stash backup client with default params' do
+            let(:params) do
+              { :javahome => '/opt/java' }
+            end
             it 'should deploy stash backup client 1.9.1 from tar.gz' do
               should contain_archive("/tmp/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz")
-                .with('source' => "https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/#{BACKUP_VERSION}/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz",
+                .with('source'       => "https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/#{BACKUP_VERSION}/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz",
                       'extract_path' => '/opt/stash-backup',
-                      'creates' => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/lib",
-                      'user' => 'stash',
-                      'group' => 'stash',)
+                      'creates'      => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/lib",
+                      'user'         => 'stash',
+                      'group'        => 'stash',)
             end
 
             it 'should manage the stash-backup directories' do
@@ -37,7 +40,7 @@ describe 'stash' do
             it 'should manage the backup cron job' do
               should contain_cron('Backup Stash')
                 .with('ensure'  => 'present',
-                      'command' => "/usr/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",
+                      'command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",
                       'user'    => 'stash',
                       'hour'    => '5',
                       'minute'  => '0',)
@@ -54,18 +57,21 @@ describe 'stash' do
 
           context 'should contain custom java path' do
             let(:params) do
-              { :javahome => '/java/path' }
+              { :javahome => '/usr/local/java' }
             end
             it do
-              should contain_class('stash').with_javahome('/java/path')
+              should contain_class('stash').with_javahome('/usr/local/java')
               should contain_cron('Backup Stash')
-                .with('command' => "/java/path/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",)
+                .with('command' => "/usr/local/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",)
             end
           end
 
           context 'should contain custom backup client version' do
             let(:params) do
-              { :backupclient_version => '99.43.111' }
+              {
+                :javahome             => '/opt/java',
+                :backupclient_version => '99.43.111',
+              }
             end
             it do
               should contain_archive('/tmp/stash-backup-distribution-99.43.111.tar.gz')
@@ -78,13 +84,16 @@ describe 'stash' do
                 .with('ensure' => 'directory',
                       'owner'  => 'stash',
                       'group'  => 'stash')
-              should contain_cron('Backup Stash').with('command' => '/usr/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-99.43.111/stash-backup-client.jar',)
+              should contain_cron('Backup Stash').with('command' => '/opt/java/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-99.43.111/stash-backup-client.jar',)
             end
           end
 
           context 'should contain custom backup home' do
             let(:params) do
-              { :backup_home => '/my/backup' }
+              {
+                :javahome    => '/opt/java',
+                :backup_home => '/my/backup',
+              }
             end
             it do
               should contain_class('stash').with_backup_home(%r{my/backup})
@@ -92,26 +101,30 @@ describe 'stash' do
                 .with('ensure' => 'directory',
                       'owner'  => 'stash',
                       'group'  => 'stash')
-              should contain_cron('Backup Stash').with('command' => "/usr/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/my/backup/archives -jar /my/backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",)
+              should contain_cron('Backup Stash').with('command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/my/backup/archives -jar /my/backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",)
             end
           end
 
           context 'should contain custom backup user and password' do
             let(:params) do
-              { :backupuser => 'myuser',
+              {
+                :javahome   => '/opt/java',
+                :backupuser => 'myuser',
                 :backuppass => 'mypass',
               }
             end
             it do
               should contain_class('stash').with_backupuser('myuser').with_backuppass('mypass')
               should contain_cron('Backup Stash')
-                .with('command' => "/usr/bin/java -Dstash.password=\"mypass\" -Dstash.user=\"myuser\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",)
+                .with('command' => "/opt/java/bin/java -Dstash.password=\"mypass\" -Dstash.user=\"myuser\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",)
             end
           end
 
           context 'should remove old archives' do
             let(:params) do
-              { :backup_keep_age => '1y',
+              {
+                :javahome        => '/opt/java',
+                :backup_keep_age => '1y',
                 :backup_home     => '/my/backup',
               }
             end
