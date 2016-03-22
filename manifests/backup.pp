@@ -16,7 +16,7 @@ class stash::backup(
   $user                 = $stash::user,
   $group                = $stash::group,
   $deploy_module        = $stash::deploy_module,
-  $download_url          = $stash::backupclient_url,
+  $download_url         = $stash::backupclient_url,
   $backup_home          = $stash::backup_home,
   $javahome             = $stash::javahome,
   $keep_age             = $stash::backup_keep_age,
@@ -56,20 +56,29 @@ class stash::backup(
         strip   => 1,
         user    => $user,
         group   => $group,
-        require => [ User[$user], File[$appdir] ],
+        require => [
+          File[$appdir],
+          File[$backup_home],
+          User[$user],
+        ],
       }
     }
     'archive': {
       archive { "/tmp/${file}":
-        ensure       => present,
-        extract      => true,
-        extract_path => $backup_home,
-        source       => "${download_url}/${version}/${file}",
-        user         => $user,
-        group        => $group,
-        creates      => "${appdir}/lib",
-        cleanup      => true,
-        before       => File[$appdir],
+        ensure          => present,
+        extract         => true,
+        extract_command => 'tar xfz %s --strip-components=1',
+        extract_path    => $appdir,
+        source          => "${download_url}/${version}/${file}",
+        user            => $user,
+        group           => $group,
+        creates         => "${appdir}/lib",
+        cleanup         => true,
+        require         => [
+          File[$appdir],
+          File[$backup_home],
+          User[$user],
+        ],
       }
     }
     default: {
@@ -101,5 +110,4 @@ class stash::backup(
     type    => 'mtime',
     recurse => 2,
   }
-
 }

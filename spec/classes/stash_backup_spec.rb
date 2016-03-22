@@ -16,7 +16,7 @@ describe 'stash' do
             it 'should deploy stash backup client 1.9.1 from tar.gz' do
               should contain_archive("/tmp/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz")
                 .with('source'       => "https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/#{BACKUP_VERSION}/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz",
-                      'extract_path' => '/opt/stash-backup',
+                      'extract_path' => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}",
                       'creates'      => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/lib",
                       'user'         => 'stash',
                       'group'        => 'stash',)
@@ -30,7 +30,7 @@ describe 'stash' do
               should contain_file("/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}")
                 .with('ensure' => 'directory',
                       'owner'  => 'stash',
-                      'group'  => 'stash').that_requires("Archive[/tmp/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz]")
+                      'group'  => 'stash')
 
               should contain_file('/opt/stash-backup/archives')
                 .with('ensure' => 'directory',
@@ -76,7 +76,7 @@ describe 'stash' do
             it do
               should contain_archive('/tmp/stash-backup-distribution-99.43.111.tar.gz')
                 .with('source' => 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/99.43.111/stash-backup-distribution-99.43.111.tar.gz',
-                      'extract_path' => '/opt/stash-backup',
+                      'extract_path' => '/opt/stash-backup/stash-backup-client-99.43.111',
                       'creates' => '/opt/stash-backup/stash-backup-client-99.43.111/lib',
                       'user' => 'stash',
                       'group' => 'stash',)

@@ -17,7 +17,7 @@ describe 'stash' do
 
           it 'should deploy stash from archive' do
             should contain_archive("/tmp/atlassian-stash-#{STASH_VERSION}.tar.gz")
-              .with('extract_path' => '/opt/stash',
+              .with('extract_path' => "/opt/stash/atlassian-stash-#{STASH_VERSION}",
                     'source' => "http://www.atlassian.com/software/stash/downloads/binary//atlassian-stash-#{STASH_VERSION}.tar.gz",
                     'creates' => "/opt/stash/atlassian-stash-#{STASH_VERSION}/conf",
                     'user' => 'stash',
@@ -36,7 +36,7 @@ describe 'stash' do
             should contain_file("/opt/stash/atlassian-stash-#{STASH_VERSION}")
               .with('ensure' => 'directory',
                     'owner' => 'stash',
-                    'group' => 'stash').that_requires("Archive[/tmp/atlassian-stash-#{STASH_VERSION}.tar.gz]")
+                    'group' => 'stash')
           end
 
           context 'when managing the user and group inside the module' do
