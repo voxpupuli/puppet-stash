@@ -78,25 +78,28 @@ class stash::install(
         before  => File[$homedir],
         require => [
           File[$installdir],
+          File[$webappdir],
           User[$user],
-          File[$webappdir] ],
+        ],
       }
     }
     'archive': {
       archive { "/tmp/${file}":
-        ensure        => present,
-        extract       => true,
-        extract_path  => $installdir,
-        source        => "${download_url}/${file}",
-        creates       => "${webappdir}/conf",
-        cleanup       => true,
-        checksum_type => 'md5',
-        checksum      => $checksum,
-        user          => $user,
-        group         => $group,
-        before        => File[$webappdir],
-        require       => [
+        ensure          => present,
+        extract         => true,
+        extract_command => 'tar xfz %s --strip-components=1',
+        extract_path    => $webappdir,
+        source          => "${download_url}/${file}",
+        creates         => "${webappdir}/conf",
+        cleanup         => true,
+        checksum_type   => 'md5',
+        checksum        => $checksum,
+        user            => $user,
+        group           => $group,
+        before          => File[$homedir],
+        require         => [
           File[$installdir],
+          File[$webappdir],
           User[$user],
         ],
       }
