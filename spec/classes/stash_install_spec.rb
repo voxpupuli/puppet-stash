@@ -10,8 +10,8 @@ describe 'stash' do
           end
           let(:params) do
             {
-              :version  => STASH_VERSION,
-              :javahome => '/opt/java',
+              version: STASH_VERSION,
+              javahome: '/opt/java',
             }
           end
 
@@ -42,8 +42,8 @@ describe 'stash' do
           context 'when managing the user and group inside the module' do
             let(:params) do
               {
-                :javahome       => '/opt/java',
-                :manage_usr_grp => true,
+                javahome: '/opt/java',
+                manage_usr_grp: true,
               }
             end
             context 'when no user or group are specified' do
@@ -53,9 +53,9 @@ describe 'stash' do
             context 'when a user and group is specified' do
               let(:params) do
                 {
-                  :javahome => '/opt/java',
-                  :user     => 'mystashuser',
-                  :group    => 'mystashgroup'
+                  javahome: '/opt/java',
+                  user: 'mystashuser',
+                  group: 'mystashgroup'
                 }
               end
               it { should contain_user('mystashuser') }
@@ -67,8 +67,8 @@ describe 'stash' do
             context 'when no user or group are specified' do
               let(:params) do
                 {
-                  :javahome       => '/opt/java',
-                  :manage_usr_grp => false,
+                  javahome: '/opt/java',
+                  manage_usr_grp: false,
                 }
               end
               it { should_not contain_user('stash') }
@@ -79,16 +79,16 @@ describe 'stash' do
           context 'overwriting params' do
             let(:params) do
               {
-                :version       => STASH_VERSION,
-                :javahome      => '/opt/java',
-                :installdir    => '/custom/stash',
-                :homedir       => '/random/homedir',
-                :user          => 'foo',
-                :group         => 'bar',
-                :uid           => 333,
-                :gid           => 444,
-                :download_url  => 'http://downloads.atlassian.com/',
-                :deploy_module => 'staging',
+                version: STASH_VERSION,
+                javahome: '/opt/java',
+                installdir: '/custom/stash',
+                homedir: '/random/homedir',
+                user: 'foo',
+                group: 'bar',
+                uid: 333,
+                gid: 444,
+                download_url: 'http://downloads.atlassian.com/',
+                deploy_module: 'staging',
               }
             end
             it do

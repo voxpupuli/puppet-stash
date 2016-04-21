@@ -18,7 +18,7 @@ java_url = if download_url == 'undef'
 # We add the sleeps everywhere to give stash enough
 # time to install/upgrade/run migration tasks/start
 
-describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   it 'installs with defaults and context /stash1' do
     pp = <<-EOS
       $jh = $osfamily ? {
@@ -56,13 +56,13 @@ describe 'stash', :unless => UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
       }
       include ::stash::facts
   EOS
-    apply_manifest(pp, :catch_failures => true)
+    apply_manifest(pp, catch_failures: true)
     sleep 180
     shell 'wget -q --tries=20 --retry-connrefused --read-timeout=10 localhost:7990/stash1'
-    apply_manifest(pp, :catch_failures => true)
+    apply_manifest(pp, catch_failures: true)
     sleep 180
-    shell 'wget -q --tries=20 --retry-connrefused --read-timeout=10 localhost:7990/stash1', :acceptable_exit_codes => [0]
-    apply_manifest(pp, :catch_changes => true)
+    shell 'wget -q --tries=20 --retry-connrefused --read-timeout=10 localhost:7990/stash1', acceptable_exit_codes: [0]
+    apply_manifest(pp, catch_changes: true)
   end
 
   describe process('java') do
