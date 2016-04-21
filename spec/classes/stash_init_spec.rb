@@ -14,7 +14,7 @@ describe 'stash' do
         end
         context 'with javahome set' do
           let(:params) do
-            { :javahome => '/opt/java' }
+            { javahome: '/opt/java' }
           end
 
           it { is_expected.to compile.with_all_deps }
@@ -35,9 +35,9 @@ describe 'stash' do
   context 'unsupported operating system' do
     describe 'test class without any parameters on Solaris/Nexenta' do
       let(:facts) do
-        { :osfamily => 'Solaris',
-          :operatingsystem => 'Nexenta',
-          :operatingsystemmajrelease => '7',
+        { osfamily: 'Solaris',
+          operatingsystem: 'Nexenta',
+          operatingsystemmajrelease: '7',
         }
       end
 

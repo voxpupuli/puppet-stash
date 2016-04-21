@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'stash::facts', :type => :class do
+describe 'stash::facts', type: :class do
   context 'supported operating systems' do
     let(:pre_condition) { "class{'::stash': javahome => '/opt/java', }" }
     on_supported_os.each do |os, facts|
@@ -18,7 +18,7 @@ describe 'stash::facts', :type => :class do
         # Test puppet enterprise shebang generated correctly
         context 'with puppet enterprise' do
           let(:facts) do
-            facts.merge(:puppetversion => '3.4.3 (Puppet Enterprise 3.2.1)')
+            facts.merge(puppetversion: '3.4.3 (Puppet Enterprise 3.2.1)')
           end
           it do
             should contain_file(pe_external_fact_file) \
@@ -37,7 +37,7 @@ describe 'stash::facts', :type => :class do
 
         context 'with context' do
           let(:params) do
-            { :context_path => '/stash' }
+            { context_path: '/stash' }
           end
           it do
             should contain_file(external_fact_file) \

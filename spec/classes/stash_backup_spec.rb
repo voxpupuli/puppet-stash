@@ -11,7 +11,7 @@ describe 'stash' do
 
           context 'install stash backup client with default params' do
             let(:params) do
-              { :javahome => '/opt/java' }
+              { javahome: '/opt/java' }
             end
             it 'should deploy stash backup client 1.9.1 from tar.gz' do
               should contain_archive("/tmp/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz")
@@ -57,7 +57,7 @@ describe 'stash' do
 
           context 'should contain custom java path' do
             let(:params) do
-              { :javahome => '/usr/local/java' }
+              { javahome: '/usr/local/java' }
             end
             it do
               should contain_class('stash').with_javahome('/usr/local/java')
@@ -69,8 +69,8 @@ describe 'stash' do
           context 'should contain custom backup client version' do
             let(:params) do
               {
-                :javahome             => '/opt/java',
-                :backupclient_version => '99.43.111',
+                javahome: '/opt/java',
+                backupclient_version: '99.43.111',
               }
             end
             it do
@@ -91,8 +91,8 @@ describe 'stash' do
           context 'should contain custom backup home' do
             let(:params) do
               {
-                :javahome    => '/opt/java',
-                :backup_home => '/my/backup',
+                javahome: '/opt/java',
+                backup_home: '/my/backup',
               }
             end
             it do
@@ -108,9 +108,9 @@ describe 'stash' do
           context 'should contain custom backup user and password' do
             let(:params) do
               {
-                :javahome   => '/opt/java',
-                :backupuser => 'myuser',
-                :backuppass => 'mypass',
+                javahome: '/opt/java',
+                backupuser: 'myuser',
+                backuppass: 'mypass',
               }
             end
             it do
@@ -123,9 +123,9 @@ describe 'stash' do
           context 'should remove old archives' do
             let(:params) do
               {
-                :javahome        => '/opt/java',
-                :backup_keep_age => '1y',
-                :backup_home     => '/my/backup',
+                javahome: '/opt/java',
+                backup_keep_age: '1y',
+                backup_home: '/my/backup',
               }
             end
             it do
