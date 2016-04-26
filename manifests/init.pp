@@ -80,6 +80,9 @@ class stash(
   # Defaults to nanliu-staging as it is puppetlabs approved.
   $staging_or_deploy = 'staging',
 
+  # Allow arbitrary config properties to be set in stash-config.properties using hiera
+  $config_properties = {},
+
 ) {
 
   validate_bool($git_manage)
