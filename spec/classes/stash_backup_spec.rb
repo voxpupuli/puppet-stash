@@ -13,7 +13,7 @@ describe 'stash' do
             let(:params) do
               { javahome: '/opt/java' }
             end
-            it 'should deploy stash backup client 1.9.1 from tar.gz' do
+            it 'deploys stash backup client 1.9.1 from tar.gz' do
               should contain_archive("/tmp/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz")
                 .with('source'       => "https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/#{BACKUP_VERSION}/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz",
                       'extract_path' => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}",
@@ -22,7 +22,7 @@ describe 'stash' do
                       'group'        => 'stash',)
             end
 
-            it 'should manage the stash-backup directories' do
+            it 'manages the stash-backup directories' do
               should contain_file('/opt/stash-backup')
                 .with('ensure' => 'directory',
                       'owner'  => 'stash',
@@ -37,7 +37,7 @@ describe 'stash' do
                       'owner'  => 'stash',
                       'group'  => 'stash')
             end
-            it 'should manage the backup cron job' do
+            it 'manages the backup cron job' do
               should contain_cron('Backup Stash')
                 .with('ensure'  => 'present',
                       'command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",
@@ -45,7 +45,7 @@ describe 'stash' do
                       'hour'    => '5',
                       'minute'  => '0',)
             end
-            it 'should remove old archives' do
+            it 'removes old archives' do
               should contain_tidy('remove_old_archives')
                 .with('path'    => '/opt/stash-backup/archives',
                       'age'     => '4w',

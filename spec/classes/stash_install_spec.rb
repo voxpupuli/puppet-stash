@@ -15,7 +15,7 @@ describe 'stash' do
             }
           end
 
-          it 'should deploy stash from archive' do
+          it 'deploys stash from archive' do
             should contain_archive("/tmp/atlassian-stash-#{STASH_VERSION}.tar.gz")
               .with('extract_path' => "/opt/stash/atlassian-stash-#{STASH_VERSION}",
                     'source' => "http://www.atlassian.com/software/stash/downloads/binary//atlassian-stash-#{STASH_VERSION}.tar.gz",
@@ -25,14 +25,14 @@ describe 'stash' do
                     'checksum_type' => 'md5',)
           end
 
-          it 'should manage the stash home directory' do
+          it 'manages the stash home directory' do
             should contain_file('/home/stash')
               .with('ensure' => 'directory',
                     'owner' => 'stash',
                     'group' => 'stash')
           end
 
-          it 'should manage the stash application directory' do
+          it 'manages the stash application directory' do
             should contain_file("/opt/stash/atlassian-stash-#{STASH_VERSION}")
               .with('ensure' => 'directory',
                     'owner' => 'stash',
@@ -111,7 +111,7 @@ describe 'stash' do
                                               'gid'   => 444)
             end
             it { should contain_group('bar') }
-            it 'should manage the stash home directory' do
+            it 'manages the stash home directory' do
               should contain_file('/random/homedir').with('ensure' => 'directory',
                                                           'owner' => 'foo',
                                                           'group' => 'bar')

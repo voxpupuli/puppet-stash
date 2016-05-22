@@ -14,7 +14,7 @@ describe 'stash' do
           let(:params) do
             { javahome: '/opt/java' }
           end
-          it 'should stop service and remove old config file' do
+          it 'stops service and remove old config file' do
             should contain_exec('service stash stop && sleep 15')
             should contain_exec('rm -f /home/stash/stash-config.properties')
               .with(command: 'rm -f /home/stash/stash-config.properties',)
