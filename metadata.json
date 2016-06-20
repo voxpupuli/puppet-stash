@@ -8,7 +8,7 @@
   "project_page": "https://github.com/voxpupuli/puppet-stash",
   "issues_url": "https://github.com/voxpupuli/puppet-stash/issues",
   "description": "Module to install Atlassian Stash. On-premises source code management for Git that's secure, fast, and enterprise grade.",
-  "tags": ["stash"],
+  "tags": ["bitbucket", "stash"],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
