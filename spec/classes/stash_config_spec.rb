@@ -14,7 +14,7 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                tomcat_port: '7990',
+                tomcat_port: '7990'
               }
             end
             it do
@@ -52,7 +52,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.8.1',
-                javahome: '/opt/java',
+                javahome: '/opt/java'
               }
             end
 
@@ -74,8 +74,8 @@ describe 'stash' do
                 javahome: '/opt/java',
                 config_properties: {
                   'aaaa' => 'bbbb',
-                  'cccc' => 'dddd',
-                },
+                  'cccc' => 'dddd'
+                }
               }
             end
 
@@ -93,8 +93,8 @@ describe 'stash' do
                 javahome: '/opt/java',
                 config_properties: {
                   'aaaa' => 'bbbb',
-                  'cccc' => 'dddd',
-                },
+                  'cccc' => 'dddd'
+                }
               }
             end
 
@@ -113,8 +113,8 @@ describe 'stash' do
                 proxy: {
                   'scheme'    => 'https',
                   'proxyName' => 'stash.example.co.za',
-                  'proxyPort' => '443',
-                },
+                  'proxyPort' => '443'
+                }
               }
             end
             it do
@@ -129,7 +129,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.8.0',
-                javahome: '/opt/java',
+                javahome: '/opt/java'
               }
             end
             it do
@@ -143,7 +143,7 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                jvm_xms: '1G',
+                jvm_xms: '1G'
               }
             end
             it do
@@ -157,7 +157,7 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                jvm_xmx: '4G',
+                jvm_xmx: '4G'
               }
             end
             it do
@@ -171,7 +171,7 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                jvm_permgen: '384m',
+                jvm_permgen: '384m'
               }
             end
             it do
@@ -185,7 +185,7 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                java_opts: '-Dhttp.proxyHost=proxy.example.co.za -Dhttp.proxyPort=8080',
+                java_opts: '-Dhttp.proxyHost=proxy.example.co.za -Dhttp.proxyPort=8080'
               }
             end
             it do
@@ -199,7 +199,7 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                context_path: '/stash',
+                context_path: '/stash'
               }
             end
             it do
@@ -213,7 +213,7 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                tomcat_port: '7991',
+                tomcat_port: '7991'
               }
             end
             it do

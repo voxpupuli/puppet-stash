@@ -11,7 +11,7 @@ describe 'stash' do
           let(:params) do
             {
               version: STASH_VERSION,
-              javahome: '/opt/java',
+              javahome: '/opt/java'
             }
           end
 
@@ -43,7 +43,7 @@ describe 'stash' do
             let(:params) do
               {
                 javahome: '/opt/java',
-                manage_usr_grp: true,
+                manage_usr_grp: true
               }
             end
             context 'when no user or group are specified' do
@@ -68,7 +68,7 @@ describe 'stash' do
               let(:params) do
                 {
                   javahome: '/opt/java',
-                  manage_usr_grp: false,
+                  manage_usr_grp: false
                 }
               end
               it { should_not contain_user('stash') }
@@ -88,7 +88,7 @@ describe 'stash' do
                 uid: 333,
                 gid: 444,
                 download_url: 'http://downloads.atlassian.com/',
-                deploy_module: 'staging',
+                deploy_module: 'staging'
               }
             end
             it do

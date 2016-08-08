@@ -70,7 +70,7 @@ describe 'stash' do
             let(:params) do
               {
                 javahome: '/opt/java',
-                backupclient_version: '99.43.111',
+                backupclient_version: '99.43.111'
               }
             end
             it do
@@ -92,7 +92,7 @@ describe 'stash' do
             let(:params) do
               {
                 javahome: '/opt/java',
-                backup_home: '/my/backup',
+                backup_home: '/my/backup'
               }
             end
             it do
@@ -110,7 +110,7 @@ describe 'stash' do
               {
                 javahome: '/opt/java',
                 backupuser: 'myuser',
-                backuppass: 'mypass',
+                backuppass: 'mypass'
               }
             end
             it do
@@ -125,7 +125,7 @@ describe 'stash' do
               {
                 javahome: '/opt/java',
                 backup_keep_age: '1y',
-                backup_home: '/my/backup',
+                backup_home: '/my/backup'
               }
             end
             it do
