@@ -44,7 +44,7 @@ describe 'stash' do
             end
 
             it do
-              should contain_ini_setting('stash_httpport').with('value' => '7990',)
+              should contain_ini_setting('stash_httpport').with('value' => '7990')
             end
           end
 
@@ -222,7 +222,7 @@ describe 'stash' do
             end
 
             it do
-              should contain_ini_setting('stash_httpport').with('value' => '7991',)
+              should contain_ini_setting('stash_httpport').with('value' => '7991')
             end
           end
         end

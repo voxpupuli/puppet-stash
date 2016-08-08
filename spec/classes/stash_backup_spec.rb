@@ -19,7 +19,7 @@ describe 'stash' do
                       'extract_path' => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}",
                       'creates'      => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/lib",
                       'user'         => 'stash',
-                      'group'        => 'stash',)
+                      'group'        => 'stash')
             end
 
             it 'manages the stash-backup directories' do
@@ -43,7 +43,7 @@ describe 'stash' do
                       'command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",
                       'user'    => 'stash',
                       'hour'    => '5',
-                      'minute'  => '0',)
+                      'minute'  => '0')
             end
             it 'removes old archives' do
               should contain_tidy('remove_old_archives')
@@ -51,7 +51,7 @@ describe 'stash' do
                       'age'     => '4w',
                       'matches' => '*.tar',
                       'type'    => 'mtime',
-                      'recurse' => 2,)
+                      'recurse' => 2)
             end
           end
 
@@ -62,7 +62,7 @@ describe 'stash' do
             it do
               should contain_class('stash').with_javahome('/usr/local/java')
               should contain_cron('Backup Stash')
-                .with('command' => "/usr/local/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",)
+                .with('command' => "/usr/local/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar")
             end
           end
 
@@ -79,12 +79,12 @@ describe 'stash' do
                       'extract_path' => '/opt/stash-backup/stash-backup-client-99.43.111',
                       'creates' => '/opt/stash-backup/stash-backup-client-99.43.111/lib',
                       'user' => 'stash',
-                      'group' => 'stash',)
+                      'group' => 'stash')
               should contain_file('/opt/stash-backup/stash-backup-client-99.43.111')
                 .with('ensure' => 'directory',
                       'owner'  => 'stash',
                       'group'  => 'stash')
-              should contain_cron('Backup Stash').with('command' => '/opt/java/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-99.43.111/stash-backup-client.jar',)
+              should contain_cron('Backup Stash').with('command' => '/opt/java/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-99.43.111/stash-backup-client.jar')
             end
           end
 
@@ -101,7 +101,7 @@ describe 'stash' do
                 .with('ensure' => 'directory',
                       'owner'  => 'stash',
                       'group'  => 'stash')
-              should contain_cron('Backup Stash').with('command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/my/backup/archives -jar /my/backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",)
+              should contain_cron('Backup Stash').with('command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/my/backup/archives -jar /my/backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar")
             end
           end
 
@@ -116,7 +116,7 @@ describe 'stash' do
             it do
               should contain_class('stash').with_backupuser('myuser').with_backuppass('mypass')
               should contain_cron('Backup Stash')
-                .with('command' => "/opt/java/bin/java -Dstash.password=\"mypass\" -Dstash.user=\"myuser\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",)
+                .with('command' => "/opt/java/bin/java -Dstash.password=\"mypass\" -Dstash.user=\"myuser\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar")
             end
           end
 
@@ -131,7 +131,7 @@ describe 'stash' do
             it do
               should contain_tidy('remove_old_archives')
                 .with('path' => '/my/backup/archives',
-                      'age' => '1y',)
+                      'age' => '1y')
             end
           end
         end

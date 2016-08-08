@@ -22,7 +22,7 @@ describe 'stash' do
                     'creates' => "/opt/stash/atlassian-stash-#{STASH_VERSION}/conf",
                     'user' => 'stash',
                     'group' => 'stash',
-                    'checksum_type' => 'md5',)
+                    'checksum_type' => 'md5')
           end
 
           it 'manages the stash home directory' do
@@ -93,12 +93,12 @@ describe 'stash' do
             end
             it do
               should contain_staging__file("atlassian-stash-#{STASH_VERSION}.tar.gz")
-                .with('source' => "http://downloads.atlassian.com//atlassian-stash-#{STASH_VERSION}.tar.gz",)
+                .with('source' => "http://downloads.atlassian.com//atlassian-stash-#{STASH_VERSION}.tar.gz")
               should contain_staging__extract("atlassian-stash-#{STASH_VERSION}.tar.gz")
                 .with('target'  => "/custom/stash/atlassian-stash-#{STASH_VERSION}",
                       'user'    => 'foo',
                       'group'   => 'bar',
-                      'creates' => "/custom/stash/atlassian-stash-#{STASH_VERSION}/conf",)
+                      'creates' => "/custom/stash/atlassian-stash-#{STASH_VERSION}/conf")
                 .that_comes_before('File[/random/homedir]')
                 .that_requires('File[/custom/stash]')
                 .that_notifies("Exec[chown_/custom/stash/atlassian-stash-#{STASH_VERSION}]")

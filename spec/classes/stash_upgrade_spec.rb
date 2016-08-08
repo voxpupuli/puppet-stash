@@ -17,7 +17,7 @@ describe 'stash' do
           it 'stops service and remove old config file' do
             should contain_exec('service stash stop && sleep 15')
             should contain_exec('rm -f /home/stash/stash-config.properties')
-              .with(command: 'rm -f /home/stash/stash-config.properties',)
+              .with(command: 'rm -f /home/stash/stash-config.properties')
             should contain_notify('Attempting to upgrade stash')
           end
         end
