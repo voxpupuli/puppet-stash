@@ -1,5 +1,9 @@
 ---
 .travis.yml:
   secure: "HJzcyYqTo3Wrg7Jye1c+BLLv3P2JbXIePIFt0hd25fnlxyjMl2FIWjqwxJ0LO6mFSXU/PxEkfrqjyhzRodtMS5x9Ut90hWV3gSFDWSXBVssVrCSZgQMksXa+tQhk6ieWy3t0sdJmuuALr2v+SrDG2UybTggfKfNdM2k277rdR7w="
-spec/spec_helper.rb:
-  unmanaged: true
+spec/spec_helber.rb:
+  spec_overrides:
+    "STASH_VERSION = '3.11.4'.freeze"
+    "BACKUP_VERSION = '1.9.1'.freeze"
+    "BITBUCKET_VERSION = '4.0.2'.freeze"
+    "BITBUCKET_BACKUP_VERSION = '2.0.0'.freeze"
