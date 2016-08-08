@@ -9,7 +9,7 @@ describe 'stash' do
         end
         context 'with javahome not set' do
           it('fails') {
-            should raise_error(Puppet::Error, /You need to specify a value for javahome/)
+            should raise_error(Puppet::Error, %r{You need to specify a value for javahome})
           }
         end
         context 'with javahome set' do
@@ -40,7 +40,7 @@ describe 'stash' do
           operatingsystemmajrelease: '7' }
       end
 
-      it { expect { is_expected.to contain_service('stash') }.to raise_error(Puppet::Error, /Nexenta 7 not supported/) }
+      it { expect { is_expected.to contain_service('stash') }.to raise_error(Puppet::Error, %r{Nexenta 7 not supported}) }
     end
   end
 end
