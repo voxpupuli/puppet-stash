@@ -37,7 +37,7 @@ describe 'stash' do
             it do
               should contain_service('stash').
                 with('ensure' => 'stopped',
-                      'enable' => 'false')
+                     'enable' => 'false')
             end
           end
         end

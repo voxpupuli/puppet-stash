@@ -18,25 +18,25 @@ describe 'stash' do
           it 'deploys stash from archive' do
             should contain_archive("/tmp/atlassian-stash-#{STASH_VERSION}.tar.gz").
               with('extract_path' => "/opt/stash/atlassian-stash-#{STASH_VERSION}",
-                    'source' => "http://www.atlassian.com/software/stash/downloads/binary//atlassian-stash-#{STASH_VERSION}.tar.gz",
-                    'creates' => "/opt/stash/atlassian-stash-#{STASH_VERSION}/conf",
-                    'user' => 'stash',
-                    'group' => 'stash',
-                    'checksum_type' => 'md5')
+                   'source' => "http://www.atlassian.com/software/stash/downloads/binary//atlassian-stash-#{STASH_VERSION}.tar.gz",
+                   'creates' => "/opt/stash/atlassian-stash-#{STASH_VERSION}/conf",
+                   'user' => 'stash',
+                   'group' => 'stash',
+                   'checksum_type' => 'md5')
           end
 
           it 'manages the stash home directory' do
             should contain_file('/home/stash').
               with('ensure' => 'directory',
-                    'owner' => 'stash',
-                    'group' => 'stash')
+                   'owner' => 'stash',
+                   'group' => 'stash')
           end
 
           it 'manages the stash application directory' do
             should contain_file("/opt/stash/atlassian-stash-#{STASH_VERSION}").
               with('ensure' => 'directory',
-                    'owner' => 'stash',
-                    'group' => 'stash')
+                   'owner' => 'stash',
+                   'group' => 'stash')
           end
 
           context 'when managing the user and group inside the module' do
@@ -96,9 +96,9 @@ describe 'stash' do
                 with('source' => "http://downloads.atlassian.com//atlassian-stash-#{STASH_VERSION}.tar.gz")
               should contain_staging__extract("atlassian-stash-#{STASH_VERSION}.tar.gz").
                 with('target'  => "/custom/stash/atlassian-stash-#{STASH_VERSION}",
-                      'user'    => 'foo',
-                      'group'   => 'bar',
-                      'creates' => "/custom/stash/atlassian-stash-#{STASH_VERSION}/conf").
+                     'user'    => 'foo',
+                     'group'   => 'bar',
+                     'creates' => "/custom/stash/atlassian-stash-#{STASH_VERSION}/conf").
                 that_comes_before('File[/random/homedir]').
                 that_requires('File[/custom/stash]').
                 that_notifies("Exec[chown_/custom/stash/atlassian-stash-#{STASH_VERSION}]")
