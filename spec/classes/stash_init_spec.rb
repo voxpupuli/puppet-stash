@@ -8,9 +8,9 @@ describe 'stash' do
           facts
         end
         context 'with javahome not set' do
-          it('fails') {
+          it('fails') do
             should raise_error(Puppet::Error, %r{You need to specify a value for javahome})
-          }
+          end
         end
         context 'with javahome set' do
           let(:params) do
