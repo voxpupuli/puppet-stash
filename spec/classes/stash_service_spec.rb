@@ -20,7 +20,7 @@ describe 'stash' do
             let(:params) do
               {
                 javahome: '/opt/java',
-                service_manage: false,
+                service_manage: false
               }
             end
             it { should_not contain_service('stash') }
@@ -31,13 +31,13 @@ describe 'stash' do
               {
                 javahome: '/opt/java',
                 service_ensure: 'stopped',
-                service_enable: false,
+                service_enable: false
               }
             end
             it do
-              should contain_service('stash')
-                .with('ensure' => 'stopped',
-                      'enable' => 'false',)
+              should contain_service('stash').
+                with('ensure' => 'stopped',
+                     'enable' => 'false')
             end
           end
         end

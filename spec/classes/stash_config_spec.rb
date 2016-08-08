@@ -14,37 +14,37 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                tomcat_port: '7990',
+                tomcat_port: '7990'
               }
             end
             it do
-              should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh') \
-                .with_content(%r{JAVA_HOME=/opt/java})
-                .with_content(/^JVM_MINIMUM_MEMORY="256m"/)
-                .with_content(/^JVM_MAXIMUM_MEMORY="1024m"/)
-                .with_content(/^STASH_MAX_PERM_SIZE=256m/)
-                .with_content(/JAVA_OPTS="/)
+              should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh'). \
+                with_content(%r{JAVA_HOME=/opt/java}).
+                with_content(%r{^JVM_MINIMUM_MEMORY="256m"}).
+                with_content(%r{^JVM_MAXIMUM_MEMORY="1024m"}).
+                with_content(%r{^STASH_MAX_PERM_SIZE=256m}).
+                with_content(%r{JAVA_OPTS="})
             end
             it { should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/user.sh') }
             it do
-              should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml')
-                .with_content(/<Connector port="7990"/)
-                .with_content(/path=""/)
-                .without_content(/proxyName/)
-                .without_content(/proxyPort/)
-                .without_content(/scheme/)
+              should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml').
+                with_content(%r{<Connector port="7990"}).
+                with_content(%r{path=""}).
+                without_content(%r{proxyName}).
+                without_content(%r{proxyPort}).
+                without_content(%r{scheme})
             end
 
             it do
-              should contain_file('/home/stash/shared/stash-config.properties')
-                .with_content(/jdbc\.driver=org\.postgresql\.Driver/)
-                .with_content(%r{jdbc.url=jdbc:postgresql://localhost:5432/stash})
-                .with_content(/jdbc\.user=stash/)
-                .with_content(/jdbc\.password=password/)
+              should contain_file('/home/stash/shared/stash-config.properties').
+                with_content(%r{jdbc\.driver=org\.postgresql\.Driver}).
+                with_content(%r{jdbc.url=jdbc:postgresql://localhost:5432/stash}).
+                with_content(%r{jdbc\.user=stash}).
+                with_content(%r{jdbc\.password=password})
             end
 
             it do
-              should contain_ini_setting('stash_httpport').with('value' => '7990',)
+              should contain_ini_setting('stash_httpport').with('value' => '7990')
             end
           end
 
@@ -52,18 +52,18 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.8.1',
-                javahome: '/opt/java',
+                javahome: '/opt/java'
               }
             end
 
             it do
-              should contain_file('/home/stash/shared/stash-config.properties')
-                .with_content(/setup\.displayName=stash/)
-                .with_content(%r{setup.baseUrl=https://foo.example.com})
-                .with_content(/setup\.sysadmin\.username=admin/)
-                .with_content(/setup\.sysadmin\.password=stash/)
-                .with_content(/setup\.sysadmin\.displayName=Stash Admin/)
-                .with_content(/setup\.sysadmin\.emailAddress=/)
+              should contain_file('/home/stash/shared/stash-config.properties').
+                with_content(%r{setup\.displayName=stash}).
+                with_content(%r{setup.baseUrl=https://foo.example.com}).
+                with_content(%r{setup\.sysadmin\.username=admin}).
+                with_content(%r{setup\.sysadmin\.password=stash}).
+                with_content(%r{setup\.sysadmin\.displayName=Stash Admin}).
+                with_content(%r{setup\.sysadmin\.emailAddress=})
             end
           end
 
@@ -74,15 +74,15 @@ describe 'stash' do
                 javahome: '/opt/java',
                 config_properties: {
                   'aaaa' => 'bbbb',
-                  'cccc' => 'dddd',
-                },
+                  'cccc' => 'dddd'
+                }
               }
             end
 
             it do
-              should contain_file('/home/stash/shared/stash-config.properties')
-                .with_content(/^aaaa=bbbb$/)
-                .with_content(/^cccc=dddd$/)
+              should contain_file('/home/stash/shared/stash-config.properties').
+                with_content(%r{^aaaa=bbbb$}).
+                with_content(%r{^cccc=dddd$})
             end
           end
 
@@ -93,15 +93,15 @@ describe 'stash' do
                 javahome: '/opt/java',
                 config_properties: {
                   'aaaa' => 'bbbb',
-                  'cccc' => 'dddd',
-                },
+                  'cccc' => 'dddd'
+                }
               }
             end
 
             it do
-              should_not contain_file('/home/stash/shared/stash-config.properties')
-                .with_content(/^aaaa=bbbb$/)
-                .with_content(/^cccc=dddd$/)
+              should_not contain_file('/home/stash/shared/stash-config.properties').
+                with_content(%r{^aaaa=bbbb$}).
+                with_content(%r{^cccc=dddd$})
             end
           end
 
@@ -113,15 +113,15 @@ describe 'stash' do
                 proxy: {
                   'scheme'    => 'https',
                   'proxyName' => 'stash.example.co.za',
-                  'proxyPort' => '443',
-                },
+                  'proxyPort' => '443'
+                }
               }
             end
             it do
-              should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml') \
-                .with_content(/proxyName = \'stash\.example\.co\.za\'/)
-                .with_content(/proxyPort = \'443\'/)
-                .with_content(/scheme = \'https\'/)
+              should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml'). \
+                with_content(%r{proxyName = \'stash\.example\.co\.za\'}).
+                with_content(%r{proxyPort = \'443\'}).
+                with_content(%r{scheme = \'https\'})
             end
           end
 
@@ -129,7 +129,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.8.0',
-                javahome: '/opt/java',
+                javahome: '/opt/java'
               }
             end
             it do
@@ -143,12 +143,12 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                jvm_xms: '1G',
+                jvm_xms: '1G'
               }
             end
             it do
-              should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh')
-                .with_content(/^JVM_MINIMUM_MEMORY="1G"/)
+              should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh').
+                with_content(%r{^JVM_MINIMUM_MEMORY="1G"})
             end
           end
 
@@ -157,12 +157,12 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                jvm_xmx: '4G',
+                jvm_xmx: '4G'
               }
             end
             it do
-              should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh')
-                .with_content(/^JVM_MAXIMUM_MEMORY="4G"/)
+              should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh').
+                with_content(%r{^JVM_MAXIMUM_MEMORY="4G"})
             end
           end
 
@@ -171,12 +171,12 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                jvm_permgen: '384m',
+                jvm_permgen: '384m'
               }
             end
             it do
-              should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh')
-                .with_content(/^STASH_MAX_PERM_SIZE=384m/)
+              should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh').
+                with_content(%r{^STASH_MAX_PERM_SIZE=384m})
             end
           end
 
@@ -185,12 +185,12 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                java_opts: '-Dhttp.proxyHost=proxy.example.co.za -Dhttp.proxyPort=8080',
+                java_opts: '-Dhttp.proxyHost=proxy.example.co.za -Dhttp.proxyPort=8080'
               }
             end
             it do
-              should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh')
-                .with_content(/JAVA_OPTS="-Dhttp\.proxyHost=proxy\.example\.co\.za -Dhttp\.proxyPort=8080/)
+              should contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh').
+                with_content(%r{JAVA_OPTS="-Dhttp\.proxyHost=proxy\.example\.co\.za -Dhttp\.proxyPort=8080})
             end
           end
 
@@ -199,12 +199,12 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                context_path: '/stash',
+                context_path: '/stash'
               }
             end
             it do
-              should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml')
-                .with_content(%r{path="/stash"})
+              should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml').
+                with_content(%r{path="/stash"})
             end
           end
 
@@ -213,16 +213,16 @@ describe 'stash' do
               {
                 version: '3.7.0',
                 javahome: '/opt/java',
-                tomcat_port: '7991',
+                tomcat_port: '7991'
               }
             end
             it do
-              should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml')
-                .with_content(/<Connector port="7991"/)
+              should contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml').
+                with_content(%r{<Connector port="7991"})
             end
 
             it do
-              should contain_ini_setting('stash_httpport').with('value' => '7991',)
+              should contain_ini_setting('stash_httpport').with('value' => '7991')
             end
           end
         end

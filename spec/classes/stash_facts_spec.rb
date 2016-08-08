@@ -21,17 +21,17 @@ describe 'stash::facts', type: :class do
             facts.merge(puppetversion: '3.4.3 (Puppet Enterprise 3.2.1)')
           end
           it do
-            should contain_file(pe_external_fact_file) \
-              .with_content(regexp_pe)
+            should contain_file(pe_external_fact_file). \
+              with_content(regexp_pe)
           end
         end
 
         ## Test puppet oss shebang generated correctly
         context 'with puppet oss' do
           it do
-            should contain_file(external_fact_file) \
-              .with_content(regexp_oss)
-              .with_content(%r{7990/rest/api/})
+            should contain_file(external_fact_file). \
+              with_content(regexp_oss).
+              with_content(%r{7990/rest/api/})
           end
         end
 
@@ -40,8 +40,8 @@ describe 'stash::facts', type: :class do
             { context_path: '/stash' }
           end
           it do
-            should contain_file(external_fact_file) \
-              .with_content(%r{7990/stash/rest/api/})
+            should contain_file(external_fact_file). \
+              with_content(%r{7990/stash/rest/api/})
           end
         end
       end

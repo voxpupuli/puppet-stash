@@ -20,15 +20,15 @@ describe 'stash::gc', type: :class do
             facts.merge(stash_version: '3.1.99')
           end
           it do
-            should contain_file(file)
-              .with_content(regexp_lt)
+            should contain_file(file).
+              with_content(regexp_lt)
           end
         end
 
         context 'with stash version greater than 3.2.0' do
           it do
-            should contain_file(file)
-              .with_content(regexp_gte)
+            should contain_file(file).
+              with_content(regexp_gte)
           end
         end
 
@@ -37,8 +37,8 @@ describe 'stash::gc', type: :class do
             facts.merge(stash_version: '3.2.0')
           end
           it do
-            should contain_file(file)
-              .with_content(regexp_gte)
+            should contain_file(file).
+              with_content(regexp_gte)
           end
         end
       end

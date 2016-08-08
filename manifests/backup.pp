@@ -45,7 +45,7 @@ class stash::backup(
 
   case $deploy_module {
     'staging': {
-      require staging
+      require ::staging
       staging::file { $file:
         source  => "${download_url}/${version}/${file}",
         timeout => 1800,

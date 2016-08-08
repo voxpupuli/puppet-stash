@@ -88,11 +88,11 @@ describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   end
 
   describe command('curl http://localhost:7990/stash1/setup') do
-    its(:stdout) { should match(/This is the base URL of this installation of Stash/) }
+    its(:stdout) { should match(%r{This is the base URL of this installation of Stash}) }
   end
 
   describe command('facter -p stash_version') do
-    its(:stdout) { should match(/3\.9\.2/) }
+    its(:stdout) { should match(%r{3\.9\.2}) }
   end
 
   describe cron do
