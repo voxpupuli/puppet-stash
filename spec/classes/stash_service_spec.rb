@@ -35,8 +35,8 @@ describe 'stash' do
               }
             end
             it do
-              should contain_service('stash')
-                .with('ensure' => 'stopped',
+              should contain_service('stash').
+                with('ensure' => 'stopped',
                       'enable' => 'false')
             end
           end
