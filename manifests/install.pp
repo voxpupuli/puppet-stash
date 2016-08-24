@@ -3,6 +3,7 @@
 # This installs the stash module. See README.md for details
 #
 class stash::install(
+  $webappdir,
   $version        = $stash::version,
   $product        = $stash::product,
   $format         = $stash::format,
@@ -17,7 +18,6 @@ class stash::install(
   $deploy_module  = $stash::deploy_module,
   $dburl          = $stash::dburl,
   $checksum       = $stash::checksum,
-  $webappdir,
   ) {
 
   include '::archive'
