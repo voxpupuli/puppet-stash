@@ -16,7 +16,7 @@ describe 'stash' do
           end
 
           it 'deploys stash from archive' do
-            should contain_archive("/tmp/atlassian-stash-#{STASH_VERSION}.tar.gz").
+            is_expected.to contain_archive("/tmp/atlassian-stash-#{STASH_VERSION}.tar.gz").
               with('extract_path' => "/opt/stash/atlassian-stash-#{STASH_VERSION}",
                    'source' => "http://www.atlassian.com/software/stash/downloads/binary//atlassian-stash-#{STASH_VERSION}.tar.gz",
                    'creates' => "/opt/stash/atlassian-stash-#{STASH_VERSION}/conf",
@@ -26,14 +26,14 @@ describe 'stash' do
           end
 
           it 'manages the stash home directory' do
-            should contain_file('/home/stash').
+            is_expected.to contain_file('/home/stash').
               with('ensure' => 'directory',
                    'owner' => 'stash',
                    'group' => 'stash')
           end
 
           it 'manages the stash application directory' do
-            should contain_file("/opt/stash/atlassian-stash-#{STASH_VERSION}").
+            is_expected.to contain_file("/opt/stash/atlassian-stash-#{STASH_VERSION}").
               with('ensure' => 'directory',
                    'owner' => 'stash',
                    'group' => 'stash')
@@ -47,8 +47,8 @@ describe 'stash' do
               }
             end
             context 'when no user or group are specified' do
-              it { should contain_user('stash').with_shell('/bin/bash') }
-              it { should contain_group('stash') }
+              it { is_expected.to contain_user('stash').with_shell('/bin/bash') }
+              it { is_expected.to contain_group('stash') }
             end
             context 'when a user and group is specified' do
               let(:params) do
@@ -58,8 +58,8 @@ describe 'stash' do
                   group: 'mystashgroup'
                 }
               end
-              it { should contain_user('mystashuser') }
-              it { should contain_group('mystashgroup') }
+              it { is_expected.to contain_user('mystashuser') }
+              it { is_expected.to contain_group('mystashgroup') }
             end
           end
 
@@ -71,8 +71,8 @@ describe 'stash' do
                   manage_usr_grp: false
                 }
               end
-              it { should_not contain_user('stash') }
-              it { should_not contain_group('stash') }
+              it { is_expected.not_to contain_user('stash') }
+              it { is_expected.not_to contain_group('stash') }
             end
           end
 
@@ -92,9 +92,9 @@ describe 'stash' do
               }
             end
             it do
-              should contain_staging__file("atlassian-stash-#{STASH_VERSION}.tar.gz").
+              is_expected.to contain_staging__file("atlassian-stash-#{STASH_VERSION}.tar.gz").
                 with('source' => "http://downloads.atlassian.com//atlassian-stash-#{STASH_VERSION}.tar.gz")
-              should contain_staging__extract("atlassian-stash-#{STASH_VERSION}.tar.gz").
+              is_expected.to contain_staging__extract("atlassian-stash-#{STASH_VERSION}.tar.gz").
                 with('target'  => "/custom/stash/atlassian-stash-#{STASH_VERSION}",
                      'user'    => 'foo',
                      'group'   => 'bar',
@@ -105,16 +105,16 @@ describe 'stash' do
             end
 
             it do
-              should contain_user('foo').with('home'  => '/random/homedir',
-                                              'shell' => '/bin/bash',
-                                              'uid'   => 333,
-                                              'gid'   => 444)
+              is_expected.to contain_user('foo').with('home' => '/random/homedir',
+                                                      'shell' => '/bin/bash',
+                                                      'uid'   => 333,
+                                                      'gid'   => 444)
             end
-            it { should contain_group('bar') }
+            it { is_expected.to contain_group('bar') }
             it 'manages the stash home directory' do
-              should contain_file('/random/homedir').with('ensure' => 'directory',
-                                                          'owner' => 'foo',
-                                                          'group' => 'bar')
+              is_expected.to contain_file('/random/homedir').with('ensure' => 'directory',
+                                                                  'owner' => 'foo',
+                                                                  'group' => 'bar')
             end
           end
         end
