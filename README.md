@@ -1,7 +1,11 @@
 # Stash module for Puppet
 
-[![Puppet Forge](http://img.shields.io/puppetforge/v/puppet/stash.svg)](https://forge.puppetlabs.com/puppet/stash)
-[![Build Status](https://travis-ci.org/voxpupuli/puppet-stash.svg?branch=master)](https://travis-ci.org/voxpupuli/puppet-stash)
+[![Build Status](https://travis-ci.org/voxpupuli/puppet-stash.png?branch=master)](https://travis-ci.org/voxpupuli/puppet-stash)
+[![Code Coverage](https://coveralls.io/repos/github/voxpupuli/puppet-stash/badge.svg?branch=master)](https://coveralls.io/github/voxpupuli/puppet-stash)
+[![Puppet Forge](https://img.shields.io/puppetforge/v/puppet/stash.svg)](https://forge.puppetlabs.com/puppet/stash)
+[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/puppet/stash.svg)](https://forge.puppetlabs.com/puppet/stash)
+[![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/stash.svg)](https://forge.puppetlabs.com/puppet/stash)
+[![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/stash.svg)](https://forge.puppetlabs.com/puppet/stash)
 
 :warning: This module is going through a number of changes in preparation for
 version 4 (Bitbucket-server). It is recommended to use the puppet-forge versions
