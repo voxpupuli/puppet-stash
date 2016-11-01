@@ -13,7 +13,7 @@ describe 'stash' do
             let(:params) do
               { javahome: '/opt/java' }
             end
-            it { should contain_service('stash') }
+            it { is_expected.to contain_service('stash') }
           end
 
           context 'overwriting service_manage param' do
@@ -23,7 +23,7 @@ describe 'stash' do
                 service_manage: false
               }
             end
-            it { should_not contain_service('stash') }
+            it { is_expected.not_to contain_service('stash') }
           end
 
           context 'overwriting service params' do
@@ -35,7 +35,7 @@ describe 'stash' do
               }
             end
             it do
-              should contain_service('stash').
+              is_expected.to contain_service('stash').
                 with('ensure' => 'stopped',
                      'enable' => 'false')
             end

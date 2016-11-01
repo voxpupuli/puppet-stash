@@ -66,7 +66,7 @@ describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   end
 
   describe process('java') do
-    it { should be_running }
+    it { is_expected.to be_running }
   end
 
   describe port(7990) do
@@ -74,33 +74,33 @@ describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   end
 
   describe package('git') do
-    it { should be_installed }
+    it { is_expected.to be_installed }
   end
 
   describe service('stash') do
-    it { should be_enabled }
+    it { is_expected.to be_enabled }
   end
 
   describe user('stash') do
-    it { should exist }
-    it { should belong_to_group 'stash' }
-    it { should have_login_shell '/bin/bash' }
+    it { is_expected.to exist }
+    it { is_expected.to belong_to_group 'stash' }
+    it { is_expected.to have_login_shell '/bin/bash' }
   end
 
   describe command('curl http://localhost:7990/stash1/setup') do
-    its(:stdout) { should match(%r{This is the base URL of this installation of Stash}) }
+    its(:stdout) { is_expected.to match(%r{This is the base URL of this installation of Stash}) }
   end
 
   describe command('facter -p stash_version') do
-    its(:stdout) { should match(%r{3\.9\.2}) }
+    its(:stdout) { is_expected.to match(%r{3\.9\.2}) }
   end
 
   describe cron do
-    it { should have_entry('0 5 * * * /opt/java/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-1.9.1/stash-backup-client.jar').with_user('stash') }
+    it { is_expected.to have_entry('0 5 * * * /opt/java/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-1.9.1/stash-backup-client.jar').with_user('stash') }
   end
 
   describe file('/opt/stash-backup/stash-backup-client-1.9.1/stash-backup-client.jar') do
-    it { should be_file }
-    it { should be_owned_by 'stash' }
+    it { is_expected.to be_file }
+    it { is_expected.to be_owned_by 'stash' }
   end
 end

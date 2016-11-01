@@ -42,7 +42,7 @@ describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   end
 
   describe process('java') do
-    it { should be_running }
+    it { is_expected.to be_running }
   end
 
   describe port(7990) do
@@ -50,30 +50,30 @@ describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   end
 
   describe package('git') do
-    it { should be_installed }
+    it { is_expected.to be_installed }
   end
 
   describe service('stash') do
-    it { should be_enabled }
+    it { is_expected.to be_enabled }
   end
 
   describe user('stash') do
-    it { should exist }
+    it { is_expected.to exist }
   end
 
   describe user('stash') do
-    it { should belong_to_group 'stash' }
+    it { is_expected.to belong_to_group 'stash' }
   end
 
   describe user('stash') do
-    it { should have_login_shell '/bin/bash' }
+    it { is_expected.to have_login_shell '/bin/bash' }
   end
 
   describe command('curl http://localhost:7990/stash1/setup') do
-    its(:stdout) { should match(%r{This is the base URL of this installation of Stash}) }
+    its(:stdout) { is_expected.to match(%r{This is the base URL of this installation of Stash}) }
   end
 
   describe command('facter -p stash_version') do
-    its(:stdout) { should match(%r{3\.11\.4}) }
+    its(:stdout) { is_expected.to match(%r{3\.11\.4}) }
   end
 end

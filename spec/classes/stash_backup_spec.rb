@@ -14,7 +14,7 @@ describe 'stash' do
               { javahome: '/opt/java' }
             end
             it 'deploys stash backup client 1.9.1 from tar.gz' do
-              should contain_archive("/tmp/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz").
+              is_expected.to contain_archive("/tmp/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz").
                 with('source'       => "https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/#{BACKUP_VERSION}/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz",
                      'extract_path' => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}",
                      'creates'      => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/lib",
@@ -23,22 +23,22 @@ describe 'stash' do
             end
 
             it 'manages the stash-backup directories' do
-              should contain_file('/opt/stash-backup').
+              is_expected.to contain_file('/opt/stash-backup').
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
-              should contain_file("/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}").
+              is_expected.to contain_file("/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}").
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
 
-              should contain_file('/opt/stash-backup/archives').
+              is_expected.to contain_file('/opt/stash-backup/archives').
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
             end
             it 'manages the backup cron job' do
-              should contain_cron('Backup Stash').
+              is_expected.to contain_cron('Backup Stash').
                 with('ensure'  => 'present',
                      'command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",
                      'user'    => 'stash',
@@ -46,7 +46,7 @@ describe 'stash' do
                      'minute'  => '0')
             end
             it 'removes old archives' do
-              should contain_tidy('remove_old_archives').
+              is_expected.to contain_tidy('remove_old_archives').
                 with('path'    => '/opt/stash-backup/archives',
                      'age'     => '4w',
                      'matches' => '*.tar',
@@ -60,8 +60,8 @@ describe 'stash' do
               { javahome: '/usr/local/java' }
             end
             it do
-              should contain_class('stash').with_javahome('/usr/local/java')
-              should contain_cron('Backup Stash').
+              is_expected.to contain_class('stash').with_javahome('/usr/local/java')
+              is_expected.to contain_cron('Backup Stash').
                 with('command' => "/usr/local/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar")
             end
           end
@@ -74,17 +74,17 @@ describe 'stash' do
               }
             end
             it do
-              should contain_archive('/tmp/stash-backup-distribution-99.43.111.tar.gz').
+              is_expected.to contain_archive('/tmp/stash-backup-distribution-99.43.111.tar.gz').
                 with('source' => 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/99.43.111/stash-backup-distribution-99.43.111.tar.gz',
                      'extract_path' => '/opt/stash-backup/stash-backup-client-99.43.111',
                      'creates' => '/opt/stash-backup/stash-backup-client-99.43.111/lib',
                      'user' => 'stash',
                      'group' => 'stash')
-              should contain_file('/opt/stash-backup/stash-backup-client-99.43.111').
+              is_expected.to contain_file('/opt/stash-backup/stash-backup-client-99.43.111').
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
-              should contain_cron('Backup Stash').with('command' => '/opt/java/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-99.43.111/stash-backup-client.jar')
+              is_expected.to contain_cron('Backup Stash').with('command' => '/opt/java/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-99.43.111/stash-backup-client.jar')
             end
           end
 
@@ -96,12 +96,12 @@ describe 'stash' do
               }
             end
             it do
-              should contain_class('stash').with_backup_home(%r{my/backup})
-              should contain_file('/my/backup/archives').
+              is_expected.to contain_class('stash').with_backup_home(%r{my/backup})
+              is_expected.to contain_file('/my/backup/archives').
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
-              should contain_cron('Backup Stash').with('command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/my/backup/archives -jar /my/backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar")
+              is_expected.to contain_cron('Backup Stash').with('command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/my/backup/archives -jar /my/backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar")
             end
           end
 
@@ -114,8 +114,8 @@ describe 'stash' do
               }
             end
             it do
-              should contain_class('stash').with_backupuser('myuser').with_backuppass('mypass')
-              should contain_cron('Backup Stash').
+              is_expected.to contain_class('stash').with_backupuser('myuser').with_backuppass('mypass')
+              is_expected.to contain_cron('Backup Stash').
                 with('command' => "/opt/java/bin/java -Dstash.password=\"mypass\" -Dstash.user=\"myuser\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar")
             end
           end
@@ -129,7 +129,7 @@ describe 'stash' do
               }
             end
             it do
-              should contain_tidy('remove_old_archives').
+              is_expected.to contain_tidy('remove_old_archives').
                 with('path' => '/my/backup/archives',
                      'age' => '1y')
             end
