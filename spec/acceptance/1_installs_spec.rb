@@ -10,7 +10,7 @@ download_url = if ENV['download_url']
                  'undef'
                end
 java_url = if download_url == 'undef'
-             'http://download.oracle.com/otn-pub/java/jdk/8u45-b14/'
+             'http://download.oracle.com/otn-pub/java/jdk/8u45-b14/jdk-8u45-linux-x64.tar.gz'
            else
              download_url
            end
@@ -22,7 +22,7 @@ describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
   it 'installs with defaults and context /stash1' do
     pp = <<-EOS
       $jh = $osfamily ? {
-        default   => '/opt/java',
+        default => '/opt/java',
       }
       if versioncmp($::puppetversion,'3.6.1') >= 0 {
         $allow_virtual_packages = hiera('allow_virtual_packages',false)
@@ -39,19 +39,25 @@ describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
         user     => 'stash',
         password => postgresql_password('stash', 'password'),
       } ->
-      deploy::file { 'jdk-8u45-linux-x64.tar.gz':
-        target          => '/opt/java',
-        fetch_options   => '-q -c --header "Cookie: oraclelicense=accept-securebackup-cookie"',
-        url             => #{java_url},
-        download_timout => 1800,
-        strip           => true,
+      file { $jh:
+        ensure => 'directory',
+      } ->
+      archive { '/tmp/jdk-8u45-linux-x64.tar.gz':
+        ensure          => present,
+        extract         => true,
+        extract_command => 'tar xfz %s --strip-components=1',
+        extract_path    => $jh,
+        source          => "#{java_url}",
+        creates         => "${jh}/bin",
+        cleanup         => true,
+        cookie          => 'oraclelicense=accept-securebackup-cookie',
       } ->
       class { 'stash':
-        download_url   => #{download_url},
-        checksum      => 'a80cbed70843e9a394867adc800f7704',
-        version       => '3.9.2',
-        javahome      => $jh,
-        context_path  => '/stash1',
+        version          => '3.9.2',
+        checksum         => 'a80cbed70843e9a394867adc800f7704',
+        download_url     => #{download_url},
+        javahome         => $jh,
+        context_path     => '/stash1',
         backupclient_url => #{download_url},
       }
       include ::stash::facts

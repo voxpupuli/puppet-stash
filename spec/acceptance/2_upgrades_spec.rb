@@ -20,12 +20,12 @@ describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
         }
       }
       $jh = $osfamily ? {
-        default   => '/opt/java',
+        default => '/opt/java',
       }
       class { 'stash':
         version       => '3.11.4',
-        deploy_module => 'staging',
-        download_url   => #{download_url},
+        checksum      => '8e6f51c250219dc6a85a310935e4a281',
+        download_url  => #{download_url},
         javahome      => $jh,
         context_path  => '/stash1',
       }
