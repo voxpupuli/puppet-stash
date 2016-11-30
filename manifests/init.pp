@@ -46,7 +46,7 @@ class stash(
   $dbdriver     = 'org.postgresql.Driver',
 
   # Misc Settings
-  $download_url = 'http://www.atlassian.com/software/stash/downloads/binary/',
+  $download_url = 'https://www.atlassian.com/software/stash/downloads/binary',
   $checksum     = undef,
 
   # Backup Settings

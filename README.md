@@ -354,7 +354,8 @@ Reverse https proxy configuration. See examples for more detail. Default: {}
 
 ##### `download_url`
 
-Where to download the stash binaries from. Default: <http://www.atlassian.com/software/stash/downloads/binary/>
+The URL used to download the Stash installation file.
+Defaults to '<https://www.atlassian.com/software/stash/downloads/binary>'
 
 ##### `checksum`
 
