@@ -22,6 +22,17 @@ class stash::install(
 
   include '::archive'
 
+  if $checksum {
+    $real_checksum = $checksum
+  } else {
+    $real_checksum = $version ? {
+      # Known md5 checksums can be added here
+      '3.7.0' => '6fc33bfca7eaba66bed8b980a58c71c0',
+      '3.7.1' => '037913cf20b93af18a3183d0788dc6d8',
+      '3.8.1' => '98f9443ab4e16f7c035335f92b68cb2d',
+      default => fail("You must supply an md5 checksum for stash version ${version}")
+    }
+  }
   if $manage_usr_grp {
     #Manage the group in the module
     group { $group:
@@ -93,7 +104,7 @@ class stash::install(
         creates         => "${webappdir}/conf",
         cleanup         => true,
         checksum_type   => 'md5',
-        checksum        => $checksum,
+        checksum        => $real_checksum,
         user            => $user,
         group           => $group,
         before          => File[$homedir],
