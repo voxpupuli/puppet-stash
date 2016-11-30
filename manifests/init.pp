@@ -47,7 +47,7 @@ class stash(
 
   # Misc Settings
   $download_url = 'http://www.atlassian.com/software/stash/downloads/binary/',
-  $checksum     = undef,
+  $checksum     = '6fc33bfca7eaba66bed8b980a58c71c0',
 
   # Backup Settings
   $backup_ensure          = 'present',

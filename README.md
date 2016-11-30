@@ -359,7 +359,7 @@ Where to download the stash binaries from. Default: <http://www.atlassian.com/so
 ##### `checksum`
 
 The md5 checksum of the archive file. Only supported with `deploy_module => archive`.
-Defaults to 'undef'
+Defaults to '6fc33bfca7eaba66bed8b980a58c71c0'
 
 ##### `service_manage`
 
