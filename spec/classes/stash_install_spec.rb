@@ -17,11 +17,11 @@ describe 'stash' do
 
           it 'deploys stash from archive' do
             is_expected.to contain_archive("/tmp/atlassian-stash-#{STASH_VERSION}.tar.gz").
-              with('extract_path' => "/opt/stash/atlassian-stash-#{STASH_VERSION}",
-                   'source' => "http://www.atlassian.com/software/stash/downloads/binary//atlassian-stash-#{STASH_VERSION}.tar.gz",
-                   'creates' => "/opt/stash/atlassian-stash-#{STASH_VERSION}/conf",
-                   'user' => 'stash',
-                   'group' => 'stash',
+              with('extract_path'  => "/opt/stash/atlassian-stash-#{STASH_VERSION}",
+                   'source'        => "https://www.atlassian.com/software/stash/downloads/binary/atlassian-stash-#{STASH_VERSION}.tar.gz",
+                   'creates'       => "/opt/stash/atlassian-stash-#{STASH_VERSION}/conf",
+                   'user'          => 'stash',
+                   'group'         => 'stash',
                    'checksum_type' => 'md5')
           end
 
