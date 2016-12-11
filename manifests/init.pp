@@ -102,6 +102,13 @@ class stash(
     fail('You need to specify a value for javahome')
   }
 
+  # Archive module checksum_verify = true; this verifies checksum if provided, doesn't if not.
+  if $checksum == undef {
+    $checksum_verify = false
+  } else {
+    $checksum_verify = true
+  }
+
   anchor { 'stash::start': } ->
   class { '::stash::install': webappdir => $webappdir, } ->
   class { '::stash::config': } ~>
