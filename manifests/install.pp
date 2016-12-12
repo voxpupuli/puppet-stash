@@ -92,6 +92,7 @@ class stash::install(
         source          => "${download_url}/${file}",
         creates         => "${webappdir}/conf",
         cleanup         => true,
+        checksum_verify => $stash::checksum_verify,
         checksum_type   => 'md5',
         checksum        => $checksum,
         user            => $user,
