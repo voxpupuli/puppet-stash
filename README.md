@@ -430,7 +430,7 @@ Minute schedule for when to perform backup. Defaults to '0'.
 
 ## Limitations
 
-* Puppet 3.4+
+* Puppet 3.8.7+
 * Puppet Enterprise
 
 The puppetlabs repositories can be found at:
