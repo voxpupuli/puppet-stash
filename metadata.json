@@ -1,6 +1,6 @@
 {
   "name": "puppet-stash",
-  "version": "2.0.1-rc0",
+  "version": "3.0.0-rc0",
   "author": "Vox Pupuli",
   "summary": "Install Atlassian stash",
   "license": "MIT",
@@ -48,7 +48,7 @@
     },
     {
       "name": "puppetlabs/inifile",
-      "version_requirement": ">=1.4.1 < 2.0.0"
+      "version_requirement": ">= 1.4.1 < 2.0.0"
     },
     {
       "name": "puppet/staging",
@@ -62,7 +62,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">=3.8.7 < 5.0.0"
+      "version_requirement": ">= 4.6.1 < 5.0.0"
     }
   ]
 }
