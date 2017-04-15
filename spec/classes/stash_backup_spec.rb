@@ -13,6 +13,7 @@ describe 'stash' do
             let(:params) do
               { javahome: '/opt/java' }
             end
+
             it 'deploys stash backup client 1.9.1 from tar.gz' do
               is_expected.to contain_archive("/tmp/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz").
                 with('source'       => "https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/#{BACKUP_VERSION}/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz",
@@ -59,6 +60,7 @@ describe 'stash' do
             let(:params) do
               { javahome: '/usr/local/java' }
             end
+
             it do
               is_expected.to contain_class('stash').with_javahome('/usr/local/java')
               is_expected.to contain_cron('Backup Stash').
@@ -73,6 +75,7 @@ describe 'stash' do
                 backupclient_version: '99.43.111'
               }
             end
+
             it do
               is_expected.to contain_archive('/tmp/stash-backup-distribution-99.43.111.tar.gz').
                 with('source' => 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/99.43.111/stash-backup-distribution-99.43.111.tar.gz',
@@ -95,6 +98,7 @@ describe 'stash' do
                 backup_home: '/my/backup'
               }
             end
+
             it do
               is_expected.to contain_class('stash').with_backup_home(%r{my/backup})
               is_expected.to contain_file('/my/backup/archives').
@@ -113,6 +117,7 @@ describe 'stash' do
                 backuppass: 'mypass'
               }
             end
+
             it do
               is_expected.to contain_class('stash').with_backupuser('myuser').with_backuppass('mypass')
               is_expected.to contain_cron('Backup Stash').
@@ -128,6 +133,7 @@ describe 'stash' do
                 backup_home: '/my/backup'
               }
             end
+
             it do
               is_expected.to contain_tidy('remove_old_archives').
                 with('path' => '/my/backup/archives',

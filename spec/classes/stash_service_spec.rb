@@ -13,6 +13,7 @@ describe 'stash' do
             let(:params) do
               { javahome: '/opt/java' }
             end
+
             it { is_expected.to contain_service('stash') }
           end
 
@@ -23,6 +24,7 @@ describe 'stash' do
                 service_manage: false
               }
             end
+
             it { is_expected.not_to contain_service('stash') }
           end
 
@@ -34,6 +36,7 @@ describe 'stash' do
                 service_enable: false
               }
             end
+
             it do
               is_expected.to contain_service('stash').
                 with('ensure' => 'stopped',

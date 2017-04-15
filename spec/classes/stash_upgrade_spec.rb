@@ -7,6 +7,7 @@ describe 'stash' do
         let(:facts) do
           facts
         end
+
         context 'prepare for upgrade of stash' do
           let(:facts) do
             facts.merge(stash_version: '3.1.0')
@@ -14,6 +15,7 @@ describe 'stash' do
           let(:params) do
             { javahome: '/opt/java' }
           end
+
           it 'stops service and remove old config file' do
             is_expected.to contain_exec('service stash stop && sleep 15')
             is_expected.to contain_exec('rm -f /home/stash/stash-config.properties').
