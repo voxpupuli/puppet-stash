@@ -7,6 +7,7 @@ describe 'stash' do
         let(:facts) do
           facts
         end
+
         context 'with javahome not set' do
           it('fails') do
             is_expected.to raise_error(Puppet::Error, %r{You need to specify a value for javahome})

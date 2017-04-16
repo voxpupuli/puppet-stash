@@ -17,6 +17,7 @@ describe 'stash' do
                 tomcat_port: '7990'
               }
             end
+
             it do
               is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh'). \
                 with_content(%r{JAVA_HOME=/opt/java}).
@@ -117,6 +118,7 @@ describe 'stash' do
                 }
               }
             end
+
             it do
               is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml'). \
                 with_content(%r{proxyName = \'stash\.example\.co\.za\'}).
@@ -132,6 +134,7 @@ describe 'stash' do
                 javahome: '/opt/java'
               }
             end
+
             it do
               is_expected.not_to contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml')
               is_expected.to contain_file('/home/stash/shared/server.xml')
@@ -146,6 +149,7 @@ describe 'stash' do
                 jvm_xms: '1G'
               }
             end
+
             it do
               is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh').
                 with_content(%r{^JVM_MINIMUM_MEMORY="1G"})
@@ -160,6 +164,7 @@ describe 'stash' do
                 jvm_xmx: '4G'
               }
             end
+
             it do
               is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh').
                 with_content(%r{^JVM_MAXIMUM_MEMORY="4G"})
@@ -174,6 +179,7 @@ describe 'stash' do
                 jvm_permgen: '384m'
               }
             end
+
             it do
               is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh').
                 with_content(%r{^STASH_MAX_PERM_SIZE=384m})
@@ -188,6 +194,7 @@ describe 'stash' do
                 java_opts: '-Dhttp.proxyHost=proxy.example.co.za -Dhttp.proxyPort=8080'
               }
             end
+
             it do
               is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh').
                 with_content(%r{JAVA_OPTS="-Dhttp\.proxyHost=proxy\.example\.co\.za -Dhttp\.proxyPort=8080})
@@ -202,6 +209,7 @@ describe 'stash' do
                 context_path: '/stash'
               }
             end
+
             it do
               is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml').
                 with_content(%r{path="/stash"})
@@ -216,6 +224,7 @@ describe 'stash' do
                 tomcat_port: '7991'
               }
             end
+
             it do
               is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml').
                 with_content(%r{<Connector port="7991"})

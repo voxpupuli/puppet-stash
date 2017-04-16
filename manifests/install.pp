@@ -67,8 +67,8 @@ class stash::install(
       staging::file { $file:
         source  => "${download_url}/${file}",
         timeout => 1800,
-      } ->
-      staging::extract { $file:
+      }
+      -> staging::extract { $file:
         target  => $webappdir,
         creates => "${webappdir}/conf",
         strip   => 1,
@@ -115,9 +115,9 @@ class stash::install(
     owner   => $user,
     group   => $group,
     require => User[$user],
-  } ->
+  }
 
-  exec { "chown_${webappdir}":
+  -> exec { "chown_${webappdir}":
     command     => "/bin/chown -R ${user}:${group} ${webappdir}",
     refreshonly => true,
     subscribe   => [ User[$user], File[$webappdir] ],

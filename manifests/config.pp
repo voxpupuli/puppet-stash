@@ -42,9 +42,9 @@ class stash::config(
     mode    => '0750',
     require => Class['stash::install'],
     notify  => Class['stash::service'],
-  } ->
+  }
 
-  file { "${stash::webappdir}/bin/user.sh":
+  -> file { "${stash::webappdir}/bin/user.sh":
     content => template('stash/user.sh.erb'),
     mode    => '0750',
     require => [
@@ -52,16 +52,16 @@ class stash::config(
       File[$stash::webappdir],
       File[$stash::homedir]
     ],
-  }->
+  }
 
-  file { $server_xml:
+  -> file { $server_xml:
     content => template('stash/server.xml.erb'),
     mode    => '0640',
     require => Class['stash::install'],
     notify  => Class['stash::service'],
-  } ->
+  }
 
-  ini_setting { 'stash_httpport':
+  -> ini_setting { 'stash_httpport':
     ensure  => present,
     path    => "${stash::webappdir}/conf/scripts.cfg",
     section => '',
@@ -69,9 +69,9 @@ class stash::config(
     value   => $tomcat_port,
     require => Class['stash::install'],
     before  => Class['stash::service'],
-  } ->
+  }
 
-  file { "${stash::homedir}/${moved}stash-config.properties":
+  -> file { "${stash::homedir}/${moved}stash-config.properties":
     content => template('stash/stash-config.properties.erb'),
     mode    => '0640',
     require => [

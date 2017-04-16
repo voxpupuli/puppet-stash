@@ -46,6 +46,7 @@ describe 'stash' do
                 manage_usr_grp: true
               }
             end
+
             context 'when no user or group are specified' do
               it { is_expected.to contain_user('stash').with_shell('/bin/bash') }
               it { is_expected.to contain_group('stash') }
@@ -58,6 +59,7 @@ describe 'stash' do
                   group: 'mystashgroup'
                 }
               end
+
               it { is_expected.to contain_user('mystashuser') }
               it { is_expected.to contain_group('mystashgroup') }
             end
@@ -71,6 +73,7 @@ describe 'stash' do
                   manage_usr_grp: false
                 }
               end
+
               it { is_expected.not_to contain_user('stash') }
               it { is_expected.not_to contain_group('stash') }
             end
@@ -91,6 +94,7 @@ describe 'stash' do
                 deploy_module: 'staging'
               }
             end
+
             it do
               is_expected.to contain_staging__file("atlassian-stash-#{STASH_VERSION}.tar.gz").
                 with('source' => "http://downloads.atlassian.com//atlassian-stash-#{STASH_VERSION}.tar.gz")

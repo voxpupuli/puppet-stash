@@ -49,8 +49,8 @@ class stash::backup(
       staging::file { $file:
         source  => "${download_url}/${version}/${file}",
         timeout => 1800,
-      } ->
-      staging::extract { $file:
+      }
+      -> staging::extract { $file:
         target  => $appdir,
         creates => "${appdir}/lib",
         strip   => 1,

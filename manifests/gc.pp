@@ -39,9 +39,9 @@ class stash::gc(
     ensure  => $ensure,
     content => template('stash/git-gc.sh.erb'),
     mode    => '0755',
-  } ->
+  }
 
-  cron { 'git-gc-stash':
+  -> cron { 'git-gc-stash':
     ensure  => $ensure,
     command => "${path} &>/dev/null",
     user    => $user,

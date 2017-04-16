@@ -109,10 +109,10 @@ class stash(
     $checksum_verify = true
   }
 
-  anchor { 'stash::start': } ->
-  class { '::stash::install': webappdir => $webappdir, } ->
-  class { '::stash::config': } ~>
-  class { '::stash::service': } ->
-  class { '::stash::backup': } ->
-  anchor { 'stash::end': }
+  anchor { 'stash::start': }
+  -> class { '::stash::install': webappdir => $webappdir, }
+  -> class { '::stash::config': }
+  ~> class { '::stash::service': }
+  -> class { '::stash::backup': }
+  -> anchor { 'stash::end': }
 }
