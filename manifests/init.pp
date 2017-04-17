@@ -15,7 +15,6 @@ class stash(
 
   # Stash Settings
   $version      = '3.7.0',
-  $product      = 'stash',
   $format       = 'tar.gz',
   $installdir   = '/opt/stash',
   $homedir      = '/home/stash',
@@ -77,6 +76,11 @@ class stash(
   $deploy_module = 'archive',
 
 ) {
+
+  case $version {
+    /[1-3]\..*/: { $product = 'stash' }
+    default:     { $product = 'bitbucket' }
+  }
 
   validate_hash($config_properties)
 
