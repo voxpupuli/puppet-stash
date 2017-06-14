@@ -5,13 +5,13 @@
 class stash(
 
   # JVM Settings
-  $javahome     = undef,
-  $jvm_xms      = '256m',
-  $jvm_xmx      = '1024m',
-  $jvm_permgen  = '256m',
-  $jvm_optional = '-XX:-HeapDumpOnOutOfMemoryError',
+  $javahome                     = undef,
+  $jvm_xms                      = '256m',
+  $jvm_xmx                      = '1024m',
+  $jvm_permgen                  = '256m',
+  $jvm_optional                 = '-XX:-HeapDumpOnOutOfMemoryError',
   $jvm_support_recommended_args = '',
-  $java_opts    = '',
+  $java_opts                    = '',
 
   # Stash Settings
   $version      = '3.7.0',
@@ -30,14 +30,14 @@ class stash(
   $gid            = undef,
 
   # Stash 3.8 initialization configurations
-  $display_name  = 'stash',
-  $base_url      = "https://${::fqdn}",
-  $license       = '',
-  $sysadmin_username = 'admin',
-  $sysadmin_password = 'stash',
-  $sysadmin_name  = 'Stash Admin',
-  $sysadmin_email = '',
-  $config_properties = {},
+  $display_name           = 'stash',
+  $base_url               = "https://${::fqdn}",
+  $license                = '',
+  $sysadmin_username      = 'admin',
+  $sysadmin_password      = 'stash',
+  $sysadmin_name          = 'Stash Admin',
+  $sysadmin_email         = '',
+  Hash $config_properties = {},
 
   # Database Settings
   $dbuser       = 'stash',
@@ -77,8 +77,6 @@ class stash(
   $deploy_module = 'archive',
 
 ) {
-
-  validate_hash($config_properties)
 
   include ::stash::params
 
