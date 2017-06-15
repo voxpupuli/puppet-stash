@@ -1,19 +1,17 @@
 # == Class: stash::service
 #
 # This manages the stash service. See README.md for details
-# 
+#
 class stash::service  (
 
-  $service_manage        = $stash::service_manage,
-  $service_ensure        = $stash::service_ensure,
-  $service_enable        = $stash::service_enable,
+  Boolean $service_manage        = $stash::service_manage,
+  String $service_ensure        = $stash::service_ensure,
+  Boolean $service_enable        = $stash::service_enable,
   $service_file_location = $stash::params::service_file_location,
   $service_file_template = $stash::params::service_file_template,
   $service_lockfile      = $stash::params::service_lockfile,
 
 ) {
-
-  validate_bool($service_manage)
 
   file { $service_file_location:
     content => template($service_file_template),
@@ -21,10 +19,6 @@ class stash::service  (
   }
 
   if $stash::service_manage {
-
-    validate_string($service_ensure)
-    validate_bool($service_enable)
-
     if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '7' {
       exec { 'refresh_systemd':
         command     => 'systemctl daemon-reload',
@@ -40,5 +34,4 @@ class stash::service  (
       require => File[$service_file_location],
     }
   }
-
 }
