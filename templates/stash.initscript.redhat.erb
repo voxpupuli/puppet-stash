@@ -41,7 +41,7 @@ function restart() {
 
 function stop() {
   echo -n $"Shutting down $SERVICE: "
-  <%= scope.lookupvar('stash::webappdir') %>/bin/stop-stash.sh
+  <%= scope.lookupvar('stash::webappdir') %>/bin/stop-<%= scope.lookupvar('stash::product') %>.sh
   RETVAL=$?
   echo
 
@@ -52,7 +52,7 @@ function stop() {
 
 function start() {
   echo -n $"Starting $SERVICE: "
-  <%= scope.lookupvar('stash::webappdir') %>/bin/start-stash.sh
+  <%= scope.lookupvar('stash::webappdir') %>/bin/start-<%= scope.lookupvar('stash::product') %>.sh
   RETVAL=$?
   echo
 
