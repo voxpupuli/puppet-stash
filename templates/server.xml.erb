@@ -43,6 +43,15 @@
 <% end -%>
         />
 
+<%- if @ajp_port -%>
+        <Connector port="<%= @ajp_port %>" protocol="AJP/1.3"
+                   connectionTimeout="20000"
+                   useBodyEncodingForURI="true"
+                   redirectPort="8443"
+                   compression="on"
+                   compressableMimeType="text/html,text/xml,text/plain,text/css,application/json,application/javascript,application/x-javascript" />
+<%- end -%>
+
         <Engine name="Catalina" defaultHost="localhost">
 
             <Realm className="org.apache.catalina.realm.LockOutRealm">

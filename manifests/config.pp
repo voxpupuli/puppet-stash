@@ -9,6 +9,7 @@ class stash::config(
   $proxy        = $stash::proxy,
   $context_path = $stash::context_path,
   $tomcat_port  = $stash::tomcat_port,
+  $ajp_port     = $stash::ajp_port,
   $config_properties = $stash::config_properties,
 ) {
 
