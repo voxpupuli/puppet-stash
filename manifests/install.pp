@@ -20,7 +20,7 @@ class stash::install(
   $checksum       = $stash::checksum,
   ) {
 
-  include '::archive'
+  include archive
 
   if $manage_usr_grp {
     #Manage the group in the module
@@ -40,6 +40,11 @@ class stash::install(
       uid              => $uid,
       gid              => $gid,
     }
+  }
+
+  $user_require = $manage_usr_grp ? {
+    true  => User[$user],
+    false => undef,
   }
 
   if ! defined(File[$installdir]) {
@@ -79,7 +84,7 @@ class stash::install(
         require => [
           File[$installdir],
           File[$webappdir],
-          User[$user],
+          $user_require,
         ],
       }
     }
@@ -101,7 +106,7 @@ class stash::install(
         require         => [
           File[$installdir],
           File[$webappdir],
-          User[$user],
+          $user_require,
         ],
       }
     }
@@ -114,13 +119,13 @@ class stash::install(
     ensure  => 'directory',
     owner   => $user,
     group   => $group,
-    require => User[$user],
+    require => $user_require,
   }
 
   -> exec { "chown_${webappdir}":
     command     => "/bin/chown -R ${user}:${group} ${webappdir}",
     refreshonly => true,
-    subscribe   => [ User[$user], File[$webappdir] ],
+    subscribe   => [ File[$webappdir], $user_require ],
   }
 
 }

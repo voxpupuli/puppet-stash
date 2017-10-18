@@ -76,9 +76,7 @@ class stash(
   # Choose whether to use puppet-staging, or puppet-archive
   $deploy_module = 'archive',
 
-) {
-
-  include ::stash::params
+) inherits stash::params {
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
