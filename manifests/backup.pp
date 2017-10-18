@@ -59,7 +59,6 @@ class stash::backup(
         require => [
           File[$appdir],
           File[$backup_home],
-          User[$user],
         ],
       }
     }
@@ -77,7 +76,6 @@ class stash::backup(
         require         => [
           File[$appdir],
           File[$backup_home],
-          User[$user],
         ],
       }
     }
