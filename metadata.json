@@ -1,6 +1,6 @@
 {
   "name": "puppet-stash",
-  "version": "3.0.0-rc0",
+  "version": "3.0.0",
   "author": "Vox Pupuli",
   "summary": "Install Atlassian stash",
   "license": "MIT",
