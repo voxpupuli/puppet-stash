@@ -216,6 +216,21 @@ describe 'stash' do
             end
           end
 
+          context 'ajp_port => "8009"' do
+            let(:params) do
+              {
+                version: '3.7.0',
+                javahome: '/opt/java',
+                tomcat_port: '8009'
+              }
+            end
+
+            it do
+              is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml').
+                with_content(%r{<Connector port="8009"})
+            end
+          end
+
           context 'tomcat_port => "7991"' do
             let(:params) do
               {

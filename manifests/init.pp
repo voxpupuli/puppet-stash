@@ -21,6 +21,7 @@ class stash(
   $homedir      = '/home/stash',
   $context_path = '',
   $tomcat_port  = 7990,
+  $ajp_port     = undef,
 
   # User and Group Management Settings
   $manage_usr_grp = true,
