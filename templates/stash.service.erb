@@ -7,8 +7,8 @@ Type=forking
 Environment="JAVA_HOME=<%= scope.lookupvar('stash::javahome') %>"
 PIDFile=<%= scope.lookupvar('stash::webappdir') %>/work/catalina.pid
 User=<%= scope.lookupvar('stash::user') %>
-ExecStart=<%= scope.lookupvar('stash::webappdir') %>/bin/start-stash.sh
-ExecStop=<%= scope.lookupvar('stash::webappdir') %>/bin/stop-stash.sh
+ExecStart=<%= scope.lookupvar('stash::webappdir') %>/bin/start-<%= scope.lookupvar('stash::product') %>.sh
+ExecStop=<%= scope.lookupvar('stash::webappdir') %>/bin/stop-<%= scope.lookupvar('stash::product') %>.sh
 
 [Install]
 WantedBy=multi-user.target

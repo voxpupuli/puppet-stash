@@ -16,6 +16,8 @@ RUNUSER=<%= scope.lookupvar('stash::user') %>
 STASH_INSTALLDIR="<%= scope.lookupvar('stash::webappdir') %>"
 # STASH_HOME: Path to the Stash home directory
 STASH_HOME="<%= scope.lookupvar('stash::homedir') %>"
+# PRODUCT: The Atlassian product name (stash,bitbucket)
+PRODUCT="<%= scope.lookupvar('stash::product') %>"
 # ==================================================================================
 # ==================================================================================
 # ==================================================================================
@@ -61,7 +63,7 @@ run_with_home() {
 #
 do_start()
 {
-    run_with_home start-stash.sh
+    run_with_home start-$PRODUCT.sh
 }
 #
 # Function that stops the daemon/service
@@ -69,7 +71,7 @@ do_start()
 do_stop()
 {
     if [ -e $PIDFILE ]; then
-      run_with_home stop-stash.sh
+      run_with_home stop-$PRODUCT.sh
     else
       log_failure_msg "$NAME is not running."
     fi
