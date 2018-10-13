@@ -1,9 +1,10 @@
 fixtures:
-  symlinks:
-    stash: "#{source_dir}"
   repositories:
     archive:              "https://github.com/voxpupuli/puppet-archive.git"
     inifile:              "https://github.com/puppetlabs/puppetlabs-inifile.git"
     mysql_java_connector: "https://github.com/voxpupuli/puppet-mysql_java_connector.git"
     staging:              "https://github.com/voxpupuli/puppet-staging.git"
     stdlib:               "https://github.com/puppetlabs/puppetlabs-stdlib.git"
+    cron_core:
+      repo: https://github.com/puppetlabs/puppetlabs-cron_core.git
+      puppet_version: ">= 6.0.0"
