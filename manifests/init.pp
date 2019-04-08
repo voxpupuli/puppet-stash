@@ -107,9 +107,9 @@ class stash(
   }
 
   anchor { 'stash::start': }
-  -> class { '::stash::install': webappdir => $webappdir, }
-  -> class { '::stash::config': }
-  ~> class { '::stash::service': }
-  -> class { '::stash::backup': }
+  -> class { 'stash::install': webappdir => $webappdir, }
+  -> class { 'stash::config': }
+  ~> class { 'stash::service': }
+  -> class { 'stash::backup': }
   -> anchor { 'stash::end': }
 }
