@@ -18,7 +18,7 @@ java_url = if download_url == 'undef'
 # We add the sleeps everywhere to give stash enough
 # time to install/upgrade/run migration tasks/start
 
-describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'stash' do
   it 'installs with defaults and context /stash1' do
     pp = <<-EOS
       $jh = $osfamily ? {
