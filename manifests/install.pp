@@ -3,7 +3,7 @@
 # This installs the stash module. See README.md for details
 #
 class stash::install(
-  $webappdir,
+  $webappdir      = $stash::webappdir,
   $version        = $stash::version,
   $product        = $stash::product,
   $format         = $stash::format,
