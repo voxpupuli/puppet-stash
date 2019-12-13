@@ -36,9 +36,13 @@ describe 'stash' do
   context 'unsupported operating system' do
     describe 'test class without any parameters on Solaris/Nexenta' do
       let(:facts) do
-        { osfamily: 'Solaris',
-          operatingsystem: 'Nexenta',
-          operatingsystemmajrelease: '7' }
+        {
+          os: {
+            family: 'Solaris',
+            name: 'Nexenta',
+            release: { major: '7' }
+          }
+        }
       end
 
       it { expect { is_expected.to contain_service('stash') }.to raise_error(Puppet::Error, %r{Nexenta 7 not supported}) }

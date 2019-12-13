@@ -19,7 +19,7 @@ class stash::service  (
   }
 
   if $stash::service_manage {
-    if $::osfamily == 'RedHat' and $::operatingsystemmajrelease == '7' {
+    if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '7' {
       exec { 'refresh_systemd':
         command     => '/bin/systemctl daemon-reload',
         refreshonly => true,

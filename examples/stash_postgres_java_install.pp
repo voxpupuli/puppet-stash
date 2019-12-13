@@ -19,7 +19,7 @@ node default {
     javahome => '/opt/java',
     proxy    => {
       scheme    => 'http',
-      proxyName => $::ipaddress_eth1,
+      proxyName => $facts['networking']['interfaces']['eth1']['ip'],
       proxyPort => '80',
     },
   }

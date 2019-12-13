@@ -32,7 +32,7 @@ class stash(
 
   # Stash 3.8 initialization configurations
   $display_name           = 'stash',
-  $base_url               = "https://${::fqdn}",
+  $base_url               = "https://${facts['networking']['fqdn']}",
   $license                = '',
   $sysadmin_username      = 'admin',
   $sysadmin_password      = 'stash',
