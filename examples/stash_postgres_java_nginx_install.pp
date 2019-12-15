@@ -17,7 +17,7 @@ node default {
     javahome => '/opt/java',
     proxy    => {
       scheme    => 'http',
-      proxyName => $::ipaddress_eth1,
+      proxyName => $facts['networking']['interfaces']['eth1']['ip'],
       proxyPort => '80',
     },
   }
@@ -27,9 +27,9 @@ node default {
     ensure  => present,
     members => [ 'localhost:7990' ],
   }
-  nginx::resource::vhost { $::ipaddress_eth1:
+  nginx::resource::vhost { $facts['networking']['interfaces']['eth1']['ip']:
     ensure               => present,
-    server_name          => [ $::ipaddress_eth1, $::fqdn, $hostname ],
+    server_name          => [ $facts['networking']['interfaces']['eth1']['ip'], $facts['networking']['fqdn'], $facts['networking']['hostname'] ],
     listen_port          => '80',
     proxy                => 'http://stash',
     proxy_read_timeout   => '300',

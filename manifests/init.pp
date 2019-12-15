@@ -18,6 +18,7 @@ class stash(
   $product      = 'stash',
   $format       = 'tar.gz',
   $installdir   = '/opt/stash',
+  $webappdir    = "${installdir}/atlassian-${product}-${version}",
   $homedir      = '/home/stash',
   $context_path = '',
   $tomcat_port  = 7990,
@@ -32,7 +33,7 @@ class stash(
 
   # Stash 3.8 initialization configurations
   $display_name           = 'stash',
-  $base_url               = "https://${::fqdn}",
+  $base_url               = "https://${facts['networking']['fqdn']}",
   $license                = '',
   $sysadmin_username      = 'admin',
   $sysadmin_password      = 'stash',
@@ -81,8 +82,6 @@ class stash(
 
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
-  $webappdir    = "${installdir}/atlassian-${product}-${version}"
-
   if $::stash_version {
     # If the running version of stash is less than the expected version of stash
     # Shut it down in preparation for upgrade.
@@ -106,10 +105,13 @@ class stash(
     $checksum_verify = true
   }
 
-  anchor { 'stash::start': }
-  -> class { 'stash::install': webappdir => $webappdir, }
-  -> class { 'stash::config': }
-  ~> class { 'stash::service': }
-  -> class { 'stash::backup': }
-  -> anchor { 'stash::end': }
+  contain stash::install
+  contain stash::config
+  contain stash::service
+  contain stash::backup
+
+  Class['stash::install']
+  -> Class['stash::config']
+  ~> Class['stash::service']
+  -> Class['stash::backup']
 }

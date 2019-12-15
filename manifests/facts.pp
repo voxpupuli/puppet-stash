@@ -43,7 +43,7 @@ class stash::facts(
     }
   }
 
-  if $::osfamily == 'RedHat' and $::puppetversion !~ /Puppet Enterprise/ {
+  if $facts['os']['family'] == 'RedHat' and $::puppetversion !~ /Puppet Enterprise/ {
     package { $json_packages:
       ensure => present,
     }
