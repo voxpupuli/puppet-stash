@@ -10,7 +10,7 @@ download_url = if ENV['download_url']
 # We add the sleeps everywhere to give stash enough
 # time to install/upgrade/run migration tasks/start
 
-describe 'stash', unless: UNSUPPORTED_PLATFORMS.include?(fact('osfamily')) do
+describe 'stash' do
   it 'upgrades to 4.0.2 with defaults and context /stash1' do
     pp_update = <<-EOS
       if versioncmp($::puppetversion,'3.6.1') >= 0 {
