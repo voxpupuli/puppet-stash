@@ -11,6 +11,7 @@ def location_for(place, fake_version = nil)
 end
 
 group :test do
+  gem 'activesupport', '~> 5.0',                                    :require => false
   gem 'puppetlabs_spec_helper', '>= 2.14.0',                        :require => false
   gem 'rspec-puppet-facts', '>= 1.9.5',                             :require => false
   gem 'rspec-puppet-utils',                                         :require => false
@@ -38,7 +39,7 @@ group :development do
   gem 'travis',                   :require => false
   gem 'travis-lint',              :require => false
   gem 'guard-rake',               :require => false
-  gem 'overcommit', '>= 0.39.1',  :require => false
+  gem 'overcommit', '>= 0.39.1', '<= 0.47.0',  :require => false
 end
 
 group :system_tests do
@@ -59,6 +60,7 @@ group :system_tests do
   gem 'beaker-puppet',                      :require => false
   gem 'beaker-puppet_install_helper',       :require => false
   gem 'beaker-module_install_helper',       :require => false
+  gem 'beaker-vagrant',                     :require => false
   gem 'rbnacl', '>= 4',                     :require => false
   gem 'rbnacl-libsodium',                   :require => false
   gem 'bcrypt_pbkdf',                       :require => false
@@ -66,7 +68,7 @@ end
 
 group :release do
   gem 'github_changelog_generator',  :require => false, :git => 'https://github.com/voxpupuli/github-changelog-generator', :branch => 'voxpupuli_essential_fixes'
-  gem 'puppet-blacksmith',           :require => false
+  gem 'puppet-blacksmith', '< 5.0.0',          :require => false
   gem 'voxpupuli-release',           :require => false
   gem 'puppet-strings', '>= 2.2',    :require => false
 end
