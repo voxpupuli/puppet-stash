@@ -9,16 +9,16 @@ describe 'stash' do
             facts
           end
 
-          context 'install stash backup client with default params' do
+          context 'install bitbucket backup client with default params' do
             let(:params) do
               { javahome: '/opt/java' }
             end
 
-            it 'deploys stash backup client 1.9.1 from tar.gz' do
-              is_expected.to contain_archive("/tmp/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz").
-                with('source'       => "https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/#{BACKUP_VERSION}/stash-backup-distribution-#{BACKUP_VERSION}.tar.gz",
-                     'extract_path' => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}",
-                     'creates'      => "/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/lib",
+            it 'deploys bitbucket backup client 3.3.2 from tar.gz' do
+              is_expected.to contain_archive("/tmp/bitbucket-backup-distribution-#{BACKUP_VERSION}.tar.gz").
+                with('source'       => "https://packages.atlassian.com/maven-closedsource-legacy-local/com/atlassian/bitbucket/server/backup/bitbucket-backup-distribution/#{BACKUP_VERSION}/bitbucket-backup-distribution-#{BACKUP_VERSION}.tar.gz",
+                     'extract_path' => "/opt/stash-backup/bitbucket-backup-client-#{BACKUP_VERSION}",
+                     'creates'      => "/opt/stash-backup/bitbucket-backup-client-#{BACKUP_VERSION}/lib",
                      'user'         => 'stash',
                      'group'        => 'stash')
             end
@@ -28,7 +28,7 @@ describe 'stash' do
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
-              is_expected.to contain_file("/opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}").
+              is_expected.to contain_file("/opt/stash-backup/bitbucket-backup-client-#{BACKUP_VERSION}").
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
@@ -39,9 +39,9 @@ describe 'stash' do
                      'group'  => 'stash')
             end
             it 'manages the backup cron job' do
-              is_expected.to contain_cron('Backup Stash').
+              is_expected.to contain_cron('Backup Bitbucket').
                 with('ensure'  => 'present',
-                     'command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar",
+                     'command' => "/opt/java/bin/java -Dbitbucket.password=\"password\" -Dbitbucket.user=\"admin\" -Dbitbucket.baseUrl=\"http://localhost:7990\" -Dbitbucket.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/bitbucket-backup-client-#{BACKUP_VERSION}/bitbucket-backup-client.jar",
                      'user'    => 'stash',
                      'hour'    => '5',
                      'minute'  => '0')
@@ -63,8 +63,8 @@ describe 'stash' do
 
             it do
               is_expected.to contain_class('stash').with_javahome('/usr/local/java')
-              is_expected.to contain_cron('Backup Stash').
-                with('command' => "/usr/local/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar")
+              is_expected.to contain_cron('Backup Bitbucket').
+                with('command' => "/usr/local/java/bin/java -Dbitbucket.password=\"password\" -Dbitbucket.user=\"admin\" -Dbitbucket.baseUrl=\"http://localhost:7990\" -Dbitbucket.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/bitbucket-backup-client-#{BACKUP_VERSION}/bitbucket-backup-client.jar")
             end
           end
 
@@ -77,17 +77,17 @@ describe 'stash' do
             end
 
             it do
-              is_expected.to contain_archive('/tmp/stash-backup-distribution-99.43.111.tar.gz').
-                with('source' => 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution/99.43.111/stash-backup-distribution-99.43.111.tar.gz',
-                     'extract_path' => '/opt/stash-backup/stash-backup-client-99.43.111',
-                     'creates' => '/opt/stash-backup/stash-backup-client-99.43.111/lib',
+              is_expected.to contain_archive('/tmp/bitbucket-backup-distribution-99.43.111.tar.gz').
+                with('source' => 'https://packages.atlassian.com/maven-closedsource-legacy-local/com/atlassian/bitbucket/server/backup/bitbucket-backup-distribution/99.43.111/bitbucket-backup-distribution-99.43.111.tar.gz',
+                     'extract_path' => '/opt/stash-backup/bitbucket-backup-client-99.43.111',
+                     'creates' => '/opt/stash-backup/bitbucket-backup-client-99.43.111/lib',
                      'user' => 'stash',
                      'group' => 'stash')
-              is_expected.to contain_file('/opt/stash-backup/stash-backup-client-99.43.111').
+              is_expected.to contain_file('/opt/stash-backup/bitbucket-backup-client-99.43.111').
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
-              is_expected.to contain_cron('Backup Stash').with('command' => '/opt/java/bin/java -Dstash.password="password" -Dstash.user="admin" -Dstash.baseUrl="http://localhost:7990" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-99.43.111/stash-backup-client.jar')
+              is_expected.to contain_cron('Backup Bitbucket').with('command' => '/opt/java/bin/java -Dbitbucket.password="password" -Dbitbucket.user="admin" -Dbitbucket.baseUrl="http://localhost:7990" -Dbitbucket.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/bitbucket-backup-client-99.43.111/bitbucket-backup-client.jar')
             end
           end
 
@@ -105,7 +105,7 @@ describe 'stash' do
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
-              is_expected.to contain_cron('Backup Stash').with('command' => "/opt/java/bin/java -Dstash.password=\"password\" -Dstash.user=\"admin\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/my/backup/archives -jar /my/backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar")
+              is_expected.to contain_cron('Backup Bitbucket').with('command' => "/opt/java/bin/java -Dbitbucket.password=\"password\" -Dbitbucket.user=\"admin\" -Dbitbucket.baseUrl=\"http://localhost:7990\" -Dbitbucket.home=/home/stash -Dbackup.home=/my/backup/archives -jar /my/backup/bitbucket-backup-client-#{BACKUP_VERSION}/bitbucket-backup-client.jar")
             end
           end
 
@@ -120,8 +120,8 @@ describe 'stash' do
 
             it do
               is_expected.to contain_class('stash').with_backupuser('myuser').with_backuppass('mypass')
-              is_expected.to contain_cron('Backup Stash').
-                with('command' => "/opt/java/bin/java -Dstash.password=\"mypass\" -Dstash.user=\"myuser\" -Dstash.baseUrl=\"http://localhost:7990\" -Dstash.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/stash-backup-client-#{BACKUP_VERSION}/stash-backup-client.jar")
+              is_expected.to contain_cron('Backup Bitbucket').
+                with('command' => "/opt/java/bin/java -Dbitbucket.password=\"mypass\" -Dbitbucket.user=\"myuser\" -Dbitbucket.baseUrl=\"http://localhost:7990\" -Dbitbucket.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/bitbucket-backup-client-#{BACKUP_VERSION}/bitbucket-backup-client.jar")
             end
           end
 

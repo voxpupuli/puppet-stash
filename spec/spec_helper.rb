@@ -60,9 +60,9 @@ RSpec.configure do |c|
   end
 end
 
-STASH_VERSION = '3.11.4'.freeze
+STASH_VERSION = '6.8.1'.freeze
 
-BACKUP_VERSION = '1.9.1'.freeze
+BACKUP_VERSION = '3.3.2'.freeze
 
 BITBUCKET_VERSION = '4.0.2'.freeze
 

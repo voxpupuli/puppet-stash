@@ -12,23 +12,49 @@ describe 'stash' do
           context 'default params' do
             let(:params) do
               {
-                version: '3.7.0',
+                version: '6.8.1',
                 javahome: '/opt/java',
                 tomcat_port: '7990'
               }
             end
 
             it do
-              is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/bin/setenv.sh'). \
+              is_expected.not_to contain_file('/opt/stash/atlassian-bitbucket-6.8.1/bin/setenv.sh')
+            end
+            it { is_expected.not_to contain_file('/opt/stash/atlassian-bitbucket-6.8.1/bin/user.sh') }
+            it do
+              is_expected.not_to contain_file('/opt/stash/atlassian-bitbucket-6.8.1/conf/server.xml')
+            end
+
+            it do
+              is_expected.not_to contain_file('/home/stash/shared/stash-config.properties')
+            end
+
+            it do
+              is_expected.not_to contain_ini_setting('stash_httpport').with('value' => '7990')
+            end
+          end
+
+          context 'stash 3.8.1' do
+            let(:params) do
+              {
+                version: '3.8.1',
+                product: 'stash',
+                javahome: '/opt/java'
+              }
+            end
+
+            it do
+              is_expected.to contain_file('/opt/stash/atlassian-stash-3.8.1/bin/setenv.sh'). \
                 with_content(%r{JAVA_HOME=/opt/java}).
                 with_content(%r{^JVM_MINIMUM_MEMORY="256m"}).
                 with_content(%r{^JVM_MAXIMUM_MEMORY="1024m"}).
                 with_content(%r{^STASH_MAX_PERM_SIZE=256m}).
                 with_content(%r{JAVA_OPTS="})
             end
-            it { is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/bin/user.sh') }
+            it { is_expected.to contain_file('/opt/stash/atlassian-stash-3.8.1/bin/user.sh') }
             it do
-              is_expected.to contain_file('/opt/stash/atlassian-stash-3.7.0/conf/server.xml').
+              is_expected.to contain_file('/home/stash/shared/server.xml').
                 with_content(%r{<Connector port="7990"}).
                 with_content(%r{path=""}).
                 without_content(%r{proxyName}).
@@ -37,29 +63,12 @@ describe 'stash' do
             end
 
             it do
-              is_expected.to contain_file('/home/stash/shared/stash-config.properties').
-                with_content(%r{jdbc\.driver=org\.postgresql\.Driver}).
-                with_content(%r{jdbc.url=jdbc:postgresql://localhost:5432/stash}).
-                with_content(%r{jdbc\.user=stash}).
-                with_content(%r{jdbc\.password=password})
-            end
-
-            it do
               is_expected.to contain_ini_setting('stash_httpport').with('value' => '7990')
             end
-          end
-
-          context 'stash 3.8.1' do
-            let(:params) do
-              {
-                version: '3.8.1',
-                javahome: '/opt/java'
-              }
-            end
 
             it do
               is_expected.to contain_file('/home/stash/shared/stash-config.properties').
-                with_content(%r{setup\.displayName=stash}).
+                with_content(%r{setup\.displayName=Bitbucket}).
                 with_content(%r{setup.baseUrl=https://foo.example.com}).
                 with_content(%r{setup\.sysadmin\.username=admin}).
                 with_content(%r{setup\.sysadmin\.password=stash}).
@@ -110,6 +119,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.7.0',
+                product: 'stash',
                 javahome: '/opt/java',
                 proxy: {
                   'scheme'    => 'https',
@@ -145,6 +155,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.7.0',
+                product: 'stash',
                 javahome: '/opt/java',
                 jvm_xms: '1G'
               }
@@ -160,6 +171,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.7.0',
+                product: 'stash',
                 javahome: '/opt/java',
                 jvm_xmx: '4G'
               }
@@ -175,6 +187,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.7.0',
+                product: 'stash',
                 javahome: '/opt/java',
                 jvm_permgen: '384m'
               }
@@ -190,6 +203,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.7.0',
+                product: 'stash',
                 javahome: '/opt/java',
                 java_opts: '-Dhttp.proxyHost=proxy.example.co.za -Dhttp.proxyPort=8080'
               }
@@ -205,6 +219,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.7.0',
+                product: 'stash',
                 javahome: '/opt/java',
                 context_path: '/stash'
               }
@@ -220,6 +235,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.7.0',
+                product: 'stash',
                 javahome: '/opt/java',
                 tomcat_port: '8009'
               }
@@ -235,6 +251,7 @@ describe 'stash' do
             let(:params) do
               {
                 version: '3.7.0',
+                product: 'stash',
                 javahome: '/opt/java',
                 tomcat_port: '7991'
               }
