@@ -1,4 +1,19 @@
 server.context-path=<%= scope['stash::context_path'] %>
+server.port=<%= scope.lookupvar('stash::tomcat_port') %>
+<%- if scope.lookupvar('stash::proxy') -%>
+<% scope.lookupvar('stash::proxy').each do |key, value| -%>
+<%- if key == 'scheme' -%>
+server.scheme=<%= value %>
+<%- end -%>
+<%- if key == 'proxyName' -%>
+server.proxy-name=<%= value %>
+<%- end -%>
+<%- if key == 'proxyPort' -%>
+server.proxy-port=<%= value %>
+server.redirect-port=<%= value %>
+<%- end -%>
+<% end -%>
+<%- end -%>
 setup.displayName=<%= scope['stash::display_name'] %>
 setup.baseUrl=<%= scope['stash::base_url'] %>
 setup.license=<%= scope['stash::license'] %>
