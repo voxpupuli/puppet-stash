@@ -1,0 +1,15 @@
+server.context-path=<%= scope['stash::context_path'] %>
+setup.displayName=<%= scope['stash::display_name'] %>
+setup.baseUrl=<%= scope['stash::base_url'] %>
+setup.license=<%= scope['stash::license'] %>
+setup.sysadmin.username=<%= scope['stash::sysadmin_username'] %>
+setup.sysadmin.password=<%= scope['stash::sysadmin_password'] %>
+setup.sysadmin.displayName=<%= scope['stash::sysadmin_name'] %>
+setup.sysadmin.emailAddress=<%= scope['stash::sysadmin_email'] %>
+<%- @config_properties.sort.each do |key,value| -%>
+<%=   key %>=<%= value %>
+<%- end -%>
+jdbc.driver=<%= scope.lookupvar('stash::dbdriver') %>
+jdbc.url=<%= scope.lookupvar('stash::dburl') %>
+jdbc.user=<%= scope.lookupvar('stash::dbuser') %>
+jdbc.password=<%= scope.lookupvar('stash::dbpassword') %>

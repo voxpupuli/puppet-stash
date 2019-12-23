@@ -33,7 +33,17 @@ class stash::config(
   }
 
   # This version number probably needs some tuning
-  if versioncmp($version, '6.0.0') < 0 {
+  if versioncmp($version, '6.0.0') >= 0 {
+    file { "${stash::homedir}/shared/bitbucket.properties":
+      content => template('stash/bitbucket.properties.erb'),
+      mode    => '0640',
+      require => [
+                  Class['stash::install'],
+                  File[$stash::webappdir],
+                  File[$stash::homedir]
+                  ],
+    }
+  } else {
     if versioncmp($version, '3.8.0') >= 0 {
       $server_xml = "${stash::homedir}/shared/server.xml"
     } else {
