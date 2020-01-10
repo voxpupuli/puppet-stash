@@ -35,7 +35,7 @@ class stash::config(
   # This version number probably needs some tuning
   if versioncmp($version, '6.0.0') >= 0 {
     file { "${stash::homedir}/shared/bitbucket.properties":
-      content => template('stash/bitbucket.properties.erb'),
+      content => epp('stash/bitbucket.properties.epp'),
       mode    => '0640',
       require => [
                   Class['stash::install'],
