@@ -13,13 +13,12 @@ class stash::service  (
 
 ) inherits stash::params {
 
-  if $stash::product == 'bitbucket' {
-    $extra_environment = {
+  $extra_environment = $stash::product ? {
+    'bitbucket' => {
       'BITBUCKET_HOME' => $stash::homedir,
       'BITBUCKET_USER' => $stash::user,
-    }
-  } else {
-    $extra_environment = {
+    },
+    default => {
       'STASH_HOME' => $stash::homedir,
       'STASH_USER' => $stash::user,
     }
