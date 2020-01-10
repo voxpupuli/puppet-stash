@@ -39,7 +39,7 @@ describe 'stash' do
                      'group'  => 'stash')
             end
             it 'manages the backup cron job' do
-              is_expected.to contain_cron('Backup Bitbucket').
+              is_expected.to contain_cron('Backup Stash').
                 with('ensure'  => 'present',
                      'command' => "/opt/java/bin/java -Dbitbucket.password=\"password\" -Dbitbucket.user=\"admin\" -Dbitbucket.baseUrl=\"http://localhost:7990\" -Dbitbucket.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/bitbucket-backup-client-#{BACKUP_VERSION}/bitbucket-backup-client.jar",
                      'user'    => 'stash',
@@ -63,7 +63,7 @@ describe 'stash' do
 
             it do
               is_expected.to contain_class('stash').with_javahome('/usr/local/java')
-              is_expected.to contain_cron('Backup Bitbucket').
+              is_expected.to contain_cron('Backup Stash').
                 with('command' => "/usr/local/java/bin/java -Dbitbucket.password=\"password\" -Dbitbucket.user=\"admin\" -Dbitbucket.baseUrl=\"http://localhost:7990\" -Dbitbucket.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/bitbucket-backup-client-#{BACKUP_VERSION}/bitbucket-backup-client.jar")
             end
           end
@@ -87,7 +87,7 @@ describe 'stash' do
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
-              is_expected.to contain_cron('Backup Bitbucket').with('command' => '/opt/java/bin/java -Dbitbucket.password="password" -Dbitbucket.user="admin" -Dbitbucket.baseUrl="http://localhost:7990" -Dbitbucket.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/bitbucket-backup-client-99.43.111/bitbucket-backup-client.jar')
+              is_expected.to contain_cron('Backup Stash').with('command' => '/opt/java/bin/java -Dbitbucket.password="password" -Dbitbucket.user="admin" -Dbitbucket.baseUrl="http://localhost:7990" -Dbitbucket.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/bitbucket-backup-client-99.43.111/bitbucket-backup-client.jar')
             end
           end
 
@@ -105,7 +105,7 @@ describe 'stash' do
                 with('ensure' => 'directory',
                      'owner'  => 'stash',
                      'group'  => 'stash')
-              is_expected.to contain_cron('Backup Bitbucket').with('command' => "/opt/java/bin/java -Dbitbucket.password=\"password\" -Dbitbucket.user=\"admin\" -Dbitbucket.baseUrl=\"http://localhost:7990\" -Dbitbucket.home=/home/stash -Dbackup.home=/my/backup/archives -jar /my/backup/bitbucket-backup-client-#{BACKUP_VERSION}/bitbucket-backup-client.jar")
+              is_expected.to contain_cron('Backup Stash').with('command' => "/opt/java/bin/java -Dbitbucket.password=\"password\" -Dbitbucket.user=\"admin\" -Dbitbucket.baseUrl=\"http://localhost:7990\" -Dbitbucket.home=/home/stash -Dbackup.home=/my/backup/archives -jar /my/backup/bitbucket-backup-client-#{BACKUP_VERSION}/bitbucket-backup-client.jar")
             end
           end
 
@@ -120,7 +120,7 @@ describe 'stash' do
 
             it do
               is_expected.to contain_class('stash').with_backupuser('myuser').with_backuppass('mypass')
-              is_expected.to contain_cron('Backup Bitbucket').
+              is_expected.to contain_cron('Backup Stash').
                 with('command' => "/opt/java/bin/java -Dbitbucket.password=\"mypass\" -Dbitbucket.user=\"myuser\" -Dbitbucket.baseUrl=\"http://localhost:7990\" -Dbitbucket.home=/home/stash -Dbackup.home=/opt/stash-backup/archives -jar /opt/stash-backup/bitbucket-backup-client-#{BACKUP_VERSION}/bitbucket-backup-client.jar")
             end
           end
