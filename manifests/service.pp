@@ -32,7 +32,7 @@ class stash::service  (
   }
 
   file { $service_file_location:
-    content => template($service_file_template),
+    content => epp($service_file_template),
     mode    => '0755',
   }
 

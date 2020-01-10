@@ -15,14 +15,14 @@
 #   limitations under the License.
 #-----------------------------------------------------------------------------
 ### BEGIN INIT INFO
-# Provides: stash 
-# Required-Start: 
-# Required-Stop: 
-# Should-Start: 
-# Should-Stop: 
+# Provides: stash
+# Required-Start:
+# Required-Stop:
+# Should-Start:
+# Should-Stop:
 # Default-Start: 2 3 4 5
 # Default-Stop: 0 1 6
-# Short-Description: Start up Stash 
+# Short-Description: Start up Stash
 # Description:       Atlassian Stash Enterprise Git
 #                    This service starts up the tomcat webapp.
 ### END INIT INFO
@@ -30,8 +30,8 @@ ACTION=$1
 SERVICE=stash
 lockfile=/var/lock/subsys/$SERVICE
 
-export JAVA_HOME=<%= scope.lookupvar('stash::javahome') %>
-export CATALINA_HOME=<%= scope.lookupvar('stash::webappdir') %>
+export JAVA_HOME=<%= $stash::javahome %>
+export CATALINA_HOME=<%= $stash::webappdir %>
 
 
 function restart() {
@@ -41,7 +41,7 @@ function restart() {
 
 function stop() {
   echo -n $"Shutting down $SERVICE: "
-  <%= scope.lookupvar('stash::webappdir') %>/bin/stop-<%= scope.lookupvar('stash::product') %>.sh
+  <%= $stash::webappdir %>/bin/stop-<%= $stash::product %>.sh
   RETVAL=$?
   echo
 
@@ -52,7 +52,7 @@ function stop() {
 
 function start() {
   echo -n $"Starting $SERVICE: "
-  <%= scope.lookupvar('stash::webappdir') %>/bin/start-<%= scope.lookupvar('stash::product') %>.sh
+  <%= $stash::webappdir %>/bin/start-<%= $stash::product %>.sh
   RETVAL=$?
   echo
 
@@ -65,7 +65,7 @@ function status() {
 
   STATUS=$( ps aux | grep "[c]atalina.base=$CATALINA_HOME" | wc -l )
   if [ $STATUS -gt 0 ];then
-    ps -ef |grep $SERVICE |grep -v grep |awk '{ print $2 }' | <%= scope.lookupvar('stash::javahome') %>/bin/jps |grep -v Jps |grep -v grep > /dev/null
+    ps -ef |grep $SERVICE |grep -v grep |awk '{ print $2 }' | <%= $stash::javahome %>/bin/jps |grep -v Jps |grep -v grep > /dev/null
     RETVAL=$?
     if [ $RETVAL -eq 0 ];then
       echo "$SERVICE is running"
@@ -78,7 +78,7 @@ function status() {
     echo "$SERVICE is stopped"
     return 1
  fi
-  
+
 }
 
 function execute() {
