@@ -38,10 +38,10 @@ class stash::config(
       content => epp('stash/bitbucket.properties.epp'),
       mode    => '0640',
       require => [
-                  Class['stash::install'],
-                  File[$stash::webappdir],
-                  File[$stash::homedir]
-                  ],
+        Class['stash::install'],
+        File[$stash::webappdir],
+        File[$stash::homedir]
+      ],
     }
   } else {
     if versioncmp($version, '3.8.0') >= 0 {
@@ -61,10 +61,10 @@ class stash::config(
       content => template('stash/user.sh.erb'),
       mode    => '0750',
       require => [
-                  Class['stash::install'],
-                  File[$stash::webappdir],
-                  File[$stash::homedir]
-                  ],
+        Class['stash::install'],
+        File[$stash::webappdir],
+        File[$stash::homedir]
+      ],
     }
 
     -> file { $server_xml:
@@ -88,10 +88,10 @@ class stash::config(
       content => template('stash/stash-config.properties.erb'),
       mode    => '0640',
       require => [
-                  Class['stash::install'],
-                  File[$stash::webappdir],
-                  File[$stash::homedir]
-                  ],
+        Class['stash::install'],
+        File[$stash::webappdir],
+        File[$stash::homedir]
+      ],
     }
   }
 }
