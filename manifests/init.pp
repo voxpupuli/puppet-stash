@@ -14,8 +14,8 @@ class stash(
   $java_opts                    = '',
 
   # Stash Settings
-  $version      = '3.7.0',
-  $product      = 'stash',
+  $version      = '6.8.1',
+  $product      = 'bitbucket',
   $format       = 'tar.gz',
   $installdir   = '/opt/stash',
   $webappdir    = "${installdir}/atlassian-${product}-${version}",
@@ -31,8 +31,8 @@ class stash(
   $uid            = undef,
   $gid            = undef,
 
-  # Stash 3.8 initialization configurations
-  $display_name           = 'stash',
+  # Stash 6.8.1 initialization configurations
+  $display_name           = 'Bitbucket',
   $base_url               = "https://${facts['networking']['fqdn']}",
   $license                = '',
   $sysadmin_username      = 'admin',
@@ -48,13 +48,13 @@ class stash(
   $dbdriver     = 'org.postgresql.Driver',
 
   # Misc Settings
-  $download_url = 'https://www.atlassian.com/software/stash/downloads/binary',
+  $download_url = 'https://product-downloads.atlassian.com/software/stash/downloads',
   $checksum     = undef,
 
   # Backup Settings
   $backup_ensure          = 'present',
-  $backupclient_url       = 'https://maven.atlassian.com/public/com/atlassian/stash/backup/stash-backup-distribution',
-  $backupclient_version   = '1.9.1',
+  $backupclient_url       = 'https://packages.atlassian.com/maven-closedsource-legacy-local/com/atlassian/bitbucket/server/backup/bitbucket-backup-distribution',
+  $backupclient_version   = '3.3.2',
   $backup_home            = '/opt/stash-backup',
   $backupuser             = 'admin',
   $backuppass             = 'password',

@@ -16,10 +16,10 @@ describe 'stash' do
           end
 
           it 'deploys stash from archive' do
-            is_expected.to contain_archive("/tmp/atlassian-stash-#{STASH_VERSION}.tar.gz").
-              with('extract_path'  => "/opt/stash/atlassian-stash-#{STASH_VERSION}",
-                   'source'        => "https://www.atlassian.com/software/stash/downloads/binary/atlassian-stash-#{STASH_VERSION}.tar.gz",
-                   'creates'       => "/opt/stash/atlassian-stash-#{STASH_VERSION}/conf",
+            is_expected.to contain_archive("/tmp/atlassian-bitbucket-#{STASH_VERSION}.tar.gz").
+              with('extract_path'  => "/opt/stash/atlassian-bitbucket-#{STASH_VERSION}",
+                   'source'        => "https://product-downloads.atlassian.com/software/stash/downloads/atlassian-bitbucket-#{STASH_VERSION}.tar.gz",
+                   'creates'       => "/opt/stash/atlassian-bitbucket-#{STASH_VERSION}/bin",
                    'user'          => 'stash',
                    'group'         => 'stash',
                    'checksum_type' => 'md5')
@@ -33,7 +33,7 @@ describe 'stash' do
           end
 
           it 'manages the stash application directory' do
-            is_expected.to contain_file("/opt/stash/atlassian-stash-#{STASH_VERSION}").
+            is_expected.to contain_file("/opt/stash/atlassian-bitbucket-#{STASH_VERSION}").
               with('ensure' => 'directory',
                    'owner' => 'stash',
                    'group' => 'stash')
@@ -96,16 +96,16 @@ describe 'stash' do
             end
 
             it do
-              is_expected.to contain_staging__file("atlassian-stash-#{STASH_VERSION}.tar.gz").
-                with('source' => "http://downloads.atlassian.com//atlassian-stash-#{STASH_VERSION}.tar.gz")
-              is_expected.to contain_staging__extract("atlassian-stash-#{STASH_VERSION}.tar.gz").
-                with('target'  => "/custom/stash/atlassian-stash-#{STASH_VERSION}",
+              is_expected.to contain_staging__file("atlassian-bitbucket-#{STASH_VERSION}.tar.gz").
+                with('source' => "http://downloads.atlassian.com//atlassian-bitbucket-#{STASH_VERSION}.tar.gz")
+              is_expected.to contain_staging__extract("atlassian-bitbucket-#{STASH_VERSION}.tar.gz").
+                with('target'  => "/custom/stash/atlassian-bitbucket-#{STASH_VERSION}",
                      'user'    => 'foo',
                      'group'   => 'bar',
-                     'creates' => "/custom/stash/atlassian-stash-#{STASH_VERSION}/conf").
+                     'creates' => "/custom/stash/atlassian-bitbucket-#{STASH_VERSION}/bin").
                 that_comes_before('File[/random/homedir]').
                 that_requires('File[/custom/stash]').
-                that_notifies("Exec[chown_/custom/stash/atlassian-stash-#{STASH_VERSION}]")
+                that_notifies("Exec[chown_/custom/stash/atlassian-bitbucket-#{STASH_VERSION}]")
             end
 
             it do

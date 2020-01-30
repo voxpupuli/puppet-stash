@@ -11,13 +11,13 @@
 ### END INIT INFO
 # Adapt the following lines to your configuration
 # RUNUSER: The user to run Stash as.
-RUNUSER=<%= scope.lookupvar('stash::user') %>
+RUNUSER=<%= $stash::user %>
 # STASH_INSTALLDIR: The path to the Stash installation directory
-STASH_INSTALLDIR="<%= scope.lookupvar('stash::webappdir') %>"
+STASH_INSTALLDIR="<%= $stash::webappdir %>"
 # STASH_HOME: Path to the Stash home directory
-STASH_HOME="<%= scope.lookupvar('stash::homedir') %>"
+STASH_HOME="<%= $stash::homedir %>"
 # PRODUCT: The Atlassian product name (stash,bitbucket)
-PRODUCT="<%= scope.lookupvar('stash::product') %>"
+PRODUCT="<%= $stash::product %>"
 # ==================================================================================
 # ==================================================================================
 # ==================================================================================
@@ -50,7 +50,7 @@ log_end_msg () {
 }
 # Depend on lsb-base (>= 3.0-6) to ensure that this file is present.
 . /lib/lsb/init-functions
- 
+
 run_with_home() {
     if [ "$RUNUSER" != "$USER" ]; then
         su - "$RUNUSER" -c "export STASH_HOME=${STASH_HOME};${STASH_INSTALLDIR}/bin/$1"
@@ -76,7 +76,7 @@ do_stop()
       log_failure_msg "$NAME is not running."
     fi
 }
- 
+
 case "$1" in
   start)
     [ "$VERBOSE" != no ] && log_daemon_msg "Starting $DESC" "$NAME"

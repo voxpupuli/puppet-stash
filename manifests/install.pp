@@ -30,7 +30,7 @@ class stash::install(
     }
     #Manage the user in the module
     user { $user:
-      comment          => 'Stash daemon account',
+      comment          => 'Bitbucket daemon account',
       shell            => '/bin/bash',
       home             => $homedir,
       password         => '*',
@@ -75,7 +75,7 @@ class stash::install(
       }
       -> staging::extract { $file:
         target  => $webappdir,
-        creates => "${webappdir}/conf",
+        creates => "${webappdir}/bin",
         strip   => 1,
         user    => $user,
         group   => $group,
@@ -95,7 +95,7 @@ class stash::install(
         extract_command => 'tar xfz %s --strip-components=1',
         extract_path    => $webappdir,
         source          => "${download_url}/${file}",
-        creates         => "${webappdir}/conf",
+        creates         => "${webappdir}/bin",
         cleanup         => true,
         checksum_verify => $stash::checksum_verify,
         checksum_type   => 'md5',

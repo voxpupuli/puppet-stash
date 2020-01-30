@@ -13,13 +13,32 @@ class stash::service  (
 
 ) inherits stash::params {
 
+  $extra_environment = $stash::product ? {
+    'bitbucket' => {
+      'BITBUCKET_HOME' => $stash::homedir,
+      'BITBUCKET_USER' => $stash::user,
+    },
+    default => {
+      'STASH_HOME' => $stash::homedir,
+      'STASH_USER' => $stash::user,
+    }
+  }
+
+  # This version number probably needs some tuning
+  if versioncmp($stash::version, '6.0.0') >= 0 {
+    $pidfile = "${stash::homedir}/log/bitbucket.pid"
+  } else {
+    $pidfile = "${stash::webappdir}/work/catalina.pid"
+  }
+
   file { $service_file_location:
-    content => template($service_file_template),
+    content => epp($service_file_template),
     mode    => '0755',
   }
 
   if $stash::service_manage {
-    if $facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '7' {
+    if ($facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '7') or
+      ($facts['os']['family'] == 'Debian' and $facts['os']['release']['full'] == '18.04'){
       exec { 'refresh_systemd':
         command     => '/bin/systemctl daemon-reload',
         refreshonly => true,

@@ -1,0 +1,20 @@
+[Unit]
+Description=Atlassian Systemd Jira Service
+After=syslog.target network.target
+
+[Service]
+Type=forking
+Environment="JAVA_HOME=<%= $stash::javahome %>"
+<%- if $stash::service::extra_environment { -%>
+<%-   $stash::service::extra_environment.each |$key, $val| { -%>
+Environment="<%= $key %>=<%= $val %>"
+<%-   } -%>
+<%- } -%>
+UMask=0027
+PIDFile=<%= $stash::service::pidfile %>
+User=<%= $stash::user %>
+ExecStart=<%= $stash::webappdir %>/bin/start-<%= $stash::product %>.sh
+ExecStop=<%= $stash::webappdir %>/bin/stop-<%= $stash::product %>.sh
+
+[Install]
+WantedBy=multi-user.target

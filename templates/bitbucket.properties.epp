@@ -1,0 +1,30 @@
+server.context-path=<%= $stash::context_path %>
+server.port=<%= $stash::tomcat_port %>
+<%- if $stash::proxy { -%>
+<%-   $stash::proxy.each |$key, $value| { -%>
+<%-     if $key == 'scheme' { -%>
+server.scheme=<%= $value %>
+<%-     } -%>
+<%-     if $key == 'proxyName' { -%>
+server.proxy-name=<%= $value %>
+<%-     } -%>
+<%-     if $key == 'proxyPort' { -%>
+server.proxy-port=<%= $value %>
+server.redirect-port=<%= $value %>
+<%-     } -%>
+<%-   } -%>
+<%- } -%>
+setup.displayName=<%= $stash::display_name %>
+setup.baseUrl=<%= $stash::base_url %>
+setup.license=<%= $stash::license %>
+setup.sysadmin.username=<%= $stash::sysadmin_username %>
+setup.sysadmin.password=<%= $stash::sysadmin_password %>
+setup.sysadmin.displayName=<%= $stash::sysadmin_name %>
+setup.sysadmin.emailAddress=<%= $stash::sysadmin_email %>
+<%- $stash::config::config_properties.each |$key, $value| { -%>
+<%=   $key %>=<%= $value %>
+<%- } -%>
+jdbc.driver=<%= $stash::dbdriver %>
+jdbc.url=<%= $stash::dburl %>
+jdbc.user=<%= $stash::dbuser %>
+jdbc.password=<%= $stash::dbpassword %>
