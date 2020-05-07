@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 Each new release typically also includes the latest modulesync defaults.
 These should not affect the functionality of the module.
 
+## [v4.0.0](https://github.com/voxpupuli/puppet-stash/tree/v4.0.0) (2020-05-07)
+
+[Full Changelog](https://github.com/voxpupuli/puppet-stash/compare/v3.1.2...v4.0.0)
+
+**Breaking changes:**
+
+- Add Bitbucket 6 compatibility [\#189](https://github.com/voxpupuli/puppet-stash/pull/189) ([dickp](https://github.com/dickp))
+- modulesync 2.7.0 and drop puppet 4 [\#180](https://github.com/voxpupuli/puppet-stash/pull/180) ([bastelfreak](https://github.com/bastelfreak))
+
+**Closed issues:**
+
+- Exec clause in service class conflicts with Jira module [\#151](https://github.com/voxpupuli/puppet-stash/issues/151)
+
+**Merged pull requests:**
+
+- Remove duplicate CONTRIBUTING.md file [\#186](https://github.com/voxpupuli/puppet-stash/pull/186) ([dhoppe](https://github.com/dhoppe))
+- allow puppetlabs/inifile 4.x [\#185](https://github.com/voxpupuli/puppet-stash/pull/185) ([bastelfreak](https://github.com/bastelfreak))
+- Clean up acceptance spec helper [\#184](https://github.com/voxpupuli/puppet-stash/pull/184) ([ekohl](https://github.com/ekohl))
+- Allow `puppetlabs/stdlib` 6.x and `puppet/archive` 4.x [\#182](https://github.com/voxpupuli/puppet-stash/pull/182) ([alexjfisher](https://github.com/alexjfisher))
+- Allow puppetlabs/inifile 3.x [\#181](https://github.com/voxpupuli/puppet-stash/pull/181) ([dhoppe](https://github.com/dhoppe))
+
 ## [v3.1.2](https://github.com/voxpupuli/puppet-stash/tree/v3.1.2) (2018-10-20)
 
 [Full Changelog](https://github.com/voxpupuli/puppet-stash/compare/v3.1.1...v3.1.2)
