@@ -25,11 +25,11 @@ node default {
   class { 'stash::facts': }
   nginx::resource::upstream { 'stash':
     ensure  => present,
-    members => [ 'localhost:7990' ],
+    members => ['localhost:7990'],
   }
   nginx::resource::vhost { $facts['networking']['interfaces']['eth1']['ip']:
     ensure               => present,
-    server_name          => [ $facts['networking']['interfaces']['eth1']['ip'], $facts['networking']['fqdn'], $facts['networking']['hostname'] ],
+    server_name          => [$facts['networking']['interfaces']['eth1']['ip'], $facts['networking']['fqdn'], $facts['networking']['hostname']],
     listen_port          => '80',
     proxy                => 'http://stash',
     proxy_read_timeout   => '300',

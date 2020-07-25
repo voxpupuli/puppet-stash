@@ -15,7 +15,7 @@
 #
 # class { 'stash::gc': }
 #
-class stash::gc(
+class stash::gc (
   $ensure  = 'present',
   $path    = '/usr/local/bin/git-gc.sh',
   $minute  = 0,
@@ -23,8 +23,7 @@ class stash::gc(
   $weekday = 'Sunday',
   $user    = $stash::user,
   $homedir = $stash::homedir,
-  ) {
-
+) {
   if $::stash_version {
     if versioncmp($::stash_version, '3.2') < 0 {
       $shared = ''
@@ -47,5 +46,4 @@ class stash::gc(
     hour    => $hour,
     weekday => $weekday,
   }
-
 }

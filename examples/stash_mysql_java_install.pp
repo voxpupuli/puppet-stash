@@ -1,5 +1,4 @@
 node default {
-
   $version = '3.9.11'
 
   include java
@@ -23,10 +22,9 @@ node default {
   }
 
   -> class { 'mysql_java_connector':
-    links  => [ "/opt/stash/atlassian-stash-${version}/lib" ],
+    links  => ["/opt/stash/atlassian-stash-${version}/lib"],
     notify => Service['stash'],
   }
 
   class { 'stash::facts': }
-
 }

@@ -2,7 +2,7 @@
 #
 # This installs the stash module. See README.md for details
 #
-class stash::install(
+class stash::install (
   $webappdir      = $stash::webappdir,
   $version        = $stash::version,
   $product        = $stash::product,
@@ -18,8 +18,7 @@ class stash::install(
   $deploy_module  = $stash::deploy_module,
   $dburl          = $stash::dburl,
   $checksum       = $stash::checksum,
-  ) {
-
+) {
   include archive
 
   if $manage_usr_grp {
@@ -125,7 +124,6 @@ class stash::install(
   -> exec { "chown_${webappdir}":
     command     => "/bin/chown -R ${user}:${group} ${webappdir}",
     refreshonly => true,
-    subscribe   => [ File[$webappdir], $user_require ],
+    subscribe   => [File[$webappdir], $user_require],
   }
-
 }

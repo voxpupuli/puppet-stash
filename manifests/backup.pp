@@ -1,9 +1,8 @@
-
 # == Class: stash::backup
 #
 # This installs the stash backup client
 #
-class stash::backup(
+class stash::backup (
   $ensure               = $stash::backup_ensure,
   $schedule_hour        = $stash::backup_schedule_hour,
   $schedule_minute      = $stash::backup_schedule_minute,
@@ -20,8 +19,7 @@ class stash::backup(
   $backup_home          = $stash::backup_home,
   $javahome             = $stash::javahome,
   $keep_age             = $stash::backup_keep_age,
-  ) {
-
+) {
   $appdir = "${backup_home}/${product}-backup-client-${version}"
 
   file { $backup_home:

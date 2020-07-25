@@ -11,7 +11,7 @@ class stash::params {
         $service_file_template   = 'stash/stash.service.epp'
         $service_lockfile        = '/var/lock/subsys/stash'
       } elsif $facts['os']['release']['major'] == '6' {
-        $json_packages           = [ 'rubygem-json', 'ruby-json' ]
+        $json_packages           = ['rubygem-json', 'ruby-json']
         $service_file_location   = '/etc/init.d/stash'
         $service_file_template   = 'stash/stash.initscript.redhat.epp'
         $service_lockfile        = '/var/lock/subsys/stash'
@@ -20,7 +20,7 @@ class stash::params {
       }
     }
     /Debian/: {
-      $json_packages           = [ 'rubygem-json', 'ruby-json' ]
+      $json_packages           = ['rubygem-json', 'ruby-json']
 
       if $facts['os']['release']['full'] == '18.04' {
         $service_file_location   = '/etc/systemd/system/stash.service'

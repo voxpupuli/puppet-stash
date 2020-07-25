@@ -2,7 +2,7 @@
 #
 # This configures the stash module. See README.md for details
 #
-class stash::config(
+class stash::config (
   $version      = $stash::version,
   $user         = $stash::user,
   $group        = $stash::group,
@@ -12,7 +12,6 @@ class stash::config(
   $ajp_port     = $stash::ajp_port,
   $config_properties = $stash::config_properties,
 ) {
-
   # Atlassian changed where files are installed from ver 3.2.0
   # See issue #16 for more detail
   if versioncmp($version, '3.2.0') > 0 {
