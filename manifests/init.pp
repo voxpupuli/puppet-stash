@@ -2,7 +2,7 @@
 #
 # This modules installs Atlassian stash.
 #
-class stash(
+class stash (
 
   # JVM Settings
   $javahome                     = undef,
@@ -79,8 +79,7 @@ class stash(
   $deploy_module = 'archive',
 
 ) inherits stash::params {
-
-  Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
+  Exec { path => ['/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/'] }
 
   if $::stash_version {
     # If the running version of stash is less than the expected version of stash

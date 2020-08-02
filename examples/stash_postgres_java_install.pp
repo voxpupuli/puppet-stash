@@ -1,5 +1,4 @@
 node default {
-
   include git
 
   class { 'postgresql::globals':

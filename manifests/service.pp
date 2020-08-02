@@ -2,7 +2,7 @@
 #
 # This manages the stash service. See README.md for details
 #
-class stash::service  (
+class stash::service (
 
   Boolean $service_manage = $stash::service_manage,
   String $service_ensure  = $stash::service_ensure,
@@ -12,7 +12,6 @@ class stash::service  (
   $service_lockfile       = $stash::params::service_lockfile,
 
 ) inherits stash::params {
-
   $extra_environment = $stash::product ? {
     'bitbucket' => {
       'BITBUCKET_HOME' => $stash::homedir,
@@ -38,7 +37,7 @@ class stash::service  (
 
   if $stash::service_manage {
     if ($facts['os']['family'] == 'RedHat' and $facts['os']['release']['major'] == '7') or
-      ($facts['os']['family'] == 'Debian' and $facts['os']['release']['full'] == '18.04'){
+    ($facts['os']['family'] == 'Debian' and $facts['os']['release']['full'] == '18.04') {
       exec { 'refresh_systemd':
         command     => '/bin/systemctl daemon-reload',
         refreshonly => true,

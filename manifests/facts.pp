@@ -14,14 +14,13 @@
 #
 # class { 'stash::facts': }
 #
-class stash::facts(
+class stash::facts (
   $ensure        = 'present',
   $port          = '7990',
   $uri           = '127.0.0.1',
   $context_path  = $stash::context_path,
   $json_packages = $stash::params::json_packages,
 ) inherits stash {
-
   # Puppet Enterprise supplies its own ruby version if your using it.
   # A modern ruby version is required to run the executable fact
   if $::puppetversion =~ /Puppet Enterprise/ {
@@ -54,5 +53,4 @@ class stash::facts(
     content => template('stash/facts.rb.erb'),
     mode    => '0500',
   }
-
 }
