@@ -18,37 +18,23 @@ class stash::facts (
   $ensure        = 'present',
   $port          = '7990',
   $uri           = '127.0.0.1',
+  $ruby_bin      = '/opt/puppetlabs/puppet/bin/ruby',
   $context_path  = $stash::context_path,
   $json_packages = $stash::params::json_packages,
 ) inherits stash {
-  # Puppet Enterprise supplies its own ruby version if your using it.
-  # A modern ruby version is required to run the executable fact
-  if $::puppetversion =~ /Puppet Enterprise/ {
-    $ruby_bin = '/opt/puppet/bin/ruby'
-    $dir      = 'puppetlabs/'
-  } else {
-    $ruby_bin = '/usr/bin/env ruby'
-    $dir      = ''
-  }
 
-  if ! defined(File["/etc/${dir}facter"]) {
-    file { "/etc/${dir}facter":
+  if ! defined(File['/etc/facter']) {
+    file { '/etc/facter':
       ensure  => directory,
     }
   }
-  if ! defined(File["/etc/${dir}facter/facts.d"]) {
-    file { "/etc/${dir}facter/facts.d":
+  if ! defined(File['/etc/facter/facts.d']) {
+    file { '/etc/facter/facts.d':
       ensure  => directory,
     }
   }
 
-  if $facts['os']['family'] == 'RedHat' and $::puppetversion !~ /Puppet Enterprise/ {
-    package { $json_packages:
-      ensure => present,
-    }
-  }
-
-  file { "/etc/${dir}facter/facts.d/stash_facts.rb":
+  file { '/etc/facter/facts.d/stash_facts.rb':
     ensure  => $ensure,
     content => template('stash/facts.rb.erb'),
     mode    => '0500',
