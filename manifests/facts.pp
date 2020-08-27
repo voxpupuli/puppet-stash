@@ -20,7 +20,6 @@ class stash::facts (
   $uri           = '127.0.0.1',
   $ruby_bin      = '/opt/puppetlabs/puppet/bin/ruby',
   $context_path  = $stash::context_path,
-  $json_packages = $stash::params::json_packages,
 ) inherits stash {
   if ! defined(File['/etc/facter']) {
     file { '/etc/facter':
