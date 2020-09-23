@@ -21,7 +21,6 @@ class stash::facts (
   $ruby_bin      = '/opt/puppetlabs/puppet/bin/ruby',
   $context_path  = $stash::context_path,
 ) inherits stash {
-
   if ! defined(File['/etc/facter']) {
     file { '/etc/facter':
       ensure  => directory,
