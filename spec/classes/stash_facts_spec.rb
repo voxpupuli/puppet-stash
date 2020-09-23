@@ -10,9 +10,7 @@ describe 'stash::facts', type: :class do
           facts
         end
 
-        regexp_pe = %r{^#!/opt/puppet/bin/ruby$}
-        regexp_oss = %r{^#!/usr/bin/env ruby$}
-        pe_external_fact_file = '/etc/puppetlabs/facter/facts.d/stash_facts.rb'
+        regexp_rubypath = %r{/opt/puppetlabs/puppet/bin/ruby}
         external_fact_file = '/etc/facter/facts.d/stash_facts.rb'
 
         it { is_expected.to contain_file(external_fact_file) }
@@ -24,8 +22,8 @@ describe 'stash::facts', type: :class do
           end
 
           it do
-            is_expected.to contain_file(pe_external_fact_file). \
-              with_content(regexp_pe)
+            is_expected.to contain_file(external_fact_file). \
+              with_content(regexp_rubypath)
           end
         end
 
@@ -33,7 +31,7 @@ describe 'stash::facts', type: :class do
         context 'with puppet oss' do
           it do
             is_expected.to contain_file(external_fact_file). \
-              with_content(regexp_oss).
+              with_content(regexp_rubypath).
               with_content(%r{7990/rest/api/})
           end
         end

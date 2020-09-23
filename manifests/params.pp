@@ -6,7 +6,6 @@ class stash::params {
   case $facts['os']['family'] {
     /RedHat/: {
       if $facts['os']['release']['major'] == '7' {
-        $json_packages           = 'rubygem-json'
         $service_file_location   = '/usr/lib/systemd/system/stash.service'
         $service_file_template   = 'stash/stash.service.epp'
         $service_lockfile        = '/var/lock/subsys/stash'
@@ -20,8 +19,6 @@ class stash::params {
       }
     }
     /Debian/: {
-      $json_packages           = ['rubygem-json', 'ruby-json']
-
       if $facts['os']['release']['full'] == '18.04' {
         $service_file_location   = '/etc/systemd/system/stash.service'
         $service_file_template   = 'stash/stash.service.epp'
