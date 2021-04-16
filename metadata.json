@@ -37,10 +37,6 @@
   ],
   "dependencies": [
     {
-      "name": "puppet/archive",
-      "version_requirement": ">= 1.0.0 < 5.0.0"
-    },
-    {
       "name": "puppetlabs/inifile",
       "version_requirement": ">= 1.4.1 < 5.0.0"
     },
@@ -51,6 +47,10 @@
     {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 4.13.1 < 7.0.0"
+    },
+    {
+      "name": "puppet/archive",
+      "version_requirement": ">= 1.0.0 < 6.0.0"
     }
   ],
   "requirements": [
