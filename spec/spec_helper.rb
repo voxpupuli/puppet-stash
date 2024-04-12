@@ -18,11 +18,11 @@ if File.exist?(File.join(__dir__, 'default_module_facts.yml'))
   end
 end
 
-STASH_VERSION = '6.8.1'
+STASH_VERSION = '6.8.1'.freeze
 
-BACKUP_VERSION = '3.3.2'
+BACKUP_VERSION = '3.3.2'.freeze
 
-BITBUCKET_VERSION = '4.0.2'
+BITBUCKET_VERSION = '4.0.2'.freeze
 
-BITBUCKET_BACKUP_VERSION = '2.0.0'
+BITBUCKET_BACKUP_VERSION = '2.0.0'.freeze
 Dir['./spec/support/spec/**/*.rb'].sort.each { |f| require f }
