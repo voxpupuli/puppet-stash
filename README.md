@@ -7,9 +7,7 @@
 [![Puppet Forge - endorsement](https://img.shields.io/puppetforge/e/puppet/stash.svg)](https://forge.puppetlabs.com/puppet/stash)
 [![Puppet Forge - scores](https://img.shields.io/puppetforge/f/puppet/stash.svg)](https://forge.puppetlabs.com/puppet/stash)
 
-:warning: This module is going through a number of changes in preparation for
-version 4 (Bitbucket-server). It is recommended to use the puppet-forge versions
-and not the github master branch.
+**The module is deprecated, please reach out to the Vox Pupuli mailinglist at voxpupuli@groups.io if you're still using it**
 
 #### Table of Contents
 
